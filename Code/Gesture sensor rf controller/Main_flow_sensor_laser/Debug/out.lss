@@ -1,0 +1,4769 @@
+
+out.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00001658  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00001658  000016ec  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          000000a4  00800060  00800060  000016ec  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000016ec  2**0
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000270  00000000  00000000  0000171c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00002666  00000000  00000000  0000198c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000009e4  00000000  00000000  00003ff2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000d06  00000000  00000000  000049d6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000738  00000000  00000000  000056dc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000095f  00000000  00000000  00005e14  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00001e26  00000000  00000000  00006773  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000268  00000000  00000000  00008599  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+#define DBG_UART_TX_NUM_ADD_NOP		((F_CPU/DBG_UART_BAUDRATE-16)%4)
+	uint8_t sreg;
+	uint16_t tmp;
+	uint8_t numiter = 10;
+
+	sreg = SREG;
+       0:	4f c0       	rjmp	.+158    	; 0xa0 <__ctors_end>
+	cli();
+       2:	cb c9       	rjmp	.-3178   	; 0xfffff39a <__eeprom_end+0xff7ef39a>
+
+	asm volatile (
+       4:	68 c0       	rjmp	.+208    	; 0xd6 <__bad_interrupt>
+       6:	67 c0       	rjmp	.+206    	; 0xd6 <__bad_interrupt>
+       8:	66 c0       	rjmp	.+204    	; 0xd6 <__bad_interrupt>
+       a:	65 c0       	rjmp	.+202    	; 0xd6 <__bad_interrupt>
+       c:	64 c0       	rjmp	.+200    	; 0xd6 <__bad_interrupt>
+       e:	63 c0       	rjmp	.+198    	; 0xd6 <__bad_interrupt>
+      10:	62 c0       	rjmp	.+196    	; 0xd6 <__bad_interrupt>
+      12:	61 c0       	rjmp	.+194    	; 0xd6 <__bad_interrupt>
+      14:	38 c9       	rjmp	.-3472   	; 0xfffff286 <__eeprom_end+0xff7ef286>
+      16:	5f c0       	rjmp	.+190    	; 0xd6 <__bad_interrupt>
+      18:	5e c0       	rjmp	.+188    	; 0xd6 <__bad_interrupt>
+      1a:	5d c0       	rjmp	.+186    	; 0xd6 <__bad_interrupt>
+      1c:	5c c0       	rjmp	.+184    	; 0xd6 <__bad_interrupt>
+
+0000001e <__trampolines_end>:
+      1e:	ee ee       	ldi	r30, 0xEE	; 238
+      20:	ee ee       	ldi	r30, 0xEE	; 238
+      22:	ee 88       	ldd	r14, Y+22	; 0x16
+      24:	8e 8e       	std	Y+30, r8	; 0x1e
+      26:	8e 8e       	std	Y+30, r8	; 0x1e
+      28:	8e 88       	ldd	r8, Y+22	; 0x16
+      2a:	80 ee       	ldi	r24, 0xE0	; 224
+      2c:	ee ee       	ldi	r30, 0xEE	; 238
+      2e:	ee ee       	ldi	r30, 0xEE	; 238
+      30:	88 8e       	std	Y+24, r8	; 0x18
+		  "M" (1<<DBG_UART_TX_PIN),
+		  "i" (DBG_UART_TX_NUM_DELAY_CYCLES),
+		  "1" (c),			/* data */
+		  "2" (numiter)
+	);
+	SREG = sreg;
+      32:	8e 8e       	std	Y+30, r8	; 0x1e
+      34:	8e 88       	ldd	r8, Y+22	; 0x16
+      36:	8e 80       	ldd	r8, Y+6	; 0x06
+      38:	ee ee       	ldi	r30, 0xEE	; 238
+      3a:	ee ee       	ldi	r30, 0xEE	; 238
+      3c:	ee 8e       	std	Y+30, r14	; 0x1e
+      3e:	88 8e       	std	Y+24, r8	; 0x18
+      40:	8e 8e       	std	Y+30, r8	; 0x1e
+      42:	8e 88       	ldd	r8, Y+22	; 0x16
+      44:	80 ee       	ldi	r24, 0xE0	; 224
+      46:	ee ee       	ldi	r30, 0xEE	; 238
+      48:	ee ee       	ldi	r30, 0xEE	; 238
+      4a:	8e 88       	ldd	r8, Y+22	; 0x16
+      4c:	8e 8e       	std	Y+30, r8	; 0x1e
+      4e:	8e 88       	ldd	r8, Y+22	; 0x16
+      50:	8e 80       	ldd	r8, Y+6	; 0x06
+      52:	ee ee       	ldi	r30, 0xEE	; 238
+      54:	ee ee       	ldi	r30, 0xEE	; 238
+      56:	ee 8e       	std	Y+30, r14	; 0x1e
+      58:	8e 88       	ldd	r8, Y+22	; 0x16
+      5a:	8e 8e       	std	Y+30, r8	; 0x1e
+      5c:	8e 88       	ldd	r8, Y+22	; 0x16
+      5e:	80 ee       	ldi	r24, 0xE0	; 224
+      60:	ee ee       	ldi	r30, 0xEE	; 238
+      62:	ee ee       	ldi	r30, 0xEE	; 238
+      64:	8e 8e       	std	Y+30, r8	; 0x1e
+      66:	88 8e       	std	Y+24, r8	; 0x18
+      68:	8e 88       	ldd	r8, Y+22	; 0x16
+      6a:	8e 80       	ldd	r8, Y+6	; 0x06
+      6c:	ee ee       	ldi	r30, 0xEE	; 238
+      6e:	ee ee       	ldi	r30, 0xEE	; 238
+      70:	ee 8e       	std	Y+30, r14	; 0x1e
+      72:	8e 8e       	std	Y+30, r8	; 0x1e
+      74:	88 8e       	std	Y+24, r8	; 0x18
+      76:	8e 88       	ldd	r8, Y+22	; 0x16
+      78:	80 ee       	ldi	r24, 0xE0	; 224
+      7a:	ee ee       	ldi	r30, 0xEE	; 238
+      7c:	ee ee       	ldi	r30, 0xEE	; 238
+      7e:	8e 8e       	std	Y+30, r8	; 0x1e
+      80:	8e 88       	ldd	r8, Y+22	; 0x16
+      82:	8e 88       	ldd	r8, Y+22	; 0x16
+      84:	8e 80       	ldd	r8, Y+6	; 0x06
+      86:	ee ee       	ldi	r30, 0xEE	; 238
+      88:	ee ee       	ldi	r30, 0xEE	; 238
+      8a:	ee 8e       	std	Y+30, r14	; 0x1e
+      8c:	8e 8e       	std	Y+30, r8	; 0x1e
+      8e:	8e 88       	ldd	r8, Y+22	; 0x16
+      90:	8e 88       	ldd	r8, Y+22	; 0x16
+      92:	80 ee       	ldi	r24, 0xE0	; 224
+      94:	ee ee       	ldi	r30, 0xEE	; 238
+      96:	ee ee       	ldi	r30, 0xEE	; 238
+      98:	8e 8e       	std	Y+30, r8	; 0x1e
+      9a:	8e 8e       	std	Y+30, r8	; 0x1e
+      9c:	88 88       	ldd	r8, Y+16	; 0x10
+      9e:	8e 80       	ldd	r8, Y+6	; 0x06
+
+000000a0 <__ctors_end>:
+      a0:	11 24       	eor	r1, r1
+      a2:	1f be       	out	0x3f, r1	; 63
+      a4:	cf e5       	ldi	r28, 0x5F	; 95
+      a6:	d2 e0       	ldi	r29, 0x02	; 2
+      a8:	de bf       	out	0x3e, r29	; 62
+      aa:	cd bf       	out	0x3d, r28	; 61
+
+000000ac <__do_copy_data>:
+      ac:	10 e0       	ldi	r17, 0x00	; 0
+      ae:	a0 e6       	ldi	r26, 0x60	; 96
+      b0:	b0 e0       	ldi	r27, 0x00	; 0
+      b2:	e8 e5       	ldi	r30, 0x58	; 88
+      b4:	f6 e1       	ldi	r31, 0x16	; 22
+      b6:	02 c0       	rjmp	.+4      	; 0xbc <__do_copy_data+0x10>
+      b8:	05 90       	lpm	r0, Z+
+      ba:	0d 92       	st	X+, r0
+      bc:	a0 36       	cpi	r26, 0x60	; 96
+      be:	b1 07       	cpc	r27, r17
+      c0:	d9 f7       	brne	.-10     	; 0xb8 <__do_copy_data+0xc>
+
+000000c2 <__do_clear_bss>:
+      c2:	21 e0       	ldi	r18, 0x01	; 1
+      c4:	a0 e6       	ldi	r26, 0x60	; 96
+      c6:	b0 e0       	ldi	r27, 0x00	; 0
+      c8:	01 c0       	rjmp	.+2      	; 0xcc <.do_clear_bss_start>
+
+000000ca <.do_clear_bss_loop>:
+      ca:	1d 92       	st	X+, r1
+
+000000cc <.do_clear_bss_start>:
+      cc:	a4 30       	cpi	r26, 0x04	; 4
+      ce:	b2 07       	cpc	r27, r18
+      d0:	e1 f7       	brne	.-8      	; 0xca <.do_clear_bss_loop>
+      d2:	82 da       	rcall	.-2812   	; 0xfffff5d8 <__eeprom_end+0xff7ef5d8>
+      d4:	bf ca       	rjmp	.-2690   	; 0xfffff654 <__eeprom_end+0xff7ef654>
+
+000000d6 <__bad_interrupt>:
+      d6:	94 cf       	rjmp	.-216    	; 0x0 <__vectors>
+
+000000d8 <resetGestureParameters>:
+/**
+ * @brief Resets all the parameters in the gesture data member
+ */
+void resetGestureParameters()
+{
+    gesture_data_.index = 0;
+      d8:	10 92 fe 00 	sts	0x00FE, r1
+    gesture_data_.total_gestures = 0;
+      dc:	10 92 ff 00 	sts	0x00FF, r1
+    
+    gesture_ud_delta_ = 0;
+      e0:	10 92 7b 00 	sts	0x007B, r1
+      e4:	10 92 7a 00 	sts	0x007A, r1
+    gesture_lr_delta_ = 0;
+      e8:	10 92 79 00 	sts	0x0079, r1
+      ec:	10 92 78 00 	sts	0x0078, r1
+    
+    gesture_ud_count_ = 0;
+      f0:	10 92 6c 00 	sts	0x006C, r1
+      f4:	10 92 6b 00 	sts	0x006B, r1
+    gesture_lr_count_ = 0;
+      f8:	10 92 73 00 	sts	0x0073, r1
+      fc:	10 92 72 00 	sts	0x0072, r1
+    
+    gesture_near_count_ = 0;
+     100:	10 92 03 01 	sts	0x0103, r1
+     104:	10 92 02 01 	sts	0x0102, r1
+    gesture_far_count_ = 0;
+     108:	10 92 77 00 	sts	0x0077, r1
+     10c:	10 92 76 00 	sts	0x0076, r1
+    
+    gesture_state_ = 0;
+     110:	10 92 75 00 	sts	0x0075, r1
+     114:	10 92 74 00 	sts	0x0074, r1
+    gesture_motion_ = DIR_NONE;
+     118:	10 92 7d 00 	sts	0x007D, r1
+     11c:	10 92 7c 00 	sts	0x007C, r1
+     120:	08 95       	ret
+
+00000122 <processGestureData>:
+ * @brief Processes the raw gesture data to determine swipe direction
+ *
+ * @return True if near or far state seen. False otherwise.
+ */
+uint8_t processGestureData()
+{
+     122:	af 92       	push	r10
+     124:	bf 92       	push	r11
+     126:	cf 92       	push	r12
+     128:	df 92       	push	r13
+     12a:	ef 92       	push	r14
+     12c:	ff 92       	push	r15
+     12e:	0f 93       	push	r16
+     130:	1f 93       	push	r17
+     132:	cf 93       	push	r28
+     134:	df 93       	push	r29
+    int ud_delta;
+    int lr_delta;
+    int i;
+
+    /* If we have less than 4 total gestures, that's not enough */
+    if( gesture_data_.total_gestures <= 4 ) {
+     136:	00 91 ff 00 	lds	r16, 0x00FF
+     13a:	05 30       	cpi	r16, 0x05	; 5
+     13c:	08 f4       	brcc	.+2      	; 0x140 <processGestureData+0x1e>
+     13e:	ad c1       	rjmp	.+858    	; 0x49a <__stack+0x23b>
+        return false;
+    }
+    
+    /* Check to make sure our data isn't out of bounds */
+    if( (gesture_data_.total_gestures <= 32) && \
+     140:	8f ef       	ldi	r24, 0xFF	; 255
+     142:	80 0f       	add	r24, r16
+     144:	80 32       	cpi	r24, 0x20	; 32
+     146:	08 f0       	brcs	.+2      	; 0x14a <processGestureData+0x28>
+     148:	52 c0       	rjmp	.+164    	; 0x1ee <processGestureData+0xcc>
+        (gesture_data_.total_gestures > 0) ) {
+        
+        /* Find the first value in U/D/L/R above the threshold */
+        for( i = 0; i < gesture_data_.total_gestures; i++ ) {
+     14a:	60 2f       	mov	r22, r16
+     14c:	70 e0       	ldi	r23, 0x00	; 0
+     14e:	16 16       	cp	r1, r22
+     150:	17 06       	cpc	r1, r23
+     152:	0c f0       	brlt	.+2      	; 0x156 <processGestureData+0x34>
+     154:	a4 c1       	rjmp	.+840    	; 0x49e <__stack+0x23f>
+     156:	ee e7       	ldi	r30, 0x7E	; 126
+     158:	f0 e0       	ldi	r31, 0x00	; 0
+     15a:	8e ed       	ldi	r24, 0xDE	; 222
+     15c:	90 e0       	ldi	r25, 0x00	; 0
+     15e:	7b 01       	movw	r14, r22
+     160:	9f 01       	movw	r18, r30
+     162:	a7 01       	movw	r20, r14
+     164:	42 52       	subi	r20, 0x22	; 34
+     166:	5f 4f       	sbci	r21, 0xFF	; 255
+            if( (gesture_data_.u_data[i] > GESTURE_THRESHOLD_OUT) &&
+     168:	01 91       	ld	r16, Z+
+     16a:	0b 30       	cpi	r16, 0x0B	; 11
+     16c:	78 f0       	brcs	.+30     	; 0x18c <processGestureData+0x6a>
+     16e:	ec 01       	movw	r28, r24
+     170:	dc 01       	movw	r26, r24
+     172:	a0 54       	subi	r26, 0x40	; 64
+     174:	b1 09       	sbc	r27, r1
+                (gesture_data_.d_data[i] > GESTURE_THRESHOLD_OUT) &&
+     176:	1c 91       	ld	r17, X
+    if( (gesture_data_.total_gestures <= 32) && \
+        (gesture_data_.total_gestures > 0) ) {
+        
+        /* Find the first value in U/D/L/R above the threshold */
+        for( i = 0; i < gesture_data_.total_gestures; i++ ) {
+            if( (gesture_data_.u_data[i] > GESTURE_THRESHOLD_OUT) &&
+     178:	1b 30       	cpi	r17, 0x0B	; 11
+     17a:	40 f0       	brcs	.+16     	; 0x18c <processGestureData+0x6a>
+     17c:	90 96       	adiw	r26, 0x20	; 32
+                (gesture_data_.d_data[i] > GESTURE_THRESHOLD_OUT) &&
+                (gesture_data_.l_data[i] > GESTURE_THRESHOLD_OUT) &&
+     17e:	cc 90       	ld	r12, X
+        (gesture_data_.total_gestures > 0) ) {
+        
+        /* Find the first value in U/D/L/R above the threshold */
+        for( i = 0; i < gesture_data_.total_gestures; i++ ) {
+            if( (gesture_data_.u_data[i] > GESTURE_THRESHOLD_OUT) &&
+                (gesture_data_.d_data[i] > GESTURE_THRESHOLD_OUT) &&
+     180:	aa e0       	ldi	r26, 0x0A	; 10
+     182:	ac 15       	cp	r26, r12
+     184:	18 f4       	brcc	.+6      	; 0x18c <processGestureData+0x6a>
+                (gesture_data_.l_data[i] > GESTURE_THRESHOLD_OUT) &&
+                (gesture_data_.r_data[i] > GESTURE_THRESHOLD_OUT) ) {
+     186:	a8 80       	ld	r10, Y
+        
+        /* Find the first value in U/D/L/R above the threshold */
+        for( i = 0; i < gesture_data_.total_gestures; i++ ) {
+            if( (gesture_data_.u_data[i] > GESTURE_THRESHOLD_OUT) &&
+                (gesture_data_.d_data[i] > GESTURE_THRESHOLD_OUT) &&
+                (gesture_data_.l_data[i] > GESTURE_THRESHOLD_OUT) &&
+     188:	aa 15       	cp	r26, r10
+     18a:	28 f0       	brcs	.+10     	; 0x196 <processGestureData+0x74>
+     18c:	01 96       	adiw	r24, 0x01	; 1
+    /* Check to make sure our data isn't out of bounds */
+    if( (gesture_data_.total_gestures <= 32) && \
+        (gesture_data_.total_gestures > 0) ) {
+        
+        /* Find the first value in U/D/L/R above the threshold */
+        for( i = 0; i < gesture_data_.total_gestures; i++ ) {
+     18e:	84 17       	cp	r24, r20
+     190:	95 07       	cpc	r25, r21
+     192:	51 f7       	brne	.-44     	; 0x168 <processGestureData+0x46>
+     194:	86 c1       	rjmp	.+780    	; 0x4a2 <__stack+0x243>
+                break;
+            }
+        }
+        
+        /* If one of the _first values is 0, then there is no good data */
+        if( (u_first == 0) || (d_first == 0) || \
+     196:	00 23       	and	r16, r16
+     198:	09 f4       	brne	.+2      	; 0x19c <processGestureData+0x7a>
+     19a:	85 c1       	rjmp	.+778    	; 0x4a6 <__stack+0x247>
+     19c:	11 23       	and	r17, r17
+     19e:	09 f4       	brne	.+2      	; 0x1a2 <processGestureData+0x80>
+     1a0:	84 c1       	rjmp	.+776    	; 0x4aa <__stack+0x24b>
+     1a2:	cc 20       	and	r12, r12
+     1a4:	09 f4       	brne	.+2      	; 0x1a8 <processGestureData+0x86>
+     1a6:	83 c1       	rjmp	.+774    	; 0x4ae <__stack+0x24f>
+            (l_first == 0) || (r_first == 0) ) {
+     1a8:	aa 20       	and	r10, r10
+     1aa:	09 f4       	brne	.+2      	; 0x1ae <processGestureData+0x8c>
+     1ac:	82 c1       	rjmp	.+772    	; 0x4b2 <__stack+0x253>
+            
+            return false;
+        }
+        /* Find the last value in U/D/L/R above the threshold */
+        for( i = gesture_data_.total_gestures - 1; i >= 0; i-- ) {
+     1ae:	61 50       	subi	r22, 0x01	; 1
+     1b0:	71 09       	sbc	r23, r1
+     1b2:	77 23       	and	r23, r23
+     1b4:	2c f1       	brlt	.+74     	; 0x200 <processGestureData+0xde>
+     1b6:	d7 01       	movw	r26, r14
+     1b8:	a2 58       	subi	r26, 0x82	; 130
+     1ba:	bf 4f       	sbci	r27, 0xFF	; 255
+     1bc:	fb 01       	movw	r30, r22
+     1be:	e2 56       	subi	r30, 0x62	; 98
+     1c0:	ff 4f       	sbci	r31, 0xFF	; 255
+     1c2:	11 97       	sbiw	r26, 0x01	; 1
+            uart_put_byte(gesture_data_.l_data[i]);
+            uart_puts(" R: ");
+            uart_put_byte(gesture_data_.r_data[i]);
+			uart_puts("\n");
+#endif
+            if( (gesture_data_.u_data[i] > GESTURE_THRESHOLD_OUT) &&
+     1c4:	6c 91       	ld	r22, X
+     1c6:	6b 30       	cpi	r22, 0x0B	; 11
+     1c8:	68 f0       	brcs	.+26     	; 0x1e4 <processGestureData+0xc2>
+                (gesture_data_.d_data[i] > GESTURE_THRESHOLD_OUT) &&
+     1ca:	40 81       	ld	r20, Z
+            uart_put_byte(gesture_data_.l_data[i]);
+            uart_puts(" R: ");
+            uart_put_byte(gesture_data_.r_data[i]);
+			uart_puts("\n");
+#endif
+            if( (gesture_data_.u_data[i] > GESTURE_THRESHOLD_OUT) &&
+     1cc:	4b 30       	cpi	r20, 0x0B	; 11
+     1ce:	50 f0       	brcs	.+20     	; 0x1e4 <processGestureData+0xc2>
+     1d0:	ed 01       	movw	r28, r26
+     1d2:	c0 5c       	subi	r28, 0xC0	; 192
+     1d4:	df 4f       	sbci	r29, 0xFF	; 255
+                (gesture_data_.d_data[i] > GESTURE_THRESHOLD_OUT) &&
+                (gesture_data_.l_data[i] > GESTURE_THRESHOLD_OUT) &&
+     1d6:	88 81       	ld	r24, Y
+            uart_puts(" R: ");
+            uart_put_byte(gesture_data_.r_data[i]);
+			uart_puts("\n");
+#endif
+            if( (gesture_data_.u_data[i] > GESTURE_THRESHOLD_OUT) &&
+                (gesture_data_.d_data[i] > GESTURE_THRESHOLD_OUT) &&
+     1d8:	8b 30       	cpi	r24, 0x0B	; 11
+     1da:	20 f0       	brcs	.+8      	; 0x1e4 <processGestureData+0xc2>
+     1dc:	a0 96       	adiw	r28, 0x20	; 32
+                (gesture_data_.l_data[i] > GESTURE_THRESHOLD_OUT) &&
+                (gesture_data_.r_data[i] > GESTURE_THRESHOLD_OUT) ) {
+     1de:	98 81       	ld	r25, Y
+            uart_put_byte(gesture_data_.r_data[i]);
+			uart_puts("\n");
+#endif
+            if( (gesture_data_.u_data[i] > GESTURE_THRESHOLD_OUT) &&
+                (gesture_data_.d_data[i] > GESTURE_THRESHOLD_OUT) &&
+                (gesture_data_.l_data[i] > GESTURE_THRESHOLD_OUT) &&
+     1e0:	9b 30       	cpi	r25, 0x0B	; 11
+     1e2:	b8 f4       	brcc	.+46     	; 0x212 <processGestureData+0xf0>
+     1e4:	31 97       	sbiw	r30, 0x01	; 1
+            (l_first == 0) || (r_first == 0) ) {
+            
+            return false;
+        }
+        /* Find the last value in U/D/L/R above the threshold */
+        for( i = gesture_data_.total_gestures - 1; i >= 0; i-- ) {
+     1e6:	a2 17       	cp	r26, r18
+     1e8:	b3 07       	cpc	r27, r19
+     1ea:	59 f7       	brne	.-42     	; 0x1c2 <processGestureData+0xa0>
+     1ec:	0e c0       	rjmp	.+28     	; 0x20a <processGestureData+0xe8>
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+    uint8_t d_last = 0;
+    uint8_t l_last = 0;
+    uint8_t r_last = 0;
+     1ee:	90 e0       	ldi	r25, 0x00	; 0
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+    uint8_t d_last = 0;
+    uint8_t l_last = 0;
+     1f0:	80 e0       	ldi	r24, 0x00	; 0
+    uint8_t u_first = 0;
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+    uint8_t d_last = 0;
+     1f2:	40 e0       	ldi	r20, 0x00	; 0
+{
+    uint8_t u_first = 0;
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+     1f4:	60 e0       	ldi	r22, 0x00	; 0
+uint8_t processGestureData()
+{
+    uint8_t u_first = 0;
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+     1f6:	a1 2c       	mov	r10, r1
+ */
+uint8_t processGestureData()
+{
+    uint8_t u_first = 0;
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+     1f8:	c1 2c       	mov	r12, r1
+ * @return True if near or far state seen. False otherwise.
+ */
+uint8_t processGestureData()
+{
+    uint8_t u_first = 0;
+    uint8_t d_first = 0;
+     1fa:	10 e0       	ldi	r17, 0x00	; 0
+ *
+ * @return True if near or far state seen. False otherwise.
+ */
+uint8_t processGestureData()
+{
+    uint8_t u_first = 0;
+     1fc:	00 e0       	ldi	r16, 0x00	; 0
+     1fe:	09 c0       	rjmp	.+18     	; 0x212 <processGestureData+0xf0>
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+    uint8_t d_last = 0;
+    uint8_t l_last = 0;
+    uint8_t r_last = 0;
+     200:	90 e0       	ldi	r25, 0x00	; 0
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+    uint8_t d_last = 0;
+    uint8_t l_last = 0;
+     202:	80 e0       	ldi	r24, 0x00	; 0
+    uint8_t u_first = 0;
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+    uint8_t d_last = 0;
+     204:	40 e0       	ldi	r20, 0x00	; 0
+{
+    uint8_t u_first = 0;
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+     206:	60 e0       	ldi	r22, 0x00	; 0
+     208:	04 c0       	rjmp	.+8      	; 0x212 <processGestureData+0xf0>
+    uint8_t d_last = 0;
+    uint8_t l_last = 0;
+    uint8_t r_last = 0;
+     20a:	90 e0       	ldi	r25, 0x00	; 0
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+    uint8_t d_last = 0;
+    uint8_t l_last = 0;
+     20c:	80 e0       	ldi	r24, 0x00	; 0
+    uint8_t u_first = 0;
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+    uint8_t d_last = 0;
+     20e:	40 e0       	ldi	r20, 0x00	; 0
+{
+    uint8_t u_first = 0;
+    uint8_t d_first = 0;
+    uint8_t l_first = 0;
+    uint8_t r_first = 0;
+    uint8_t u_last = 0;
+     210:	60 e0       	ldi	r22, 0x00	; 0
+            }
+        }
+    }
+    
+    /* Calculate the first vs. last ratio of up/down and left/right */
+    ud_ratio_first = ((u_first - d_first) * 100) / (u_first + d_first);
+     212:	e0 2e       	mov	r14, r16
+     214:	f1 2c       	mov	r15, r1
+     216:	01 2f       	mov	r16, r17
+     218:	10 e0       	ldi	r17, 0x00	; 0
+    lr_ratio_first = ((l_first - r_first) * 100) / (l_first + r_first);
+     21a:	2c 2d       	mov	r18, r12
+     21c:	30 e0       	ldi	r19, 0x00	; 0
+     21e:	b1 2c       	mov	r11, r1
+    ud_ratio_last = ((u_last - d_last) * 100) / (u_last + d_last);
+     220:	70 e0       	ldi	r23, 0x00	; 0
+     222:	50 e0       	ldi	r21, 0x00	; 0
+    lr_ratio_last = ((l_last - r_last) * 100) / (l_last + r_last);
+     224:	c8 2f       	mov	r28, r24
+     226:	d0 e0       	ldi	r29, 0x00	; 0
+     228:	e9 2f       	mov	r30, r25
+     22a:	f0 e0       	ldi	r31, 0x00	; 0
+    }
+    
+    /* Calculate the first vs. last ratio of up/down and left/right */
+    ud_ratio_first = ((u_first - d_first) * 100) / (u_first + d_first);
+    lr_ratio_first = ((l_first - r_first) * 100) / (l_first + r_first);
+    ud_ratio_last = ((u_last - d_last) * 100) / (u_last + d_last);
+     22c:	cb 01       	movw	r24, r22
+     22e:	84 1b       	sub	r24, r20
+     230:	95 0b       	sbc	r25, r21
+     232:	dc 01       	movw	r26, r24
+     234:	aa 0f       	add	r26, r26
+     236:	bb 1f       	adc	r27, r27
+     238:	a8 0f       	add	r26, r24
+     23a:	b9 1f       	adc	r27, r25
+     23c:	6d 01       	movw	r12, r26
+     23e:	cc 0c       	add	r12, r12
+     240:	dd 1c       	adc	r13, r13
+     242:	cc 0c       	add	r12, r12
+     244:	dd 1c       	adc	r13, r13
+     246:	cc 0c       	add	r12, r12
+     248:	dd 1c       	adc	r13, r13
+     24a:	cc 0c       	add	r12, r12
+     24c:	dd 1c       	adc	r13, r13
+     24e:	cc 0c       	add	r12, r12
+     250:	dd 1c       	adc	r13, r13
+     252:	ac 0d       	add	r26, r12
+     254:	bd 1d       	adc	r27, r13
+     256:	8a 0f       	add	r24, r26
+     258:	9b 1f       	adc	r25, r27
+     25a:	64 0f       	add	r22, r20
+     25c:	75 1f       	adc	r23, r21
+     25e:	d3 d9       	rcall	.-3162   	; 0xfffff606 <__eeprom_end+0xff7ef606>
+     260:	6b 01       	movw	r12, r22
+            }
+        }
+    }
+    
+    /* Calculate the first vs. last ratio of up/down and left/right */
+    ud_ratio_first = ((u_first - d_first) * 100) / (u_first + d_first);
+     262:	c7 01       	movw	r24, r14
+     264:	80 1b       	sub	r24, r16
+     266:	91 0b       	sbc	r25, r17
+     268:	ac 01       	movw	r20, r24
+     26a:	44 0f       	add	r20, r20
+     26c:	55 1f       	adc	r21, r21
+     26e:	48 0f       	add	r20, r24
+     270:	59 1f       	adc	r21, r25
+     272:	ba 01       	movw	r22, r20
+     274:	66 0f       	add	r22, r22
+     276:	77 1f       	adc	r23, r23
+     278:	62 95       	swap	r22
+     27a:	72 95       	swap	r23
+     27c:	70 7f       	andi	r23, 0xF0	; 240
+     27e:	76 27       	eor	r23, r22
+     280:	60 7f       	andi	r22, 0xF0	; 240
+     282:	76 27       	eor	r23, r22
+     284:	46 0f       	add	r20, r22
+     286:	57 1f       	adc	r21, r23
+     288:	84 0f       	add	r24, r20
+     28a:	95 1f       	adc	r25, r21
+     28c:	b7 01       	movw	r22, r14
+     28e:	60 0f       	add	r22, r16
+     290:	71 1f       	adc	r23, r17
+     292:	b9 d9       	rcall	.-3214   	; 0xfffff606 <__eeprom_end+0xff7ef606>
+    uart_put_byte(lr_ratio_last);
+	uart_puts("\n");
+#endif
+       
+    /* Determine the difference between the first and last ratios */
+    ud_delta = ud_ratio_last - ud_ratio_first;
+     294:	86 01       	movw	r16, r12
+     296:	06 1b       	sub	r16, r22
+     298:	17 0b       	sbc	r17, r23
+    
+    /* Calculate the first vs. last ratio of up/down and left/right */
+    ud_ratio_first = ((u_first - d_first) * 100) / (u_first + d_first);
+    lr_ratio_first = ((l_first - r_first) * 100) / (l_first + r_first);
+    ud_ratio_last = ((u_last - d_last) * 100) / (u_last + d_last);
+    lr_ratio_last = ((l_last - r_last) * 100) / (l_last + r_last);
+     29a:	ce 01       	movw	r24, r28
+     29c:	8e 1b       	sub	r24, r30
+     29e:	9f 0b       	sbc	r25, r31
+     2a0:	ac 01       	movw	r20, r24
+     2a2:	44 0f       	add	r20, r20
+     2a4:	55 1f       	adc	r21, r21
+     2a6:	48 0f       	add	r20, r24
+     2a8:	59 1f       	adc	r21, r25
+     2aa:	ba 01       	movw	r22, r20
+     2ac:	66 0f       	add	r22, r22
+     2ae:	77 1f       	adc	r23, r23
+     2b0:	62 95       	swap	r22
+     2b2:	72 95       	swap	r23
+     2b4:	70 7f       	andi	r23, 0xF0	; 240
+     2b6:	76 27       	eor	r23, r22
+     2b8:	60 7f       	andi	r22, 0xF0	; 240
+     2ba:	76 27       	eor	r23, r22
+     2bc:	46 0f       	add	r20, r22
+     2be:	57 1f       	adc	r21, r23
+     2c0:	84 0f       	add	r24, r20
+     2c2:	95 1f       	adc	r25, r21
+     2c4:	be 01       	movw	r22, r28
+     2c6:	6e 0f       	add	r22, r30
+     2c8:	7f 1f       	adc	r23, r31
+     2ca:	9d d9       	rcall	.-3270   	; 0xfffff606 <__eeprom_end+0xff7ef606>
+     2cc:	fb 01       	movw	r30, r22
+        }
+    }
+    
+    /* Calculate the first vs. last ratio of up/down and left/right */
+    ud_ratio_first = ((u_first - d_first) * 100) / (u_first + d_first);
+    lr_ratio_first = ((l_first - r_first) * 100) / (l_first + r_first);
+     2ce:	c9 01       	movw	r24, r18
+     2d0:	8a 19       	sub	r24, r10
+     2d2:	9b 09       	sbc	r25, r11
+     2d4:	ac 01       	movw	r20, r24
+     2d6:	44 0f       	add	r20, r20
+     2d8:	55 1f       	adc	r21, r21
+     2da:	48 0f       	add	r20, r24
+     2dc:	59 1f       	adc	r21, r25
+     2de:	ba 01       	movw	r22, r20
+     2e0:	66 0f       	add	r22, r22
+     2e2:	77 1f       	adc	r23, r23
+     2e4:	62 95       	swap	r22
+     2e6:	72 95       	swap	r23
+     2e8:	70 7f       	andi	r23, 0xF0	; 240
+     2ea:	76 27       	eor	r23, r22
+     2ec:	60 7f       	andi	r22, 0xF0	; 240
+     2ee:	76 27       	eor	r23, r22
+     2f0:	46 0f       	add	r20, r22
+     2f2:	57 1f       	adc	r21, r23
+     2f4:	84 0f       	add	r24, r20
+     2f6:	95 1f       	adc	r25, r21
+     2f8:	b9 01       	movw	r22, r18
+     2fa:	6a 0d       	add	r22, r10
+     2fc:	7b 1d       	adc	r23, r11
+     2fe:	83 d9       	rcall	.-3322   	; 0xfffff606 <__eeprom_end+0xff7ef606>
+	uart_puts("\n");
+#endif
+       
+    /* Determine the difference between the first and last ratios */
+    ud_delta = ud_ratio_last - ud_ratio_first;
+    lr_delta = lr_ratio_last - lr_ratio_first;
+     300:	cf 01       	movw	r24, r30
+     302:	86 1b       	sub	r24, r22
+     304:	97 0b       	sbc	r25, r23
+     306:	bc 01       	movw	r22, r24
+    uart_put_byte(lr_delta);
+	uart_puts("\n");
+#endif
+
+    /* Accumulate the UD and LR delta values */
+    gesture_ud_delta_ += ud_delta;
+     308:	20 91 7a 00 	lds	r18, 0x007A
+     30c:	30 91 7b 00 	lds	r19, 0x007B
+     310:	20 0f       	add	r18, r16
+     312:	31 1f       	adc	r19, r17
+     314:	30 93 7b 00 	sts	0x007B, r19
+     318:	20 93 7a 00 	sts	0x007A, r18
+    gesture_lr_delta_ += lr_delta;
+     31c:	80 91 78 00 	lds	r24, 0x0078
+     320:	90 91 79 00 	lds	r25, 0x0079
+     324:	86 0f       	add	r24, r22
+     326:	97 1f       	adc	r25, r23
+     328:	90 93 79 00 	sts	0x0079, r25
+     32c:	80 93 78 00 	sts	0x0078, r24
+    uart_puts(" LR: ");
+    uart_put_byte(gesture_lr_delta_);
+#endif
+    
+    /* Determine U/D gesture */
+    if( gesture_ud_delta_ >= GESTURE_SENSITIVITY_1 ) {
+     330:	22 33       	cpi	r18, 0x32	; 50
+     332:	31 05       	cpc	r19, r1
+     334:	3c f0       	brlt	.+14     	; 0x344 <__stack+0xe5>
+        gesture_ud_count_ = 1;
+     336:	21 e0       	ldi	r18, 0x01	; 1
+     338:	30 e0       	ldi	r19, 0x00	; 0
+     33a:	30 93 6c 00 	sts	0x006C, r19
+     33e:	20 93 6b 00 	sts	0x006B, r18
+     342:	0e c0       	rjmp	.+28     	; 0x360 <__stack+0x101>
+    } else if( gesture_ud_delta_ <= -GESTURE_SENSITIVITY_1 ) {
+     344:	2f 3c       	cpi	r18, 0xCF	; 207
+     346:	3f 4f       	sbci	r19, 0xFF	; 255
+     348:	3c f4       	brge	.+14     	; 0x358 <__stack+0xf9>
+        gesture_ud_count_ = -1;
+     34a:	2f ef       	ldi	r18, 0xFF	; 255
+     34c:	3f ef       	ldi	r19, 0xFF	; 255
+     34e:	30 93 6c 00 	sts	0x006C, r19
+     352:	20 93 6b 00 	sts	0x006B, r18
+     356:	04 c0       	rjmp	.+8      	; 0x360 <__stack+0x101>
+    } else {
+        gesture_ud_count_ = 0;
+     358:	10 92 6c 00 	sts	0x006C, r1
+     35c:	10 92 6b 00 	sts	0x006B, r1
+    }
+    
+    /* Determine L/R gesture */
+    if( gesture_lr_delta_ >= GESTURE_SENSITIVITY_1 ) {
+     360:	82 33       	cpi	r24, 0x32	; 50
+     362:	91 05       	cpc	r25, r1
+     364:	3c f0       	brlt	.+14     	; 0x374 <__stack+0x115>
+        gesture_lr_count_ = 1;
+     366:	81 e0       	ldi	r24, 0x01	; 1
+     368:	90 e0       	ldi	r25, 0x00	; 0
+     36a:	90 93 73 00 	sts	0x0073, r25
+     36e:	80 93 72 00 	sts	0x0072, r24
+     372:	0e c0       	rjmp	.+28     	; 0x390 <__stack+0x131>
+    } else if( gesture_lr_delta_ <= -GESTURE_SENSITIVITY_1 ) {
+     374:	8f 3c       	cpi	r24, 0xCF	; 207
+     376:	9f 4f       	sbci	r25, 0xFF	; 255
+     378:	3c f4       	brge	.+14     	; 0x388 <__stack+0x129>
+        gesture_lr_count_ = -1;
+     37a:	8f ef       	ldi	r24, 0xFF	; 255
+     37c:	9f ef       	ldi	r25, 0xFF	; 255
+     37e:	90 93 73 00 	sts	0x0073, r25
+     382:	80 93 72 00 	sts	0x0072, r24
+     386:	04 c0       	rjmp	.+8      	; 0x390 <__stack+0x131>
+    } else {
+        gesture_lr_count_ = 0;
+     388:	10 92 73 00 	sts	0x0073, r1
+     38c:	10 92 72 00 	sts	0x0072, r1
+    }
+    
+    /* Determine Near/Far gesture */
+    if( (gesture_ud_count_ == 0) && (gesture_lr_count_ == 0) ) {
+     390:	80 91 6b 00 	lds	r24, 0x006B
+     394:	90 91 6c 00 	lds	r25, 0x006C
+     398:	89 2b       	or	r24, r25
+     39a:	09 f0       	breq	.+2      	; 0x39e <__stack+0x13f>
+     39c:	4f c0       	rjmp	.+158    	; 0x43c <__stack+0x1dd>
+     39e:	80 91 72 00 	lds	r24, 0x0072
+     3a2:	90 91 73 00 	lds	r25, 0x0073
+     3a6:	89 2b       	or	r24, r25
+     3a8:	09 f0       	breq	.+2      	; 0x3ac <__stack+0x14d>
+     3aa:	48 c0       	rjmp	.+144    	; 0x43c <__stack+0x1dd>
+        if( (abs(ud_delta) < GESTURE_SENSITIVITY_2) && \
+     3ac:	c8 01       	movw	r24, r16
+     3ae:	43 96       	adiw	r24, 0x13	; 19
+     3b0:	87 97       	sbiw	r24, 0x27	; 39
+     3b2:	08 f0       	brcs	.+2      	; 0x3b6 <__stack+0x157>
+     3b4:	80 c0       	rjmp	.+256    	; 0x4b6 <__stack+0x257>
+            (abs(lr_delta) < GESTURE_SENSITIVITY_2) ) {
+     3b6:	cb 01       	movw	r24, r22
+     3b8:	43 96       	adiw	r24, 0x13	; 19
+        gesture_lr_count_ = 0;
+    }
+    
+    /* Determine Near/Far gesture */
+    if( (gesture_ud_count_ == 0) && (gesture_lr_count_ == 0) ) {
+        if( (abs(ud_delta) < GESTURE_SENSITIVITY_2) && \
+     3ba:	87 97       	sbiw	r24, 0x27	; 39
+     3bc:	08 f0       	brcs	.+2      	; 0x3c0 <__stack+0x161>
+     3be:	7d c0       	rjmp	.+250    	; 0x4ba <__stack+0x25b>
+            (abs(lr_delta) < GESTURE_SENSITIVITY_2) ) {
+            
+            if( (ud_delta == 0) && (lr_delta == 0) ) {
+     3c0:	01 15       	cp	r16, r1
+     3c2:	11 05       	cpc	r17, r1
+     3c4:	69 f4       	brne	.+26     	; 0x3e0 <__stack+0x181>
+     3c6:	61 15       	cp	r22, r1
+     3c8:	71 05       	cpc	r23, r1
+     3ca:	51 f4       	brne	.+20     	; 0x3e0 <__stack+0x181>
+                gesture_near_count_++;
+     3cc:	80 91 02 01 	lds	r24, 0x0102
+     3d0:	90 91 03 01 	lds	r25, 0x0103
+     3d4:	01 96       	adiw	r24, 0x01	; 1
+     3d6:	90 93 03 01 	sts	0x0103, r25
+     3da:	80 93 02 01 	sts	0x0102, r24
+     3de:	09 c0       	rjmp	.+18     	; 0x3f2 <__stack+0x193>
+            } else if( (ud_delta != 0) || (lr_delta != 0) ) {
+                gesture_far_count_++;
+     3e0:	80 91 76 00 	lds	r24, 0x0076
+     3e4:	90 91 77 00 	lds	r25, 0x0077
+     3e8:	01 96       	adiw	r24, 0x01	; 1
+     3ea:	90 93 77 00 	sts	0x0077, r25
+     3ee:	80 93 76 00 	sts	0x0076, r24
+            }
+            
+            if( (gesture_near_count_ >= 10) && (gesture_far_count_ >= 2) ) {
+     3f2:	80 91 02 01 	lds	r24, 0x0102
+     3f6:	90 91 03 01 	lds	r25, 0x0103
+     3fa:	0a 97       	sbiw	r24, 0x0a	; 10
+     3fc:	0c f4       	brge	.+2      	; 0x400 <__stack+0x1a1>
+     3fe:	5f c0       	rjmp	.+190    	; 0x4be <__stack+0x25f>
+     400:	80 91 76 00 	lds	r24, 0x0076
+     404:	90 91 77 00 	lds	r25, 0x0077
+     408:	02 97       	sbiw	r24, 0x02	; 2
+     40a:	0c f4       	brge	.+2      	; 0x40e <__stack+0x1af>
+     40c:	5a c0       	rjmp	.+180    	; 0x4c2 <__stack+0x263>
+                if( (ud_delta == 0) && (lr_delta == 0) ) {
+     40e:	01 2b       	or	r16, r17
+     410:	51 f4       	brne	.+20     	; 0x426 <__stack+0x1c7>
+     412:	67 2b       	or	r22, r23
+     414:	09 f0       	breq	.+2      	; 0x418 <__stack+0x1b9>
+     416:	57 c0       	rjmp	.+174    	; 0x4c6 <__stack+0x267>
+                    gesture_state_ = NEAR_STATE;
+     418:	81 e0       	ldi	r24, 0x01	; 1
+     41a:	90 e0       	ldi	r25, 0x00	; 0
+     41c:	90 93 75 00 	sts	0x0075, r25
+     420:	80 93 74 00 	sts	0x0074, r24
+     424:	59 c0       	rjmp	.+178    	; 0x4d8 <__stack+0x279>
+                } else if( (ud_delta != 0) && (lr_delta != 0) ) {
+     426:	67 2b       	or	r22, r23
+     428:	09 f4       	brne	.+2      	; 0x42c <__stack+0x1cd>
+     42a:	4f c0       	rjmp	.+158    	; 0x4ca <__stack+0x26b>
+                    gesture_state_ = FAR_STATE;
+     42c:	82 e0       	ldi	r24, 0x02	; 2
+     42e:	90 e0       	ldi	r25, 0x00	; 0
+     430:	90 93 75 00 	sts	0x0075, r25
+     434:	80 93 74 00 	sts	0x0074, r24
+                }
+                return true;
+     438:	81 e0       	ldi	r24, 0x01	; 1
+     43a:	4e c0       	rjmp	.+156    	; 0x4d8 <__stack+0x279>
+            }
+        }
+    } else {
+        if( (abs(ud_delta) < GESTURE_SENSITIVITY_2) && \
+     43c:	c8 01       	movw	r24, r16
+     43e:	43 96       	adiw	r24, 0x13	; 19
+     440:	87 97       	sbiw	r24, 0x27	; 39
+     442:	08 f0       	brcs	.+2      	; 0x446 <__stack+0x1e7>
+     444:	44 c0       	rjmp	.+136    	; 0x4ce <__stack+0x26f>
+            (abs(lr_delta) < GESTURE_SENSITIVITY_2) ) {
+     446:	cb 01       	movw	r24, r22
+     448:	43 96       	adiw	r24, 0x13	; 19
+                }
+                return true;
+            }
+        }
+    } else {
+        if( (abs(ud_delta) < GESTURE_SENSITIVITY_2) && \
+     44a:	87 97       	sbiw	r24, 0x27	; 39
+     44c:	08 f0       	brcs	.+2      	; 0x450 <__stack+0x1f1>
+     44e:	41 c0       	rjmp	.+130    	; 0x4d2 <__stack+0x273>
+            (abs(lr_delta) < GESTURE_SENSITIVITY_2) ) {
+                
+            if( (ud_delta == 0) && (lr_delta == 0) ) {
+     450:	01 2b       	or	r16, r17
+     452:	59 f4       	brne	.+22     	; 0x46a <__stack+0x20b>
+     454:	67 2b       	or	r22, r23
+     456:	49 f4       	brne	.+18     	; 0x46a <__stack+0x20b>
+                gesture_near_count_++;
+     458:	80 91 02 01 	lds	r24, 0x0102
+     45c:	90 91 03 01 	lds	r25, 0x0103
+     460:	01 96       	adiw	r24, 0x01	; 1
+     462:	90 93 03 01 	sts	0x0103, r25
+     466:	80 93 02 01 	sts	0x0102, r24
+            }
+            
+            if( gesture_near_count_ >= 10 ) {
+     46a:	80 91 02 01 	lds	r24, 0x0102
+     46e:	90 91 03 01 	lds	r25, 0x0103
+     472:	0a 97       	sbiw	r24, 0x0a	; 10
+     474:	84 f1       	brlt	.+96     	; 0x4d6 <__stack+0x277>
+                gesture_ud_count_ = 0;
+     476:	10 92 6c 00 	sts	0x006C, r1
+     47a:	10 92 6b 00 	sts	0x006B, r1
+                gesture_lr_count_ = 0;
+     47e:	10 92 73 00 	sts	0x0073, r1
+     482:	10 92 72 00 	sts	0x0072, r1
+                gesture_ud_delta_ = 0;
+     486:	10 92 7b 00 	sts	0x007B, r1
+     48a:	10 92 7a 00 	sts	0x007A, r1
+                gesture_lr_delta_ = 0;
+     48e:	10 92 79 00 	sts	0x0079, r1
+     492:	10 92 78 00 	sts	0x0078, r1
+    uart_puts(" FAR_CT: ");
+    uart_put_byte(gesture_far_count_);
+    uart_puts("----------\n");
+#endif
+    
+    return false;
+     496:	80 e0       	ldi	r24, 0x00	; 0
+     498:	1f c0       	rjmp	.+62     	; 0x4d8 <__stack+0x279>
+    int lr_delta;
+    int i;
+
+    /* If we have less than 4 total gestures, that's not enough */
+    if( gesture_data_.total_gestures <= 4 ) {
+        return false;
+     49a:	80 e0       	ldi	r24, 0x00	; 0
+     49c:	1d c0       	rjmp	.+58     	; 0x4d8 <__stack+0x279>
+        
+        /* If one of the _first values is 0, then there is no good data */
+        if( (u_first == 0) || (d_first == 0) || \
+            (l_first == 0) || (r_first == 0) ) {
+            
+            return false;
+     49e:	80 e0       	ldi	r24, 0x00	; 0
+     4a0:	1b c0       	rjmp	.+54     	; 0x4d8 <__stack+0x279>
+     4a2:	80 e0       	ldi	r24, 0x00	; 0
+     4a4:	19 c0       	rjmp	.+50     	; 0x4d8 <__stack+0x279>
+     4a6:	80 e0       	ldi	r24, 0x00	; 0
+     4a8:	17 c0       	rjmp	.+46     	; 0x4d8 <__stack+0x279>
+     4aa:	80 e0       	ldi	r24, 0x00	; 0
+     4ac:	15 c0       	rjmp	.+42     	; 0x4d8 <__stack+0x279>
+     4ae:	80 e0       	ldi	r24, 0x00	; 0
+     4b0:	13 c0       	rjmp	.+38     	; 0x4d8 <__stack+0x279>
+     4b2:	80 e0       	ldi	r24, 0x00	; 0
+     4b4:	11 c0       	rjmp	.+34     	; 0x4d8 <__stack+0x279>
+    uart_puts(" FAR_CT: ");
+    uart_put_byte(gesture_far_count_);
+    uart_puts("----------\n");
+#endif
+    
+    return false;
+     4b6:	80 e0       	ldi	r24, 0x00	; 0
+     4b8:	0f c0       	rjmp	.+30     	; 0x4d8 <__stack+0x279>
+     4ba:	80 e0       	ldi	r24, 0x00	; 0
+     4bc:	0d c0       	rjmp	.+26     	; 0x4d8 <__stack+0x279>
+     4be:	80 e0       	ldi	r24, 0x00	; 0
+     4c0:	0b c0       	rjmp	.+22     	; 0x4d8 <__stack+0x279>
+     4c2:	80 e0       	ldi	r24, 0x00	; 0
+     4c4:	09 c0       	rjmp	.+18     	; 0x4d8 <__stack+0x279>
+                if( (ud_delta == 0) && (lr_delta == 0) ) {
+                    gesture_state_ = NEAR_STATE;
+                } else if( (ud_delta != 0) && (lr_delta != 0) ) {
+                    gesture_state_ = FAR_STATE;
+                }
+                return true;
+     4c6:	81 e0       	ldi	r24, 0x01	; 1
+     4c8:	07 c0       	rjmp	.+14     	; 0x4d8 <__stack+0x279>
+     4ca:	81 e0       	ldi	r24, 0x01	; 1
+     4cc:	05 c0       	rjmp	.+10     	; 0x4d8 <__stack+0x279>
+    uart_puts(" FAR_CT: ");
+    uart_put_byte(gesture_far_count_);
+    uart_puts("----------\n");
+#endif
+    
+    return false;
+     4ce:	80 e0       	ldi	r24, 0x00	; 0
+     4d0:	03 c0       	rjmp	.+6      	; 0x4d8 <__stack+0x279>
+     4d2:	80 e0       	ldi	r24, 0x00	; 0
+     4d4:	01 c0       	rjmp	.+2      	; 0x4d8 <__stack+0x279>
+     4d6:	80 e0       	ldi	r24, 0x00	; 0
+}
+     4d8:	df 91       	pop	r29
+     4da:	cf 91       	pop	r28
+     4dc:	1f 91       	pop	r17
+     4de:	0f 91       	pop	r16
+     4e0:	ff 90       	pop	r15
+     4e2:	ef 90       	pop	r14
+     4e4:	df 90       	pop	r13
+     4e6:	cf 90       	pop	r12
+     4e8:	bf 90       	pop	r11
+     4ea:	af 90       	pop	r10
+     4ec:	08 95       	ret
+
+000004ee <decodeGesture>:
+ * @return True if near/far event. False otherwise.
+ */
+uint8_t decodeGesture()
+{
+    /* Return if near or far event is detected */
+    if( gesture_state_ == NEAR_STATE ) {
+     4ee:	80 91 74 00 	lds	r24, 0x0074
+     4f2:	90 91 75 00 	lds	r25, 0x0075
+     4f6:	81 30       	cpi	r24, 0x01	; 1
+     4f8:	91 05       	cpc	r25, r1
+     4fa:	41 f4       	brne	.+16     	; 0x50c <decodeGesture+0x1e>
+        gesture_motion_ = DIR_NEAR;
+     4fc:	85 e0       	ldi	r24, 0x05	; 5
+     4fe:	90 e0       	ldi	r25, 0x00	; 0
+     500:	90 93 7d 00 	sts	0x007D, r25
+     504:	80 93 7c 00 	sts	0x007C, r24
+        return true;
+     508:	81 e0       	ldi	r24, 0x01	; 1
+     50a:	08 95       	ret
+    } else if ( gesture_state_ == FAR_STATE ) {
+     50c:	02 97       	sbiw	r24, 0x02	; 2
+     50e:	41 f4       	brne	.+16     	; 0x520 <decodeGesture+0x32>
+        gesture_motion_ = DIR_FAR;
+     510:	86 e0       	ldi	r24, 0x06	; 6
+     512:	90 e0       	ldi	r25, 0x00	; 0
+     514:	90 93 7d 00 	sts	0x007D, r25
+     518:	80 93 7c 00 	sts	0x007C, r24
+        return true;
+     51c:	81 e0       	ldi	r24, 0x01	; 1
+     51e:	08 95       	ret
+    }
+    
+    /* Determine swipe direction */
+    if( (gesture_ud_count_ == -1) && (gesture_lr_count_ == 0) ) {
+     520:	80 91 6b 00 	lds	r24, 0x006B
+     524:	90 91 6c 00 	lds	r25, 0x006C
+     528:	8f 3f       	cpi	r24, 0xFF	; 255
+     52a:	2f ef       	ldi	r18, 0xFF	; 255
+     52c:	92 07       	cpc	r25, r18
+     52e:	71 f4       	brne	.+28     	; 0x54c <decodeGesture+0x5e>
+     530:	20 91 72 00 	lds	r18, 0x0072
+     534:	30 91 73 00 	lds	r19, 0x0073
+     538:	23 2b       	or	r18, r19
+     53a:	b1 f5       	brne	.+108    	; 0x5a8 <decodeGesture+0xba>
+        gesture_motion_ = DIR_UP;
+     53c:	83 e0       	ldi	r24, 0x03	; 3
+     53e:	90 e0       	ldi	r25, 0x00	; 0
+     540:	90 93 7d 00 	sts	0x007D, r25
+     544:	80 93 7c 00 	sts	0x007C, r24
+        }
+    } else {
+        return false;
+    }
+    
+    return true;
+     548:	81 e0       	ldi	r24, 0x01	; 1
+        return true;
+    }
+    
+    /* Determine swipe direction */
+    if( (gesture_ud_count_ == -1) && (gesture_lr_count_ == 0) ) {
+        gesture_motion_ = DIR_UP;
+     54a:	08 95       	ret
+    } else if( (gesture_ud_count_ == 1) && (gesture_lr_count_ == 0) ) {
+     54c:	81 30       	cpi	r24, 0x01	; 1
+     54e:	91 05       	cpc	r25, r1
+     550:	79 f4       	brne	.+30     	; 0x570 <decodeGesture+0x82>
+     552:	20 91 72 00 	lds	r18, 0x0072
+     556:	30 91 73 00 	lds	r19, 0x0073
+     55a:	23 2b       	or	r18, r19
+     55c:	09 f0       	breq	.+2      	; 0x560 <decodeGesture+0x72>
+     55e:	54 c0       	rjmp	.+168    	; 0x608 <decodeGesture+0x11a>
+        gesture_motion_ = DIR_DOWN;
+     560:	84 e0       	ldi	r24, 0x04	; 4
+     562:	90 e0       	ldi	r25, 0x00	; 0
+     564:	90 93 7d 00 	sts	0x007D, r25
+     568:	80 93 7c 00 	sts	0x007C, r24
+        }
+    } else {
+        return false;
+    }
+    
+    return true;
+     56c:	81 e0       	ldi	r24, 0x01	; 1
+    
+    /* Determine swipe direction */
+    if( (gesture_ud_count_ == -1) && (gesture_lr_count_ == 0) ) {
+        gesture_motion_ = DIR_UP;
+    } else if( (gesture_ud_count_ == 1) && (gesture_lr_count_ == 0) ) {
+        gesture_motion_ = DIR_DOWN;
+     56e:	08 95       	ret
+    } else if( (gesture_ud_count_ == 0) && (gesture_lr_count_ == 1) ) {
+     570:	00 97       	sbiw	r24, 0x00	; 0
+     572:	d1 f4       	brne	.+52     	; 0x5a8 <decodeGesture+0xba>
+     574:	20 91 72 00 	lds	r18, 0x0072
+     578:	30 91 73 00 	lds	r19, 0x0073
+     57c:	21 30       	cpi	r18, 0x01	; 1
+     57e:	31 05       	cpc	r19, r1
+     580:	41 f4       	brne	.+16     	; 0x592 <decodeGesture+0xa4>
+        gesture_motion_ = DIR_RIGHT;
+     582:	82 e0       	ldi	r24, 0x02	; 2
+     584:	90 e0       	ldi	r25, 0x00	; 0
+     586:	90 93 7d 00 	sts	0x007D, r25
+     58a:	80 93 7c 00 	sts	0x007C, r24
+        }
+    } else {
+        return false;
+    }
+    
+    return true;
+     58e:	81 e0       	ldi	r24, 0x01	; 1
+    if( (gesture_ud_count_ == -1) && (gesture_lr_count_ == 0) ) {
+        gesture_motion_ = DIR_UP;
+    } else if( (gesture_ud_count_ == 1) && (gesture_lr_count_ == 0) ) {
+        gesture_motion_ = DIR_DOWN;
+    } else if( (gesture_ud_count_ == 0) && (gesture_lr_count_ == 1) ) {
+        gesture_motion_ = DIR_RIGHT;
+     590:	08 95       	ret
+    } else if( (gesture_ud_count_ == 0) && (gesture_lr_count_ == -1) ) {
+     592:	2f 3f       	cpi	r18, 0xFF	; 255
+     594:	3f 4f       	sbci	r19, 0xFF	; 255
+     596:	09 f0       	breq	.+2      	; 0x59a <decodeGesture+0xac>
+     598:	65 c0       	rjmp	.+202    	; 0x664 <decodeGesture+0x176>
+        gesture_motion_ = DIR_LEFT;
+     59a:	81 e0       	ldi	r24, 0x01	; 1
+     59c:	90 e0       	ldi	r25, 0x00	; 0
+     59e:	90 93 7d 00 	sts	0x007D, r25
+     5a2:	80 93 7c 00 	sts	0x007C, r24
+     5a6:	08 95       	ret
+    } else if( (gesture_ud_count_ == -1) && (gesture_lr_count_ == 1) ) {
+     5a8:	8f 3f       	cpi	r24, 0xFF	; 255
+     5aa:	2f ef       	ldi	r18, 0xFF	; 255
+     5ac:	92 07       	cpc	r25, r18
+     5ae:	61 f5       	brne	.+88     	; 0x608 <decodeGesture+0x11a>
+     5b0:	80 91 72 00 	lds	r24, 0x0072
+     5b4:	90 91 73 00 	lds	r25, 0x0073
+     5b8:	01 97       	sbiw	r24, 0x01	; 1
+     5ba:	09 f0       	breq	.+2      	; 0x5be <decodeGesture+0xd0>
+     5bc:	57 c0       	rjmp	.+174    	; 0x66c <decodeGesture+0x17e>
+        if( abs(gesture_ud_delta_) > abs(gesture_lr_delta_) ) {
+     5be:	20 91 7a 00 	lds	r18, 0x007A
+     5c2:	30 91 7b 00 	lds	r19, 0x007B
+     5c6:	33 23       	and	r19, r19
+     5c8:	1c f4       	brge	.+6      	; 0x5d0 <decodeGesture+0xe2>
+     5ca:	31 95       	neg	r19
+     5cc:	21 95       	neg	r18
+     5ce:	31 09       	sbc	r19, r1
+     5d0:	80 91 78 00 	lds	r24, 0x0078
+     5d4:	90 91 79 00 	lds	r25, 0x0079
+     5d8:	99 23       	and	r25, r25
+     5da:	1c f4       	brge	.+6      	; 0x5e2 <decodeGesture+0xf4>
+     5dc:	91 95       	neg	r25
+     5de:	81 95       	neg	r24
+     5e0:	91 09       	sbc	r25, r1
+     5e2:	82 17       	cp	r24, r18
+     5e4:	93 07       	cpc	r25, r19
+     5e6:	44 f4       	brge	.+16     	; 0x5f8 <decodeGesture+0x10a>
+            gesture_motion_ = DIR_UP;
+     5e8:	83 e0       	ldi	r24, 0x03	; 3
+     5ea:	90 e0       	ldi	r25, 0x00	; 0
+     5ec:	90 93 7d 00 	sts	0x007D, r25
+     5f0:	80 93 7c 00 	sts	0x007C, r24
+        }
+    } else {
+        return false;
+    }
+    
+    return true;
+     5f4:	81 e0       	ldi	r24, 0x01	; 1
+     5f6:	08 95       	ret
+        gesture_motion_ = DIR_LEFT;
+    } else if( (gesture_ud_count_ == -1) && (gesture_lr_count_ == 1) ) {
+        if( abs(gesture_ud_delta_) > abs(gesture_lr_delta_) ) {
+            gesture_motion_ = DIR_UP;
+        } else {
+            gesture_motion_ = DIR_RIGHT;
+     5f8:	82 e0       	ldi	r24, 0x02	; 2
+     5fa:	90 e0       	ldi	r25, 0x00	; 0
+     5fc:	90 93 7d 00 	sts	0x007D, r25
+     600:	80 93 7c 00 	sts	0x007C, r24
+        }
+    } else {
+        return false;
+    }
+    
+    return true;
+     604:	81 e0       	ldi	r24, 0x01	; 1
+     606:	08 95       	ret
+        if( abs(gesture_ud_delta_) > abs(gesture_lr_delta_) ) {
+            gesture_motion_ = DIR_UP;
+        } else {
+            gesture_motion_ = DIR_RIGHT;
+        }
+    } else if( (gesture_ud_count_ == 1) && (gesture_lr_count_ == -1) ) {
+     608:	81 30       	cpi	r24, 0x01	; 1
+     60a:	91 05       	cpc	r25, r1
+     60c:	59 f5       	brne	.+86     	; 0x664 <decodeGesture+0x176>
+     60e:	80 91 72 00 	lds	r24, 0x0072
+     612:	90 91 73 00 	lds	r25, 0x0073
+     616:	01 96       	adiw	r24, 0x01	; 1
+     618:	09 f0       	breq	.+2      	; 0x61c <decodeGesture+0x12e>
+     61a:	55 c0       	rjmp	.+170    	; 0x6c6 <decodeGesture+0x1d8>
+        if( abs(gesture_ud_delta_) > abs(gesture_lr_delta_) ) {
+     61c:	20 91 7a 00 	lds	r18, 0x007A
+     620:	30 91 7b 00 	lds	r19, 0x007B
+     624:	33 23       	and	r19, r19
+     626:	1c f4       	brge	.+6      	; 0x62e <decodeGesture+0x140>
+     628:	31 95       	neg	r19
+     62a:	21 95       	neg	r18
+     62c:	31 09       	sbc	r19, r1
+     62e:	80 91 78 00 	lds	r24, 0x0078
+     632:	90 91 79 00 	lds	r25, 0x0079
+     636:	99 23       	and	r25, r25
+     638:	1c f4       	brge	.+6      	; 0x640 <decodeGesture+0x152>
+     63a:	91 95       	neg	r25
+     63c:	81 95       	neg	r24
+     63e:	91 09       	sbc	r25, r1
+     640:	82 17       	cp	r24, r18
+     642:	93 07       	cpc	r25, r19
+     644:	44 f4       	brge	.+16     	; 0x656 <decodeGesture+0x168>
+            gesture_motion_ = DIR_DOWN;
+     646:	84 e0       	ldi	r24, 0x04	; 4
+     648:	90 e0       	ldi	r25, 0x00	; 0
+     64a:	90 93 7d 00 	sts	0x007D, r25
+     64e:	80 93 7c 00 	sts	0x007C, r24
+        }
+    } else {
+        return false;
+    }
+    
+    return true;
+     652:	81 e0       	ldi	r24, 0x01	; 1
+     654:	08 95       	ret
+        }
+    } else if( (gesture_ud_count_ == 1) && (gesture_lr_count_ == -1) ) {
+        if( abs(gesture_ud_delta_) > abs(gesture_lr_delta_) ) {
+            gesture_motion_ = DIR_DOWN;
+        } else {
+            gesture_motion_ = DIR_LEFT;
+     656:	81 e0       	ldi	r24, 0x01	; 1
+     658:	90 e0       	ldi	r25, 0x00	; 0
+     65a:	90 93 7d 00 	sts	0x007D, r25
+     65e:	80 93 7c 00 	sts	0x007C, r24
+     662:	08 95       	ret
+        }
+    } else if( (gesture_ud_count_ == -1) && (gesture_lr_count_ == -1) ) {
+     664:	8f 3f       	cpi	r24, 0xFF	; 255
+     666:	2f ef       	ldi	r18, 0xFF	; 255
+     668:	92 07       	cpc	r25, r18
+     66a:	59 f5       	brne	.+86     	; 0x6c2 <decodeGesture+0x1d4>
+     66c:	80 91 72 00 	lds	r24, 0x0072
+     670:	90 91 73 00 	lds	r25, 0x0073
+     674:	01 96       	adiw	r24, 0x01	; 1
+     676:	09 f0       	breq	.+2      	; 0x67a <decodeGesture+0x18c>
+     678:	51 c0       	rjmp	.+162    	; 0x71c <decodeGesture+0x22e>
+        if( abs(gesture_ud_delta_) > abs(gesture_lr_delta_) ) {
+     67a:	20 91 7a 00 	lds	r18, 0x007A
+     67e:	30 91 7b 00 	lds	r19, 0x007B
+     682:	33 23       	and	r19, r19
+     684:	1c f4       	brge	.+6      	; 0x68c <decodeGesture+0x19e>
+     686:	31 95       	neg	r19
+     688:	21 95       	neg	r18
+     68a:	31 09       	sbc	r19, r1
+     68c:	80 91 78 00 	lds	r24, 0x0078
+     690:	90 91 79 00 	lds	r25, 0x0079
+     694:	99 23       	and	r25, r25
+     696:	1c f4       	brge	.+6      	; 0x69e <decodeGesture+0x1b0>
+     698:	91 95       	neg	r25
+     69a:	81 95       	neg	r24
+     69c:	91 09       	sbc	r25, r1
+     69e:	82 17       	cp	r24, r18
+     6a0:	93 07       	cpc	r25, r19
+     6a2:	44 f4       	brge	.+16     	; 0x6b4 <decodeGesture+0x1c6>
+            gesture_motion_ = DIR_UP;
+     6a4:	83 e0       	ldi	r24, 0x03	; 3
+     6a6:	90 e0       	ldi	r25, 0x00	; 0
+     6a8:	90 93 7d 00 	sts	0x007D, r25
+     6ac:	80 93 7c 00 	sts	0x007C, r24
+        }
+    } else {
+        return false;
+    }
+    
+    return true;
+     6b0:	81 e0       	ldi	r24, 0x01	; 1
+     6b2:	08 95       	ret
+        }
+    } else if( (gesture_ud_count_ == -1) && (gesture_lr_count_ == -1) ) {
+        if( abs(gesture_ud_delta_) > abs(gesture_lr_delta_) ) {
+            gesture_motion_ = DIR_UP;
+        } else {
+            gesture_motion_ = DIR_LEFT;
+     6b4:	81 e0       	ldi	r24, 0x01	; 1
+     6b6:	90 e0       	ldi	r25, 0x00	; 0
+     6b8:	90 93 7d 00 	sts	0x007D, r25
+     6bc:	80 93 7c 00 	sts	0x007C, r24
+     6c0:	08 95       	ret
+        }
+    } else if( (gesture_ud_count_ == 1) && (gesture_lr_count_ == 1) ) {
+     6c2:	01 97       	sbiw	r24, 0x01	; 1
+     6c4:	69 f5       	brne	.+90     	; 0x720 <decodeGesture+0x232>
+     6c6:	80 91 72 00 	lds	r24, 0x0072
+     6ca:	90 91 73 00 	lds	r25, 0x0073
+     6ce:	01 97       	sbiw	r24, 0x01	; 1
+     6d0:	49 f5       	brne	.+82     	; 0x724 <decodeGesture+0x236>
+        if( abs(gesture_ud_delta_) > abs(gesture_lr_delta_) ) {
+     6d2:	20 91 7a 00 	lds	r18, 0x007A
+     6d6:	30 91 7b 00 	lds	r19, 0x007B
+     6da:	33 23       	and	r19, r19
+     6dc:	1c f4       	brge	.+6      	; 0x6e4 <decodeGesture+0x1f6>
+     6de:	31 95       	neg	r19
+     6e0:	21 95       	neg	r18
+     6e2:	31 09       	sbc	r19, r1
+     6e4:	80 91 78 00 	lds	r24, 0x0078
+     6e8:	90 91 79 00 	lds	r25, 0x0079
+     6ec:	99 23       	and	r25, r25
+     6ee:	1c f4       	brge	.+6      	; 0x6f6 <decodeGesture+0x208>
+     6f0:	91 95       	neg	r25
+     6f2:	81 95       	neg	r24
+     6f4:	91 09       	sbc	r25, r1
+     6f6:	82 17       	cp	r24, r18
+     6f8:	93 07       	cpc	r25, r19
+     6fa:	44 f4       	brge	.+16     	; 0x70c <decodeGesture+0x21e>
+            gesture_motion_ = DIR_DOWN;
+     6fc:	84 e0       	ldi	r24, 0x04	; 4
+     6fe:	90 e0       	ldi	r25, 0x00	; 0
+     700:	90 93 7d 00 	sts	0x007D, r25
+     704:	80 93 7c 00 	sts	0x007C, r24
+        }
+    } else {
+        return false;
+    }
+    
+    return true;
+     708:	81 e0       	ldi	r24, 0x01	; 1
+     70a:	08 95       	ret
+        }
+    } else if( (gesture_ud_count_ == 1) && (gesture_lr_count_ == 1) ) {
+        if( abs(gesture_ud_delta_) > abs(gesture_lr_delta_) ) {
+            gesture_motion_ = DIR_DOWN;
+        } else {
+            gesture_motion_ = DIR_RIGHT;
+     70c:	82 e0       	ldi	r24, 0x02	; 2
+     70e:	90 e0       	ldi	r25, 0x00	; 0
+     710:	90 93 7d 00 	sts	0x007D, r25
+     714:	80 93 7c 00 	sts	0x007C, r24
+        }
+    } else {
+        return false;
+    }
+    
+    return true;
+     718:	81 e0       	ldi	r24, 0x01	; 1
+     71a:	08 95       	ret
+            gesture_motion_ = DIR_DOWN;
+        } else {
+            gesture_motion_ = DIR_RIGHT;
+        }
+    } else {
+        return false;
+     71c:	80 e0       	ldi	r24, 0x00	; 0
+     71e:	08 95       	ret
+     720:	80 e0       	ldi	r24, 0x00	; 0
+     722:	08 95       	ret
+     724:	80 e0       	ldi	r24, 0x00	; 0
+    }
+    
+    return true;
+}
+     726:	08 95       	ret
+
+00000728 <wireWriteByte>:
+ *
+ * @param[in] val the 1-byte value to write to the I2C device
+ * @return True if successful write operation. False otherwise.
+ */
+uint8_t wireWriteByte(uint8_t val)
+{
+     728:	cf 93       	push	r28
+     72a:	c8 2f       	mov	r28, r24
+    //i2cSend(APDS9960_I2C_ADDR, BYTE sub, BYTE length, BYTE *data);
+	i2cstart();
+     72c:	48 d4       	rcall	.+2192   	; 0xfbe <i2cstart>
+	i2cPutbyte(APDS9960_I2C_ADDR);
+     72e:	82 e7       	ldi	r24, 0x72	; 114
+     730:	6a d4       	rcall	.+2260   	; 0x1006 <i2cPutbyte>
+	i2cPutbyte(val);
+     732:	8c 2f       	mov	r24, r28
+     734:	68 d4       	rcall	.+2256   	; 0x1006 <i2cPutbyte>
+	//Wire.beginTransmission(APDS9960_I2C_ADDR);
+    //Wire.write(val);
+    //if( Wire.endTransmission() != 0 ) {
+    //    return false;
+    //}
+	i2cstop();
+     736:	4b d4       	rcall	.+2198   	; 0xfce <i2cstop>
+    
+    return true;
+}
+     738:	81 e0       	ldi	r24, 0x01	; 1
+     73a:	cf 91       	pop	r28
+     73c:	08 95       	ret
+
+0000073e <wireWriteDataByte>:
+ * @param[in] reg the register in the I2C device to write to
+ * @param[in] val the 1-byte value to write to the I2C device
+ * @return True if successful write operation. False otherwise.
+ */
+uint8_t wireWriteDataByte(uint8_t reg, uint8_t val)
+{
+     73e:	cf 93       	push	r28
+     740:	df 93       	push	r29
+     742:	1f 92       	push	r1
+     744:	cd b7       	in	r28, 0x3d	; 61
+     746:	de b7       	in	r29, 0x3e	; 62
+     748:	69 83       	std	Y+1, r22	; 0x01
+	i2cSend(APDS9960_I2C_ADDR, reg, 1, &val);
+     74a:	9e 01       	movw	r18, r28
+     74c:	2f 5f       	subi	r18, 0xFF	; 255
+     74e:	3f 4f       	sbci	r19, 0xFF	; 255
+     750:	41 e0       	ldi	r20, 0x01	; 1
+     752:	68 2f       	mov	r22, r24
+     754:	82 e7       	ldi	r24, 0x72	; 114
+     756:	f1 d4       	rcall	.+2530   	; 0x113a <i2cSend>
+    //    return false;
+    //}
+	//i2cstop();
+
+    return true;
+}
+     758:	81 e0       	ldi	r24, 0x01	; 1
+     75a:	0f 90       	pop	r0
+     75c:	df 91       	pop	r29
+     75e:	cf 91       	pop	r28
+     760:	08 95       	ret
+
+00000762 <setGestureEnterThresh>:
+ * @param[in] threshold proximity value needed to start gesture mode
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setGestureEnterThresh(uint8_t threshold)
+{
+    if( !wireWriteDataByte(APDS9960_GPENTH, threshold) ) {
+     762:	68 2f       	mov	r22, r24
+     764:	80 ea       	ldi	r24, 0xA0	; 160
+     766:	eb df       	rcall	.-42     	; 0x73e <wireWriteDataByte>
+     768:	91 e0       	ldi	r25, 0x01	; 1
+     76a:	81 11       	cpse	r24, r1
+     76c:	01 c0       	rjmp	.+2      	; 0x770 <setGestureEnterThresh+0xe>
+     76e:	90 e0       	ldi	r25, 0x00	; 0
+        return false;
+    }
+    
+    return true;
+}
+     770:	89 2f       	mov	r24, r25
+     772:	08 95       	ret
+
+00000774 <setGestureExitThresh>:
+ * @param[in] threshold proximity value needed to end gesture mode
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setGestureExitThresh(uint8_t threshold)
+{
+    if( !wireWriteDataByte(APDS9960_GEXTH, threshold) ) {
+     774:	68 2f       	mov	r22, r24
+     776:	81 ea       	ldi	r24, 0xA1	; 161
+     778:	e2 df       	rcall	.-60     	; 0x73e <wireWriteDataByte>
+     77a:	91 e0       	ldi	r25, 0x01	; 1
+     77c:	81 11       	cpse	r24, r1
+     77e:	01 c0       	rjmp	.+2      	; 0x782 <setGestureExitThresh+0xe>
+     780:	90 e0       	ldi	r25, 0x00	; 0
+        return false;
+    }
+    
+    return true;
+}
+     782:	89 2f       	mov	r24, r25
+     784:	08 95       	ret
+
+00000786 <setProxIntLowThresh>:
+ * @param[in] threshold the lower proximity threshold
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setProxIntLowThresh(uint8_t threshold)
+{
+    if( !wireWriteDataByte(APDS9960_PILT, threshold) ) {
+     786:	68 2f       	mov	r22, r24
+     788:	89 e8       	ldi	r24, 0x89	; 137
+     78a:	d9 df       	rcall	.-78     	; 0x73e <wireWriteDataByte>
+     78c:	91 e0       	ldi	r25, 0x01	; 1
+     78e:	81 11       	cpse	r24, r1
+     790:	01 c0       	rjmp	.+2      	; 0x794 <setProxIntLowThresh+0xe>
+     792:	90 e0       	ldi	r25, 0x00	; 0
+        return false;
+    }
+    
+    return true;
+}
+     794:	89 2f       	mov	r24, r25
+     796:	08 95       	ret
+
+00000798 <setProxIntHighThresh>:
+ * @param[in] threshold the high proximity threshold
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setProxIntHighThresh(uint8_t threshold)
+{
+    if( !wireWriteDataByte(APDS9960_PIHT, threshold) ) {
+     798:	68 2f       	mov	r22, r24
+     79a:	8b e8       	ldi	r24, 0x8B	; 139
+     79c:	d0 df       	rcall	.-96     	; 0x73e <wireWriteDataByte>
+     79e:	91 e0       	ldi	r25, 0x01	; 1
+     7a0:	81 11       	cpse	r24, r1
+     7a2:	01 c0       	rjmp	.+2      	; 0x7a6 <setProxIntHighThresh+0xe>
+     7a4:	90 e0       	ldi	r25, 0x00	; 0
+        return false;
+    }
+    
+    return true;
+}
+     7a6:	89 2f       	mov	r24, r25
+     7a8:	08 95       	ret
+
+000007aa <setLightIntLowThreshold>:
+ *
+ * @param[in] threshold low threshold value for interrupt to trigger
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setLightIntLowThreshold(uint16_t threshold)
+{
+     7aa:	cf 93       	push	r28
+     7ac:	c9 2f       	mov	r28, r25
+    /* Break 16-bit threshold into 2 8-bit values */
+    val_low = threshold & 0x00FF;
+    val_high = (threshold & 0xFF00) >> 8;
+    
+    /* Write low byte */
+    if( !wireWriteDataByte(APDS9960_AILTL, val_low) ) {
+     7ae:	68 2f       	mov	r22, r24
+     7b0:	84 e8       	ldi	r24, 0x84	; 132
+     7b2:	c5 df       	rcall	.-118    	; 0x73e <wireWriteDataByte>
+     7b4:	88 23       	and	r24, r24
+     7b6:	41 f0       	breq	.+16     	; 0x7c8 <setLightIntLowThreshold+0x1e>
+        return false;
+    }
+    
+    /* Write high byte */
+    if( !wireWriteDataByte(APDS9960_AILTH, val_high) ) {
+     7b8:	6c 2f       	mov	r22, r28
+     7ba:	85 e8       	ldi	r24, 0x85	; 133
+     7bc:	c0 df       	rcall	.-128    	; 0x73e <wireWriteDataByte>
+     7be:	91 e0       	ldi	r25, 0x01	; 1
+     7c0:	81 11       	cpse	r24, r1
+     7c2:	03 c0       	rjmp	.+6      	; 0x7ca <setLightIntLowThreshold+0x20>
+     7c4:	90 e0       	ldi	r25, 0x00	; 0
+     7c6:	01 c0       	rjmp	.+2      	; 0x7ca <setLightIntLowThreshold+0x20>
+    val_low = threshold & 0x00FF;
+    val_high = (threshold & 0xFF00) >> 8;
+    
+    /* Write low byte */
+    if( !wireWriteDataByte(APDS9960_AILTL, val_low) ) {
+        return false;
+     7c8:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_AILTH, val_high) ) {
+        return false;
+    }
+    
+    return true;
+}
+     7ca:	89 2f       	mov	r24, r25
+     7cc:	cf 91       	pop	r28
+     7ce:	08 95       	ret
+
+000007d0 <setLightIntHighThreshold>:
+ *
+ * @param[in] threshold high threshold value for interrupt to trigger
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setLightIntHighThreshold(uint16_t threshold)
+{
+     7d0:	cf 93       	push	r28
+     7d2:	c9 2f       	mov	r28, r25
+    /* Break 16-bit threshold into 2 8-bit values */
+    val_low = threshold & 0x00FF;
+    val_high = (threshold & 0xFF00) >> 8;
+    
+    /* Write low byte */
+    if( !wireWriteDataByte(APDS9960_AIHTL, val_low) ) {
+     7d4:	68 2f       	mov	r22, r24
+     7d6:	86 e8       	ldi	r24, 0x86	; 134
+     7d8:	b2 df       	rcall	.-156    	; 0x73e <wireWriteDataByte>
+     7da:	88 23       	and	r24, r24
+     7dc:	41 f0       	breq	.+16     	; 0x7ee <setLightIntHighThreshold+0x1e>
+        return false;
+    }
+    
+    /* Write high byte */
+    if( !wireWriteDataByte(APDS9960_AIHTH, val_high) ) {
+     7de:	6c 2f       	mov	r22, r28
+     7e0:	87 e8       	ldi	r24, 0x87	; 135
+     7e2:	ad df       	rcall	.-166    	; 0x73e <wireWriteDataByte>
+     7e4:	91 e0       	ldi	r25, 0x01	; 1
+     7e6:	81 11       	cpse	r24, r1
+     7e8:	03 c0       	rjmp	.+6      	; 0x7f0 <setLightIntHighThreshold+0x20>
+     7ea:	90 e0       	ldi	r25, 0x00	; 0
+     7ec:	01 c0       	rjmp	.+2      	; 0x7f0 <setLightIntHighThreshold+0x20>
+    val_low = threshold & 0x00FF;
+    val_high = (threshold & 0xFF00) >> 8;
+    
+    /* Write low byte */
+    if( !wireWriteDataByte(APDS9960_AIHTL, val_low) ) {
+        return false;
+     7ee:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_AIHTH, val_high) ) {
+        return false;
+    }
+    
+    return true;
+}
+     7f0:	89 2f       	mov	r24, r25
+     7f2:	cf 91       	pop	r28
+     7f4:	08 95       	ret
+
+000007f6 <wireReadDataByte>:
+ * @param[in] reg the register to read from
+ * @param[out] the value returned from the register
+ * @return True if successful read operation. False otherwise.
+ */
+uint8_t wireReadDataByte(uint8_t reg, uint8_t *val)
+{
+     7f6:	1f 93       	push	r17
+     7f8:	cf 93       	push	r28
+     7fa:	df 93       	push	r29
+     7fc:	18 2f       	mov	r17, r24
+     7fe:	eb 01       	movw	r28, r22
+    
+    /* Indicate which register we want to read from */
+    if (!wireWriteByte(reg)) {
+     800:	93 df       	rcall	.-218    	; 0x728 <wireWriteByte>
+     802:	88 23       	and	r24, r24
+     804:	39 f0       	breq	.+14     	; 0x814 <wireReadDataByte+0x1e>
+        return false;
+    }
+    
+    /* Read from register */
+	i2cReceive(APDS9960_I2C_ADDR, reg, 1, val);
+     806:	9e 01       	movw	r18, r28
+     808:	41 e0       	ldi	r20, 0x01	; 1
+     80a:	61 2f       	mov	r22, r17
+     80c:	82 e7       	ldi	r24, 0x72	; 114
+     80e:	d2 d4       	rcall	.+2468   	; 0x11b4 <i2cReceive>
+   // Wire.requestFrom(APDS9960_I2C_ADDR, 1);
+   // while (Wire.available()) {
+   //     val = Wire.read();
+    //}
+
+    return true;
+     810:	81 e0       	ldi	r24, 0x01	; 1
+     812:	01 c0       	rjmp	.+2      	; 0x816 <wireReadDataByte+0x20>
+uint8_t wireReadDataByte(uint8_t reg, uint8_t *val)
+{
+    
+    /* Indicate which register we want to read from */
+    if (!wireWriteByte(reg)) {
+        return false;
+     814:	80 e0       	ldi	r24, 0x00	; 0
+   // while (Wire.available()) {
+   //     val = Wire.read();
+    //}
+
+    return true;
+}
+     816:	df 91       	pop	r29
+     818:	cf 91       	pop	r28
+     81a:	1f 91       	pop	r17
+     81c:	08 95       	ret
+
+0000081e <getMode>:
+ * @brief Reads and returns the contents of the ENABLE register
+ *
+ * @return Contents of the ENABLE register. 0xFF if error.
+ */
+uint8_t getMode()
+{
+     81e:	cf 93       	push	r28
+     820:	df 93       	push	r29
+     822:	1f 92       	push	r1
+     824:	cd b7       	in	r28, 0x3d	; 61
+     826:	de b7       	in	r29, 0x3e	; 62
+    uint8_t enable_value;
+    
+    /* Read current ENABLE register */
+    if( !wireReadDataByte(APDS9960_ENABLE, &enable_value) ) {
+     828:	be 01       	movw	r22, r28
+     82a:	6f 5f       	subi	r22, 0xFF	; 255
+     82c:	7f 4f       	sbci	r23, 0xFF	; 255
+     82e:	80 e8       	ldi	r24, 0x80	; 128
+     830:	e2 df       	rcall	.-60     	; 0x7f6 <wireReadDataByte>
+     832:	88 23       	and	r24, r24
+     834:	11 f0       	breq	.+4      	; 0x83a <getMode+0x1c>
+        return ERROR;
+    }
+    
+    return enable_value;
+     836:	89 81       	ldd	r24, Y+1	; 0x01
+     838:	01 c0       	rjmp	.+2      	; 0x83c <getMode+0x1e>
+{
+    uint8_t enable_value;
+    
+    /* Read current ENABLE register */
+    if( !wireReadDataByte(APDS9960_ENABLE, &enable_value) ) {
+        return ERROR;
+     83a:	8f ef       	ldi	r24, 0xFF	; 255
+    }
+    
+    return enable_value;
+}
+     83c:	0f 90       	pop	r0
+     83e:	df 91       	pop	r29
+     840:	cf 91       	pop	r28
+     842:	08 95       	ret
+
+00000844 <setMode>:
+ * @param[in] mode which feature to enable
+ * @param[in] enable ON (1) or OFF (0)
+ * @return True if operation success. False otherwise.
+ */
+uint8_t setMode(uint8_t mode, uint8_t enable)
+{
+     844:	cf 93       	push	r28
+     846:	df 93       	push	r29
+     848:	c8 2f       	mov	r28, r24
+     84a:	d6 2f       	mov	r29, r22
+    uint8_t reg_val;
+
+    /* Read current ENABLE register */
+    reg_val = getMode();
+     84c:	e8 df       	rcall	.-48     	; 0x81e <getMode>
+    if( reg_val == ERROR ) {
+     84e:	8f 3f       	cpi	r24, 0xFF	; 255
+     850:	49 f1       	breq	.+82     	; 0x8a4 <setMode+0x60>
+        return false;
+    }
+    
+    /* Change bit(s) in ENABLE register */
+    enable = enable & 0x01;
+     852:	d1 70       	andi	r29, 0x01	; 1
+    if( mode >= 0 && mode <= 6 ) {
+     854:	c7 30       	cpi	r28, 0x07	; 7
+     856:	b8 f4       	brcc	.+46     	; 0x886 <setMode+0x42>
+        if (enable) {
+     858:	dd 23       	and	r29, r29
+     85a:	51 f0       	breq	.+20     	; 0x870 <setMode+0x2c>
+            reg_val |= (1 << mode);
+     85c:	41 e0       	ldi	r20, 0x01	; 1
+     85e:	50 e0       	ldi	r21, 0x00	; 0
+     860:	9a 01       	movw	r18, r20
+     862:	02 c0       	rjmp	.+4      	; 0x868 <setMode+0x24>
+     864:	22 0f       	add	r18, r18
+     866:	33 1f       	adc	r19, r19
+     868:	ca 95       	dec	r28
+     86a:	e2 f7       	brpl	.-8      	; 0x864 <setMode+0x20>
+     86c:	82 2b       	or	r24, r18
+     86e:	12 c0       	rjmp	.+36     	; 0x894 <setMode+0x50>
+        } else {
+            reg_val &= ~(1 << mode);
+     870:	41 e0       	ldi	r20, 0x01	; 1
+     872:	50 e0       	ldi	r21, 0x00	; 0
+     874:	9a 01       	movw	r18, r20
+     876:	02 c0       	rjmp	.+4      	; 0x87c <setMode+0x38>
+     878:	22 0f       	add	r18, r18
+     87a:	33 1f       	adc	r19, r19
+     87c:	ca 95       	dec	r28
+     87e:	e2 f7       	brpl	.-8      	; 0x878 <setMode+0x34>
+     880:	20 95       	com	r18
+     882:	82 23       	and	r24, r18
+     884:	07 c0       	rjmp	.+14     	; 0x894 <setMode+0x50>
+        }
+    } else if( mode == ALL ) {
+     886:	c7 30       	cpi	r28, 0x07	; 7
+     888:	29 f4       	brne	.+10     	; 0x894 <setMode+0x50>
+        if (enable) {
+     88a:	dd 23       	and	r29, r29
+     88c:	11 f0       	breq	.+4      	; 0x892 <setMode+0x4e>
+            reg_val = 0x7F;
+     88e:	8f e7       	ldi	r24, 0x7F	; 127
+     890:	01 c0       	rjmp	.+2      	; 0x894 <setMode+0x50>
+        } else {
+            reg_val = 0x00;
+     892:	80 e0       	ldi	r24, 0x00	; 0
+        }
+    }
+        
+    /* Write value back to ENABLE register */
+    if( !wireWriteDataByte(APDS9960_ENABLE, reg_val) ) {
+     894:	68 2f       	mov	r22, r24
+     896:	80 e8       	ldi	r24, 0x80	; 128
+     898:	52 df       	rcall	.-348    	; 0x73e <wireWriteDataByte>
+     89a:	91 e0       	ldi	r25, 0x01	; 1
+     89c:	81 11       	cpse	r24, r1
+     89e:	03 c0       	rjmp	.+6      	; 0x8a6 <setMode+0x62>
+     8a0:	90 e0       	ldi	r25, 0x00	; 0
+     8a2:	01 c0       	rjmp	.+2      	; 0x8a6 <setMode+0x62>
+    uint8_t reg_val;
+
+    /* Read current ENABLE register */
+    reg_val = getMode();
+    if( reg_val == ERROR ) {
+        return false;
+     8a4:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_ENABLE, reg_val) ) {
+        return false;
+    }
+        
+    return true;
+}
+     8a6:	89 2f       	mov	r24, r25
+     8a8:	df 91       	pop	r29
+     8aa:	cf 91       	pop	r28
+     8ac:	08 95       	ret
+
+000008ae <enablePower>:
+ *
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t enablePower()
+{
+    if( !setMode(POWER, 1) ) {
+     8ae:	61 e0       	ldi	r22, 0x01	; 1
+     8b0:	80 e0       	ldi	r24, 0x00	; 0
+     8b2:	c8 df       	rcall	.-112    	; 0x844 <setMode>
+     8b4:	91 e0       	ldi	r25, 0x01	; 1
+     8b6:	81 11       	cpse	r24, r1
+     8b8:	01 c0       	rjmp	.+2      	; 0x8bc <enablePower+0xe>
+     8ba:	90 e0       	ldi	r25, 0x00	; 0
+        return false;
+    }
+    
+    return true;
+}
+     8bc:	89 2f       	mov	r24, r25
+     8be:	08 95       	ret
+
+000008c0 <setGestureGain>:
+ *
+ * @param[in] gain the value for the photodiode gain
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setGestureGain(uint8_t gain)
+{
+     8c0:	1f 93       	push	r17
+     8c2:	cf 93       	push	r28
+     8c4:	df 93       	push	r29
+     8c6:	1f 92       	push	r1
+     8c8:	cd b7       	in	r28, 0x3d	; 61
+     8ca:	de b7       	in	r29, 0x3e	; 62
+     8cc:	18 2f       	mov	r17, r24
+    uint8_t val;
+    
+    /* Read value from GCONF2 register */
+    if( !wireReadDataByte(APDS9960_GCONF2, &val) ) {
+     8ce:	be 01       	movw	r22, r28
+     8d0:	6f 5f       	subi	r22, 0xFF	; 255
+     8d2:	7f 4f       	sbci	r23, 0xFF	; 255
+     8d4:	83 ea       	ldi	r24, 0xA3	; 163
+     8d6:	8f df       	rcall	.-226    	; 0x7f6 <wireReadDataByte>
+     8d8:	88 23       	and	r24, r24
+     8da:	81 f0       	breq	.+32     	; 0x8fc <setGestureGain+0x3c>
+        return false;
+    }
+    
+    /* Set bits in register to given value */
+    gain &= 0b00000011;
+     8dc:	61 2f       	mov	r22, r17
+     8de:	63 70       	andi	r22, 0x03	; 3
+    gain = gain << 5;
+     8e0:	62 95       	swap	r22
+     8e2:	66 0f       	add	r22, r22
+     8e4:	60 7e       	andi	r22, 0xE0	; 224
+    val &= 0b10011111;
+     8e6:	89 81       	ldd	r24, Y+1	; 0x01
+     8e8:	8f 79       	andi	r24, 0x9F	; 159
+    val |= gain;
+     8ea:	68 2b       	or	r22, r24
+     8ec:	69 83       	std	Y+1, r22	; 0x01
+    
+    /* Write register value back into GCONF2 register */
+    if( !wireWriteDataByte(APDS9960_GCONF2, val) ) {
+     8ee:	83 ea       	ldi	r24, 0xA3	; 163
+     8f0:	26 df       	rcall	.-436    	; 0x73e <wireWriteDataByte>
+     8f2:	91 e0       	ldi	r25, 0x01	; 1
+     8f4:	81 11       	cpse	r24, r1
+     8f6:	03 c0       	rjmp	.+6      	; 0x8fe <setGestureGain+0x3e>
+     8f8:	90 e0       	ldi	r25, 0x00	; 0
+     8fa:	01 c0       	rjmp	.+2      	; 0x8fe <setGestureGain+0x3e>
+{
+    uint8_t val;
+    
+    /* Read value from GCONF2 register */
+    if( !wireReadDataByte(APDS9960_GCONF2, &val) ) {
+        return false;
+     8fc:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_GCONF2, val) ) {
+        return false;
+    }
+    
+    return true;
+}
+     8fe:	89 2f       	mov	r24, r25
+     900:	0f 90       	pop	r0
+     902:	df 91       	pop	r29
+     904:	cf 91       	pop	r28
+     906:	1f 91       	pop	r17
+     908:	08 95       	ret
+
+0000090a <setGestureLEDDrive>:
+ *
+ * @param[in] drive the value for the LED drive current
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setGestureLEDDrive(uint8_t drive)
+{
+     90a:	1f 93       	push	r17
+     90c:	cf 93       	push	r28
+     90e:	df 93       	push	r29
+     910:	1f 92       	push	r1
+     912:	cd b7       	in	r28, 0x3d	; 61
+     914:	de b7       	in	r29, 0x3e	; 62
+     916:	18 2f       	mov	r17, r24
+    uint8_t val;
+    
+    /* Read value from GCONF2 register */
+    if( !wireReadDataByte(APDS9960_GCONF2, &val) ) {
+     918:	be 01       	movw	r22, r28
+     91a:	6f 5f       	subi	r22, 0xFF	; 255
+     91c:	7f 4f       	sbci	r23, 0xFF	; 255
+     91e:	83 ea       	ldi	r24, 0xA3	; 163
+     920:	6a df       	rcall	.-300    	; 0x7f6 <wireReadDataByte>
+     922:	88 23       	and	r24, r24
+     924:	81 f0       	breq	.+32     	; 0x946 <setGestureLEDDrive+0x3c>
+        return false;
+    }
+    
+    /* Set bits in register to given value */
+    drive &= 0b00000011;
+     926:	61 2f       	mov	r22, r17
+     928:	63 70       	andi	r22, 0x03	; 3
+    drive = drive << 3;
+     92a:	66 0f       	add	r22, r22
+     92c:	66 0f       	add	r22, r22
+     92e:	66 0f       	add	r22, r22
+    val &= 0b11100111;
+     930:	89 81       	ldd	r24, Y+1	; 0x01
+     932:	87 7e       	andi	r24, 0xE7	; 231
+    val |= drive;
+     934:	68 2b       	or	r22, r24
+     936:	69 83       	std	Y+1, r22	; 0x01
+    
+    /* Write register value back into GCONF2 register */
+    if( !wireWriteDataByte(APDS9960_GCONF2, val) ) {
+     938:	83 ea       	ldi	r24, 0xA3	; 163
+     93a:	01 df       	rcall	.-510    	; 0x73e <wireWriteDataByte>
+     93c:	91 e0       	ldi	r25, 0x01	; 1
+     93e:	81 11       	cpse	r24, r1
+     940:	03 c0       	rjmp	.+6      	; 0x948 <setGestureLEDDrive+0x3e>
+     942:	90 e0       	ldi	r25, 0x00	; 0
+     944:	01 c0       	rjmp	.+2      	; 0x948 <setGestureLEDDrive+0x3e>
+{
+    uint8_t val;
+    
+    /* Read value from GCONF2 register */
+    if( !wireReadDataByte(APDS9960_GCONF2, &val) ) {
+        return false;
+     946:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_GCONF2, val) ) {
+        return false;
+    }
+    
+    return true;
+}
+     948:	89 2f       	mov	r24, r25
+     94a:	0f 90       	pop	r0
+     94c:	df 91       	pop	r29
+     94e:	cf 91       	pop	r28
+     950:	1f 91       	pop	r17
+     952:	08 95       	ret
+
+00000954 <setGestureWaitTime>:
+ *
+ * @param[in] the value for the wait time
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setGestureWaitTime(uint8_t time)
+{
+     954:	1f 93       	push	r17
+     956:	cf 93       	push	r28
+     958:	df 93       	push	r29
+     95a:	1f 92       	push	r1
+     95c:	cd b7       	in	r28, 0x3d	; 61
+     95e:	de b7       	in	r29, 0x3e	; 62
+     960:	18 2f       	mov	r17, r24
+    uint8_t val;
+    
+    /* Read value from GCONF2 register */
+    if( !wireReadDataByte(APDS9960_GCONF2, &val) ) {
+     962:	be 01       	movw	r22, r28
+     964:	6f 5f       	subi	r22, 0xFF	; 255
+     966:	7f 4f       	sbci	r23, 0xFF	; 255
+     968:	83 ea       	ldi	r24, 0xA3	; 163
+     96a:	45 df       	rcall	.-374    	; 0x7f6 <wireReadDataByte>
+     96c:	88 23       	and	r24, r24
+     96e:	61 f0       	breq	.+24     	; 0x988 <setGestureWaitTime+0x34>
+        return false;
+    }
+    
+    /* Set bits in register to given value */
+    time &= 0b00000111;
+     970:	17 70       	andi	r17, 0x07	; 7
+    val &= 0b11111000;
+     972:	69 81       	ldd	r22, Y+1	; 0x01
+     974:	68 7f       	andi	r22, 0xF8	; 248
+    val |= time;
+     976:	61 2b       	or	r22, r17
+     978:	69 83       	std	Y+1, r22	; 0x01
+    
+    /* Write register value back into GCONF2 register */
+    if( !wireWriteDataByte(APDS9960_GCONF2, val) ) {
+     97a:	83 ea       	ldi	r24, 0xA3	; 163
+     97c:	e0 de       	rcall	.-576    	; 0x73e <wireWriteDataByte>
+     97e:	91 e0       	ldi	r25, 0x01	; 1
+     980:	81 11       	cpse	r24, r1
+     982:	03 c0       	rjmp	.+6      	; 0x98a <setGestureWaitTime+0x36>
+     984:	90 e0       	ldi	r25, 0x00	; 0
+     986:	01 c0       	rjmp	.+2      	; 0x98a <setGestureWaitTime+0x36>
+{
+    uint8_t val;
+    
+    /* Read value from GCONF2 register */
+    if( !wireReadDataByte(APDS9960_GCONF2, &val) ) {
+        return false;
+     988:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_GCONF2, val) ) {
+        return false;
+    }
+    
+    return true;
+}
+     98a:	89 2f       	mov	r24, r25
+     98c:	0f 90       	pop	r0
+     98e:	df 91       	pop	r29
+     990:	cf 91       	pop	r28
+     992:	1f 91       	pop	r17
+     994:	08 95       	ret
+
+00000996 <setGestureIntEnable>:
+ *
+ * @param[in] enable 1 to enable interrupts, 0 to turn them off
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setGestureIntEnable(uint8_t enable)
+{
+     996:	1f 93       	push	r17
+     998:	cf 93       	push	r28
+     99a:	df 93       	push	r29
+     99c:	1f 92       	push	r1
+     99e:	cd b7       	in	r28, 0x3d	; 61
+     9a0:	de b7       	in	r29, 0x3e	; 62
+     9a2:	18 2f       	mov	r17, r24
+    uint8_t val;
+    // no 2 send??
+    /* Read value from GCONF4 register */
+    if( !wireReadDataByte(APDS9960_GCONF4, &val) ) {
+     9a4:	be 01       	movw	r22, r28
+     9a6:	6f 5f       	subi	r22, 0xFF	; 255
+     9a8:	7f 4f       	sbci	r23, 0xFF	; 255
+     9aa:	8b ea       	ldi	r24, 0xAB	; 171
+     9ac:	24 df       	rcall	.-440    	; 0x7f6 <wireReadDataByte>
+     9ae:	88 23       	and	r24, r24
+     9b0:	71 f0       	breq	.+28     	; 0x9ce <setGestureIntEnable+0x38>
+        return false;
+    }
+    
+    /* Set bits in register to given value */
+    enable &= 0b00000001;
+     9b2:	61 2f       	mov	r22, r17
+     9b4:	61 70       	andi	r22, 0x01	; 1
+    enable = enable << 1;
+     9b6:	66 0f       	add	r22, r22
+    val &= 0b11111101;
+     9b8:	89 81       	ldd	r24, Y+1	; 0x01
+     9ba:	8d 7f       	andi	r24, 0xFD	; 253
+    val |= enable;
+     9bc:	68 2b       	or	r22, r24
+     9be:	69 83       	std	Y+1, r22	; 0x01
+
+    /* Write register value back into GCONF4 register */
+    if( !wireWriteDataByte(APDS9960_GCONF4, val) ) {
+     9c0:	8b ea       	ldi	r24, 0xAB	; 171
+     9c2:	bd de       	rcall	.-646    	; 0x73e <wireWriteDataByte>
+     9c4:	91 e0       	ldi	r25, 0x01	; 1
+     9c6:	81 11       	cpse	r24, r1
+     9c8:	03 c0       	rjmp	.+6      	; 0x9d0 <setGestureIntEnable+0x3a>
+     9ca:	90 e0       	ldi	r25, 0x00	; 0
+     9cc:	01 c0       	rjmp	.+2      	; 0x9d0 <setGestureIntEnable+0x3a>
+{
+    uint8_t val;
+    // no 2 send??
+    /* Read value from GCONF4 register */
+    if( !wireReadDataByte(APDS9960_GCONF4, &val) ) {
+        return false;
+     9ce:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_GCONF4, val) ) {
+        return false;
+    }
+
+    return true;
+}
+     9d0:	89 2f       	mov	r24, r25
+     9d2:	0f 90       	pop	r0
+     9d4:	df 91       	pop	r29
+     9d6:	cf 91       	pop	r28
+     9d8:	1f 91       	pop	r17
+     9da:	08 95       	ret
+
+000009dc <setLEDBoost>:
+ *
+ * @param[in] drive the value (0-3) for current boost (100-300%)
+ * @return True if operation successful. False otherwise.
+ */
+ uint8_t setLEDBoost(uint8_t boost)
+ {
+     9dc:	1f 93       	push	r17
+     9de:	cf 93       	push	r28
+     9e0:	df 93       	push	r29
+     9e2:	1f 92       	push	r1
+     9e4:	cd b7       	in	r28, 0x3d	; 61
+     9e6:	de b7       	in	r29, 0x3e	; 62
+     9e8:	18 2f       	mov	r17, r24
+	 uint8_t val;
+	 
+	 /* Read value from CONFIG2 register */
+	 if( !wireReadDataByte(APDS9960_CONFIG2, &val) ) {
+     9ea:	be 01       	movw	r22, r28
+     9ec:	6f 5f       	subi	r22, 0xFF	; 255
+     9ee:	7f 4f       	sbci	r23, 0xFF	; 255
+     9f0:	80 e9       	ldi	r24, 0x90	; 144
+     9f2:	01 df       	rcall	.-510    	; 0x7f6 <wireReadDataByte>
+     9f4:	88 23       	and	r24, r24
+     9f6:	79 f0       	breq	.+30     	; 0xa16 <setLEDBoost+0x3a>
+		 return false;
+	 }
+	 
+	 /* Set bits in register to given value */
+	 boost &= 0b00000011;
+     9f8:	61 2f       	mov	r22, r17
+     9fa:	63 70       	andi	r22, 0x03	; 3
+	 boost = boost << 4;
+     9fc:	62 95       	swap	r22
+     9fe:	60 7f       	andi	r22, 0xF0	; 240
+	 val &= 0b11001111;
+     a00:	89 81       	ldd	r24, Y+1	; 0x01
+     a02:	8f 7c       	andi	r24, 0xCF	; 207
+	 val |= boost;
+     a04:	68 2b       	or	r22, r24
+     a06:	69 83       	std	Y+1, r22	; 0x01
+	 
+	 /* Write register value back into CONFIG2 register */
+	 if( !wireWriteDataByte(APDS9960_CONFIG2, val) ) {
+     a08:	80 e9       	ldi	r24, 0x90	; 144
+     a0a:	99 de       	rcall	.-718    	; 0x73e <wireWriteDataByte>
+     a0c:	91 e0       	ldi	r25, 0x01	; 1
+     a0e:	81 11       	cpse	r24, r1
+     a10:	03 c0       	rjmp	.+6      	; 0xa18 <setLEDBoost+0x3c>
+     a12:	90 e0       	ldi	r25, 0x00	; 0
+     a14:	01 c0       	rjmp	.+2      	; 0xa18 <setLEDBoost+0x3c>
+ {
+	 uint8_t val;
+	 
+	 /* Read value from CONFIG2 register */
+	 if( !wireReadDataByte(APDS9960_CONFIG2, &val) ) {
+		 return false;
+     a16:	90 e0       	ldi	r25, 0x00	; 0
+	 if( !wireWriteDataByte(APDS9960_CONFIG2, val) ) {
+		 return false;
+	 }
+	 
+	 return true;
+ }
+     a18:	89 2f       	mov	r24, r25
+     a1a:	0f 90       	pop	r0
+     a1c:	df 91       	pop	r29
+     a1e:	cf 91       	pop	r28
+     a20:	1f 91       	pop	r17
+     a22:	08 95       	ret
+
+00000a24 <setGestureMode>:
+ *
+ * @param[in] mode 1 to enter gesture state machine, 0 to exit.
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setGestureMode(uint8_t mode)
+{
+     a24:	1f 93       	push	r17
+     a26:	cf 93       	push	r28
+     a28:	df 93       	push	r29
+     a2a:	1f 92       	push	r1
+     a2c:	cd b7       	in	r28, 0x3d	; 61
+     a2e:	de b7       	in	r29, 0x3e	; 62
+     a30:	18 2f       	mov	r17, r24
+    uint8_t val;
+    
+    /* Read value from GCONF4 register */
+    if( !wireReadDataByte(APDS9960_GCONF4, &val) ) {
+     a32:	be 01       	movw	r22, r28
+     a34:	6f 5f       	subi	r22, 0xFF	; 255
+     a36:	7f 4f       	sbci	r23, 0xFF	; 255
+     a38:	8b ea       	ldi	r24, 0xAB	; 171
+     a3a:	dd de       	rcall	.-582    	; 0x7f6 <wireReadDataByte>
+     a3c:	88 23       	and	r24, r24
+     a3e:	59 f0       	breq	.+22     	; 0xa56 <setGestureMode+0x32>
+        return false;
+    }
+    
+    /* Set bits in register to given value */
+    mode &= 0b00000001;
+    val &= 0b11111110;
+     a40:	69 81       	ldd	r22, Y+1	; 0x01
+    val |= mode;
+     a42:	10 fb       	bst	r17, 0
+     a44:	60 f9       	bld	r22, 0
+     a46:	69 83       	std	Y+1, r22	; 0x01
+    
+    /* Write register value back into GCONF4 register */
+    if( !wireWriteDataByte(APDS9960_GCONF4, val) ) {
+     a48:	8b ea       	ldi	r24, 0xAB	; 171
+     a4a:	79 de       	rcall	.-782    	; 0x73e <wireWriteDataByte>
+     a4c:	91 e0       	ldi	r25, 0x01	; 1
+     a4e:	81 11       	cpse	r24, r1
+     a50:	03 c0       	rjmp	.+6      	; 0xa58 <setGestureMode+0x34>
+     a52:	90 e0       	ldi	r25, 0x00	; 0
+     a54:	01 c0       	rjmp	.+2      	; 0xa58 <setGestureMode+0x34>
+{
+    uint8_t val;
+    
+    /* Read value from GCONF4 register */
+    if( !wireReadDataByte(APDS9960_GCONF4, &val) ) {
+        return false;
+     a56:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_GCONF4, val) ) {
+        return false;
+    }
+    
+    return true;
+}
+     a58:	89 2f       	mov	r24, r25
+     a5a:	0f 90       	pop	r0
+     a5c:	df 91       	pop	r29
+     a5e:	cf 91       	pop	r28
+     a60:	1f 91       	pop	r17
+     a62:	08 95       	ret
+
+00000a64 <enableGestureSensor>:
+ *
+ * @param[in] interrupts true to enable hardware external interrupt on gesture
+ * @return True if engine enabled correctly. False on error.
+ */
+uint8_t enableGestureSensor(uint8_t interrupts)
+{
+     a64:	cf 93       	push	r28
+     a66:	c8 2f       	mov	r28, r24
+       Set ENABLE to 0 (power off)
+       Set WTIME to 0xFF
+       Set AUX to LED_BOOST_300
+       Enable PON, WEN, PEN, GEN in ENABLE 
+    */
+    resetGestureParameters();
+     a68:	37 db       	rcall	.-2450   	; 0xd8 <resetGestureParameters>
+    if( !wireWriteDataByte(APDS9960_WTIME, 0xFF) ) {
+     a6a:	6f ef       	ldi	r22, 0xFF	; 255
+     a6c:	83 e8       	ldi	r24, 0x83	; 131
+     a6e:	67 de       	rcall	.-818    	; 0x73e <wireWriteDataByte>
+     a70:	88 23       	and	r24, r24
+     a72:	69 f1       	breq	.+90     	; 0xace <enableGestureSensor+0x6a>
+        return false;
+    }
+    if( !wireWriteDataByte(APDS9960_PPULSE, DEFAULT_GESTURE_PPULSE) ) {
+     a74:	69 e8       	ldi	r22, 0x89	; 137
+     a76:	8e e8       	ldi	r24, 0x8E	; 142
+     a78:	62 de       	rcall	.-828    	; 0x73e <wireWriteDataByte>
+     a7a:	88 23       	and	r24, r24
+     a7c:	51 f1       	breq	.+84     	; 0xad2 <enableGestureSensor+0x6e>
+        return false;
+    }
+    if( !setLEDBoost(LED_BOOST_300) ) {
+     a7e:	83 e0       	ldi	r24, 0x03	; 3
+     a80:	ad df       	rcall	.-166    	; 0x9dc <setLEDBoost>
+     a82:	88 23       	and	r24, r24
+     a84:	41 f1       	breq	.+80     	; 0xad6 <enableGestureSensor+0x72>
+        return false;
+    }
+    if( interrupts ) {
+     a86:	cc 23       	and	r28, r28
+     a88:	29 f0       	breq	.+10     	; 0xa94 <enableGestureSensor+0x30>
+        if( !setGestureIntEnable(1) ) {
+     a8a:	81 e0       	ldi	r24, 0x01	; 1
+     a8c:	84 df       	rcall	.-248    	; 0x996 <setGestureIntEnable>
+     a8e:	81 11       	cpse	r24, r1
+     a90:	05 c0       	rjmp	.+10     	; 0xa9c <enableGestureSensor+0x38>
+     a92:	23 c0       	rjmp	.+70     	; 0xada <enableGestureSensor+0x76>
+            return false;
+        }
+    } else {
+        if( !setGestureIntEnable(0) ) {
+     a94:	80 e0       	ldi	r24, 0x00	; 0
+     a96:	7f df       	rcall	.-258    	; 0x996 <setGestureIntEnable>
+     a98:	88 23       	and	r24, r24
+     a9a:	09 f1       	breq	.+66     	; 0xade <enableGestureSensor+0x7a>
+            return false;
+        }
+    }
+    if( !setGestureMode(1) ) {
+     a9c:	81 e0       	ldi	r24, 0x01	; 1
+     a9e:	c2 df       	rcall	.-124    	; 0xa24 <setGestureMode>
+     aa0:	88 23       	and	r24, r24
+     aa2:	f9 f0       	breq	.+62     	; 0xae2 <enableGestureSensor+0x7e>
+        return false;
+    }
+    if( !enablePower() ){
+     aa4:	04 df       	rcall	.-504    	; 0x8ae <enablePower>
+     aa6:	88 23       	and	r24, r24
+     aa8:	f1 f0       	breq	.+60     	; 0xae6 <enableGestureSensor+0x82>
+        return false;
+    }
+    if( !setMode(WAIT, 1) ) {
+     aaa:	61 e0       	ldi	r22, 0x01	; 1
+     aac:	83 e0       	ldi	r24, 0x03	; 3
+     aae:	ca de       	rcall	.-620    	; 0x844 <setMode>
+     ab0:	88 23       	and	r24, r24
+     ab2:	d9 f0       	breq	.+54     	; 0xaea <enableGestureSensor+0x86>
+        return false;
+    }
+    if( !setMode(PROXIMITY, 1) ) {
+     ab4:	61 e0       	ldi	r22, 0x01	; 1
+     ab6:	82 e0       	ldi	r24, 0x02	; 2
+     ab8:	c5 de       	rcall	.-630    	; 0x844 <setMode>
+     aba:	88 23       	and	r24, r24
+     abc:	c1 f0       	breq	.+48     	; 0xaee <enableGestureSensor+0x8a>
+        return false;
+    }
+    if( !setMode(GESTURE, 1) ) {
+     abe:	61 e0       	ldi	r22, 0x01	; 1
+     ac0:	86 e0       	ldi	r24, 0x06	; 6
+     ac2:	c0 de       	rcall	.-640    	; 0x844 <setMode>
+     ac4:	91 e0       	ldi	r25, 0x01	; 1
+     ac6:	81 11       	cpse	r24, r1
+     ac8:	13 c0       	rjmp	.+38     	; 0xaf0 <enableGestureSensor+0x8c>
+     aca:	90 e0       	ldi	r25, 0x00	; 0
+     acc:	11 c0       	rjmp	.+34     	; 0xaf0 <enableGestureSensor+0x8c>
+       Set AUX to LED_BOOST_300
+       Enable PON, WEN, PEN, GEN in ENABLE 
+    */
+    resetGestureParameters();
+    if( !wireWriteDataByte(APDS9960_WTIME, 0xFF) ) {
+        return false;
+     ace:	90 e0       	ldi	r25, 0x00	; 0
+     ad0:	0f c0       	rjmp	.+30     	; 0xaf0 <enableGestureSensor+0x8c>
+    }
+    if( !wireWriteDataByte(APDS9960_PPULSE, DEFAULT_GESTURE_PPULSE) ) {
+        return false;
+     ad2:	90 e0       	ldi	r25, 0x00	; 0
+     ad4:	0d c0       	rjmp	.+26     	; 0xaf0 <enableGestureSensor+0x8c>
+    }
+    if( !setLEDBoost(LED_BOOST_300) ) {
+        return false;
+     ad6:	90 e0       	ldi	r25, 0x00	; 0
+     ad8:	0b c0       	rjmp	.+22     	; 0xaf0 <enableGestureSensor+0x8c>
+    }
+    if( interrupts ) {
+        if( !setGestureIntEnable(1) ) {
+            return false;
+     ada:	90 e0       	ldi	r25, 0x00	; 0
+     adc:	09 c0       	rjmp	.+18     	; 0xaf0 <enableGestureSensor+0x8c>
+        }
+    } else {
+        if( !setGestureIntEnable(0) ) {
+            return false;
+     ade:	90 e0       	ldi	r25, 0x00	; 0
+     ae0:	07 c0       	rjmp	.+14     	; 0xaf0 <enableGestureSensor+0x8c>
+        }
+    }
+    if( !setGestureMode(1) ) {
+        return false;
+     ae2:	90 e0       	ldi	r25, 0x00	; 0
+     ae4:	05 c0       	rjmp	.+10     	; 0xaf0 <enableGestureSensor+0x8c>
+    }
+    if( !enablePower() ){
+        return false;
+     ae6:	90 e0       	ldi	r25, 0x00	; 0
+     ae8:	03 c0       	rjmp	.+6      	; 0xaf0 <enableGestureSensor+0x8c>
+    }
+    if( !setMode(WAIT, 1) ) {
+        return false;
+     aea:	90 e0       	ldi	r25, 0x00	; 0
+     aec:	01 c0       	rjmp	.+2      	; 0xaf0 <enableGestureSensor+0x8c>
+    }
+    if( !setMode(PROXIMITY, 1) ) {
+        return false;
+     aee:	90 e0       	ldi	r25, 0x00	; 0
+    if( !setMode(GESTURE, 1) ) {
+        return false;
+    }
+    
+    return true;
+}
+     af0:	89 2f       	mov	r24, r25
+     af2:	cf 91       	pop	r28
+     af4:	08 95       	ret
+
+00000af6 <isGestureAvailable>:
+ * @brief Determines if there is a gesture available for reading
+ *
+ * @return True if gesture available. False otherwise.
+ */
+uint8_t isGestureAvailable()
+{
+     af6:	cf 93       	push	r28
+     af8:	df 93       	push	r29
+     afa:	1f 92       	push	r1
+     afc:	cd b7       	in	r28, 0x3d	; 61
+     afe:	de b7       	in	r29, 0x3e	; 62
+    uint8_t val;
+    
+    /* Read value from GSTATUS register */
+    if( !wireReadDataByte(APDS9960_GSTATUS, &val) ) {
+     b00:	be 01       	movw	r22, r28
+     b02:	6f 5f       	subi	r22, 0xFF	; 255
+     b04:	7f 4f       	sbci	r23, 0xFF	; 255
+     b06:	8f ea       	ldi	r24, 0xAF	; 175
+     b08:	76 de       	rcall	.-788    	; 0x7f6 <wireReadDataByte>
+     b0a:	88 23       	and	r24, r24
+     b0c:	31 f0       	breq	.+12     	; 0xb1a <isGestureAvailable+0x24>
+        return ERROR;
+    }
+    
+    /* Shift and mask out GVALID bit */
+    val &= APDS9960_GVALID;
+     b0e:	99 81       	ldd	r25, Y+1	; 0x01
+    
+    /* Return true/false based on GVALID bit */
+    if( val == 1) {
+     b10:	81 e0       	ldi	r24, 0x01	; 1
+     b12:	90 fd       	sbrc	r25, 0
+     b14:	03 c0       	rjmp	.+6      	; 0xb1c <isGestureAvailable+0x26>
+     b16:	80 e0       	ldi	r24, 0x00	; 0
+     b18:	01 c0       	rjmp	.+2      	; 0xb1c <isGestureAvailable+0x26>
+{
+    uint8_t val;
+    
+    /* Read value from GSTATUS register */
+    if( !wireReadDataByte(APDS9960_GSTATUS, &val) ) {
+        return ERROR;
+     b1a:	8f ef       	ldi	r24, 0xFF	; 255
+    if( val == 1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+     b1c:	0f 90       	pop	r0
+     b1e:	df 91       	pop	r29
+     b20:	cf 91       	pop	r28
+     b22:	08 95       	ret
+
+00000b24 <setProximityGain>:
+ *
+ * @param[in] drive the value (0-3) for the gain
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setProximityGain(uint8_t drive)
+{
+     b24:	1f 93       	push	r17
+     b26:	cf 93       	push	r28
+     b28:	df 93       	push	r29
+     b2a:	1f 92       	push	r1
+     b2c:	cd b7       	in	r28, 0x3d	; 61
+     b2e:	de b7       	in	r29, 0x3e	; 62
+     b30:	18 2f       	mov	r17, r24
+    uint8_t val;
+    
+    /* Read value from CONTROL register */
+    if( !wireReadDataByte(APDS9960_CONTROL, &val) ) {
+     b32:	be 01       	movw	r22, r28
+     b34:	6f 5f       	subi	r22, 0xFF	; 255
+     b36:	7f 4f       	sbci	r23, 0xFF	; 255
+     b38:	8f e8       	ldi	r24, 0x8F	; 143
+     b3a:	5d de       	rcall	.-838    	; 0x7f6 <wireReadDataByte>
+     b3c:	88 23       	and	r24, r24
+     b3e:	79 f0       	breq	.+30     	; 0xb5e <setProximityGain+0x3a>
+        return false;
+    }
+    
+    /* Set bits in register to given value */
+    drive &= 0b00000011;
+     b40:	61 2f       	mov	r22, r17
+     b42:	63 70       	andi	r22, 0x03	; 3
+    drive = drive << 2;
+     b44:	66 0f       	add	r22, r22
+     b46:	66 0f       	add	r22, r22
+    val &= 0b11110011;
+     b48:	89 81       	ldd	r24, Y+1	; 0x01
+     b4a:	83 7f       	andi	r24, 0xF3	; 243
+    val |= drive;
+     b4c:	68 2b       	or	r22, r24
+     b4e:	69 83       	std	Y+1, r22	; 0x01
+    
+    /* Write register value back into CONTROL register */
+    if( !wireWriteDataByte(APDS9960_CONTROL, val) ) {
+     b50:	8f e8       	ldi	r24, 0x8F	; 143
+     b52:	f5 dd       	rcall	.-1046   	; 0x73e <wireWriteDataByte>
+     b54:	91 e0       	ldi	r25, 0x01	; 1
+     b56:	81 11       	cpse	r24, r1
+     b58:	03 c0       	rjmp	.+6      	; 0xb60 <setProximityGain+0x3c>
+     b5a:	90 e0       	ldi	r25, 0x00	; 0
+     b5c:	01 c0       	rjmp	.+2      	; 0xb60 <setProximityGain+0x3c>
+{
+    uint8_t val;
+    
+    /* Read value from CONTROL register */
+    if( !wireReadDataByte(APDS9960_CONTROL, &val) ) {
+        return false;
+     b5e:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_CONTROL, val) ) {
+        return false;
+    }
+    
+    return true;
+}
+     b60:	89 2f       	mov	r24, r25
+     b62:	0f 90       	pop	r0
+     b64:	df 91       	pop	r29
+     b66:	cf 91       	pop	r28
+     b68:	1f 91       	pop	r17
+     b6a:	08 95       	ret
+
+00000b6c <setLEDDrive>:
+ *
+ * @param[in] drive the value (0-3) for the LED drive strength
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setLEDDrive(uint8_t drive)
+{
+     b6c:	1f 93       	push	r17
+     b6e:	cf 93       	push	r28
+     b70:	df 93       	push	r29
+     b72:	1f 92       	push	r1
+     b74:	cd b7       	in	r28, 0x3d	; 61
+     b76:	de b7       	in	r29, 0x3e	; 62
+     b78:	18 2f       	mov	r17, r24
+    uint8_t val;
+    
+    /* Read value from CONTROL register */
+    if( !wireReadDataByte(APDS9960_CONTROL, &val) ) {
+     b7a:	be 01       	movw	r22, r28
+     b7c:	6f 5f       	subi	r22, 0xFF	; 255
+     b7e:	7f 4f       	sbci	r23, 0xFF	; 255
+     b80:	8f e8       	ldi	r24, 0x8F	; 143
+     b82:	39 de       	rcall	.-910    	; 0x7f6 <wireReadDataByte>
+     b84:	88 23       	and	r24, r24
+     b86:	79 f0       	breq	.+30     	; 0xba6 <setLEDDrive+0x3a>
+        return false;
+    }
+    
+    /* Set bits in register to given value */
+    drive &= 0b00000011;
+    drive = drive << 6;
+     b88:	12 95       	swap	r17
+     b8a:	11 0f       	add	r17, r17
+     b8c:	11 0f       	add	r17, r17
+     b8e:	10 7c       	andi	r17, 0xC0	; 192
+    val &= 0b00111111;
+     b90:	69 81       	ldd	r22, Y+1	; 0x01
+     b92:	6f 73       	andi	r22, 0x3F	; 63
+    val |= drive;
+     b94:	61 2b       	or	r22, r17
+     b96:	69 83       	std	Y+1, r22	; 0x01
+    
+    /* Write register value back into CONTROL register */
+    if( !wireWriteDataByte(APDS9960_CONTROL, val) ) {
+     b98:	8f e8       	ldi	r24, 0x8F	; 143
+     b9a:	d1 dd       	rcall	.-1118   	; 0x73e <wireWriteDataByte>
+     b9c:	91 e0       	ldi	r25, 0x01	; 1
+     b9e:	81 11       	cpse	r24, r1
+     ba0:	03 c0       	rjmp	.+6      	; 0xba8 <setLEDDrive+0x3c>
+     ba2:	90 e0       	ldi	r25, 0x00	; 0
+     ba4:	01 c0       	rjmp	.+2      	; 0xba8 <setLEDDrive+0x3c>
+{
+    uint8_t val;
+    
+    /* Read value from CONTROL register */
+    if( !wireReadDataByte(APDS9960_CONTROL, &val) ) {
+        return false;
+     ba6:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_CONTROL, val) ) {
+        return false;
+    }
+    
+    return true;
+}
+     ba8:	89 2f       	mov	r24, r25
+     baa:	0f 90       	pop	r0
+     bac:	df 91       	pop	r29
+     bae:	cf 91       	pop	r28
+     bb0:	1f 91       	pop	r17
+     bb2:	08 95       	ret
+
+00000bb4 <setAmbientLightGain>:
+ *
+ * @param[in] drive the value (0-3) for the gain
+ * @return True if operation successful. False otherwise.
+ */
+uint8_t setAmbientLightGain(uint8_t drive)
+{
+     bb4:	1f 93       	push	r17
+     bb6:	cf 93       	push	r28
+     bb8:	df 93       	push	r29
+     bba:	1f 92       	push	r1
+     bbc:	cd b7       	in	r28, 0x3d	; 61
+     bbe:	de b7       	in	r29, 0x3e	; 62
+     bc0:	18 2f       	mov	r17, r24
+    uint8_t val;
+    
+    /* Read value from CONTROL register */
+    if( !wireReadDataByte(APDS9960_CONTROL, &val) ) {
+     bc2:	be 01       	movw	r22, r28
+     bc4:	6f 5f       	subi	r22, 0xFF	; 255
+     bc6:	7f 4f       	sbci	r23, 0xFF	; 255
+     bc8:	8f e8       	ldi	r24, 0x8F	; 143
+     bca:	15 de       	rcall	.-982    	; 0x7f6 <wireReadDataByte>
+     bcc:	88 23       	and	r24, r24
+     bce:	61 f0       	breq	.+24     	; 0xbe8 <setAmbientLightGain+0x34>
+        return false;
+    }
+    
+    /* Set bits in register to given value */
+    drive &= 0b00000011;
+     bd0:	13 70       	andi	r17, 0x03	; 3
+    val &= 0b11111100;
+     bd2:	69 81       	ldd	r22, Y+1	; 0x01
+     bd4:	6c 7f       	andi	r22, 0xFC	; 252
+    val |= drive;
+     bd6:	61 2b       	or	r22, r17
+     bd8:	69 83       	std	Y+1, r22	; 0x01
+    
+    /* Write register value back into CONTROL register */
+    if( !wireWriteDataByte(APDS9960_CONTROL, val) ) {
+     bda:	8f e8       	ldi	r24, 0x8F	; 143
+     bdc:	b0 dd       	rcall	.-1184   	; 0x73e <wireWriteDataByte>
+     bde:	91 e0       	ldi	r25, 0x01	; 1
+     be0:	81 11       	cpse	r24, r1
+     be2:	03 c0       	rjmp	.+6      	; 0xbea <setAmbientLightGain+0x36>
+     be4:	90 e0       	ldi	r25, 0x00	; 0
+     be6:	01 c0       	rjmp	.+2      	; 0xbea <setAmbientLightGain+0x36>
+{
+    uint8_t val;
+    
+    /* Read value from CONTROL register */
+    if( !wireReadDataByte(APDS9960_CONTROL, &val) ) {
+        return false;
+     be8:	90 e0       	ldi	r25, 0x00	; 0
+    if( !wireWriteDataByte(APDS9960_CONTROL, val) ) {
+        return false;
+    }
+    
+    return true;
+}
+     bea:	89 2f       	mov	r24, r25
+     bec:	0f 90       	pop	r0
+     bee:	df 91       	pop	r29
+     bf0:	cf 91       	pop	r28
+     bf2:	1f 91       	pop	r17
+     bf4:	08 95       	ret
+
+00000bf6 <init_apds>:
+ * @brief Configures I2C communications and initializes registers to defaults
+ *
+ * @return True if initialized successfully. False otherwise.
+ */
+uint8_t init_apds(void)
+{
+     bf6:	cf 93       	push	r28
+     bf8:	df 93       	push	r29
+     bfa:	1f 92       	push	r1
+     bfc:	cd b7       	in	r28, 0x3d	; 61
+     bfe:	de b7       	in	r29, 0x3e	; 62
+    uint8_t id;
+
+    /* Initialize I2C */
+    //Wire.begin();	// only sets the address, we do this somewhere else
+	i2cInit();	// Set GPIO
+     c00:	97 d2       	rcall	.+1326   	; 0x1130 <i2cInit>
+	//
+    i2cReceive(APDS9960_I2C_ADDR, APDS9960_ID, 1, &id);	// Check ID 
+     c02:	9e 01       	movw	r18, r28
+     c04:	2f 5f       	subi	r18, 0xFF	; 255
+     c06:	3f 4f       	sbci	r19, 0xFF	; 255
+     c08:	41 e0       	ldi	r20, 0x01	; 1
+     c0a:	62 e9       	ldi	r22, 0x92	; 146
+     c0c:	82 e7       	ldi	r24, 0x72	; 114
+     c0e:	d2 d2       	rcall	.+1444   	; 0x11b4 <i2cReceive>
+
+    /* Read ID register and check against known values for APDS-9960 */
+    if(!id) {
+     c10:	89 81       	ldd	r24, Y+1	; 0x01
+     c12:	88 23       	and	r24, r24
+     c14:	09 f4       	brne	.+2      	; 0xc18 <init_apds+0x22>
+     c16:	b0 c0       	rjmp	.+352    	; 0xd78 <init_apds+0x182>
+		return false;
+    }
+    if( !(id == APDS9960_ID_1 || id == APDS9960_ID_2)) {
+     c18:	8b 3a       	cpi	r24, 0xAB	; 171
+     c1a:	19 f0       	breq	.+6      	; 0xc22 <init_apds+0x2c>
+     c1c:	8c 39       	cpi	r24, 0x9C	; 156
+     c1e:	09 f0       	breq	.+2      	; 0xc22 <init_apds+0x2c>
+     c20:	ad c0       	rjmp	.+346    	; 0xd7c <init_apds+0x186>
+        return false;
+    }
+     
+    /* Set ENABLE register to 0 (disable all features) */
+    if( !setMode(ALL, OFF) ) {
+     c22:	60 e0       	ldi	r22, 0x00	; 0
+     c24:	87 e0       	ldi	r24, 0x07	; 7
+     c26:	0e de       	rcall	.-996    	; 0x844 <setMode>
+     c28:	88 23       	and	r24, r24
+     c2a:	09 f4       	brne	.+2      	; 0xc2e <init_apds+0x38>
+     c2c:	a9 c0       	rjmp	.+338    	; 0xd80 <init_apds+0x18a>
+        return false;
+    }
+	// EXTRA
+	/* Set default values for ambient light and proximity registers */
+	if( !wireWriteDataByte(APDS9960_ATIME, DEFAULT_ATIME) ) {
+     c2e:	6b ed       	ldi	r22, 0xDB	; 219
+     c30:	81 e8       	ldi	r24, 0x81	; 129
+     c32:	85 dd       	rcall	.-1270   	; 0x73e <wireWriteDataByte>
+     c34:	88 23       	and	r24, r24
+     c36:	09 f4       	brne	.+2      	; 0xc3a <init_apds+0x44>
+     c38:	a5 c0       	rjmp	.+330    	; 0xd84 <init_apds+0x18e>
+		return false;
+	}
+	if( !wireWriteDataByte(APDS9960_WTIME, DEFAULT_WTIME) ) {
+     c3a:	66 ef       	ldi	r22, 0xF6	; 246
+     c3c:	83 e8       	ldi	r24, 0x83	; 131
+     c3e:	7f dd       	rcall	.-1282   	; 0x73e <wireWriteDataByte>
+     c40:	88 23       	and	r24, r24
+     c42:	09 f4       	brne	.+2      	; 0xc46 <init_apds+0x50>
+     c44:	a1 c0       	rjmp	.+322    	; 0xd88 <init_apds+0x192>
+		return false;
+	}
+	if( !wireWriteDataByte(APDS9960_PPULSE, DEFAULT_PROX_PPULSE) ) {
+     c46:	67 e8       	ldi	r22, 0x87	; 135
+     c48:	8e e8       	ldi	r24, 0x8E	; 142
+     c4a:	79 dd       	rcall	.-1294   	; 0x73e <wireWriteDataByte>
+     c4c:	88 23       	and	r24, r24
+     c4e:	09 f4       	brne	.+2      	; 0xc52 <init_apds+0x5c>
+     c50:	9d c0       	rjmp	.+314    	; 0xd8c <init_apds+0x196>
+		return false;
+	}
+	if( !wireWriteDataByte(APDS9960_POFFSET_UR, DEFAULT_POFFSET_UR) ) {
+     c52:	60 e0       	ldi	r22, 0x00	; 0
+     c54:	8d e9       	ldi	r24, 0x9D	; 157
+     c56:	73 dd       	rcall	.-1306   	; 0x73e <wireWriteDataByte>
+     c58:	88 23       	and	r24, r24
+     c5a:	09 f4       	brne	.+2      	; 0xc5e <init_apds+0x68>
+     c5c:	99 c0       	rjmp	.+306    	; 0xd90 <init_apds+0x19a>
+		return false;
+	}
+	if( !wireWriteDataByte(APDS9960_POFFSET_DL, DEFAULT_POFFSET_DL) ) {
+     c5e:	60 e0       	ldi	r22, 0x00	; 0
+     c60:	8e e9       	ldi	r24, 0x9E	; 158
+     c62:	6d dd       	rcall	.-1318   	; 0x73e <wireWriteDataByte>
+     c64:	88 23       	and	r24, r24
+     c66:	09 f4       	brne	.+2      	; 0xc6a <init_apds+0x74>
+     c68:	95 c0       	rjmp	.+298    	; 0xd94 <init_apds+0x19e>
+		return false;
+	}
+	if( !wireWriteDataByte(APDS9960_CONFIG1, DEFAULT_CONFIG1) ) {
+     c6a:	60 e6       	ldi	r22, 0x60	; 96
+     c6c:	8d e8       	ldi	r24, 0x8D	; 141
+     c6e:	67 dd       	rcall	.-1330   	; 0x73e <wireWriteDataByte>
+     c70:	88 23       	and	r24, r24
+     c72:	09 f4       	brne	.+2      	; 0xc76 <init_apds+0x80>
+     c74:	91 c0       	rjmp	.+290    	; 0xd98 <init_apds+0x1a2>
+		return false;
+	}
+	if( !setLEDDrive(DEFAULT_LDRIVE) ) {
+     c76:	80 e0       	ldi	r24, 0x00	; 0
+     c78:	79 df       	rcall	.-270    	; 0xb6c <setLEDDrive>
+     c7a:	88 23       	and	r24, r24
+     c7c:	09 f4       	brne	.+2      	; 0xc80 <init_apds+0x8a>
+     c7e:	8e c0       	rjmp	.+284    	; 0xd9c <init_apds+0x1a6>
+		return false;
+	}
+	if( !setProximityGain(DEFAULT_PGAIN) ) {
+     c80:	82 e0       	ldi	r24, 0x02	; 2
+     c82:	50 df       	rcall	.-352    	; 0xb24 <setProximityGain>
+     c84:	88 23       	and	r24, r24
+     c86:	09 f4       	brne	.+2      	; 0xc8a <init_apds+0x94>
+     c88:	8b c0       	rjmp	.+278    	; 0xda0 <init_apds+0x1aa>
+		return false;
+	}
+	if( !setAmbientLightGain(DEFAULT_AGAIN) ) {
+     c8a:	81 e0       	ldi	r24, 0x01	; 1
+     c8c:	93 df       	rcall	.-218    	; 0xbb4 <setAmbientLightGain>
+     c8e:	88 23       	and	r24, r24
+     c90:	09 f4       	brne	.+2      	; 0xc94 <init_apds+0x9e>
+     c92:	88 c0       	rjmp	.+272    	; 0xda4 <init_apds+0x1ae>
+		return false;
+	}
+	if( !setProxIntLowThresh(DEFAULT_PILT) ) {
+     c94:	80 e0       	ldi	r24, 0x00	; 0
+     c96:	77 dd       	rcall	.-1298   	; 0x786 <setProxIntLowThresh>
+     c98:	88 23       	and	r24, r24
+     c9a:	09 f4       	brne	.+2      	; 0xc9e <init_apds+0xa8>
+     c9c:	85 c0       	rjmp	.+266    	; 0xda8 <init_apds+0x1b2>
+		return false;
+	}
+	if( !setProxIntHighThresh(DEFAULT_PIHT) ) {
+     c9e:	82 e3       	ldi	r24, 0x32	; 50
+     ca0:	7b dd       	rcall	.-1290   	; 0x798 <setProxIntHighThresh>
+     ca2:	88 23       	and	r24, r24
+     ca4:	09 f4       	brne	.+2      	; 0xca8 <init_apds+0xb2>
+     ca6:	82 c0       	rjmp	.+260    	; 0xdac <init_apds+0x1b6>
+		return false;
+	}
+	if( !setLightIntLowThreshold(DEFAULT_AILT) ) {
+     ca8:	8f ef       	ldi	r24, 0xFF	; 255
+     caa:	9f ef       	ldi	r25, 0xFF	; 255
+     cac:	7e dd       	rcall	.-1284   	; 0x7aa <setLightIntLowThreshold>
+     cae:	88 23       	and	r24, r24
+     cb0:	09 f4       	brne	.+2      	; 0xcb4 <init_apds+0xbe>
+     cb2:	7e c0       	rjmp	.+252    	; 0xdb0 <init_apds+0x1ba>
+		return false;
+	}
+	if( !setLightIntHighThreshold(DEFAULT_AIHT) ) {
+     cb4:	80 e0       	ldi	r24, 0x00	; 0
+     cb6:	90 e0       	ldi	r25, 0x00	; 0
+     cb8:	8b dd       	rcall	.-1258   	; 0x7d0 <setLightIntHighThreshold>
+     cba:	88 23       	and	r24, r24
+     cbc:	09 f4       	brne	.+2      	; 0xcc0 <init_apds+0xca>
+     cbe:	7a c0       	rjmp	.+244    	; 0xdb4 <init_apds+0x1be>
+		return false;
+	}
+	if( !wireWriteDataByte(APDS9960_PERS, DEFAULT_PERS) ) {
+     cc0:	61 e1       	ldi	r22, 0x11	; 17
+     cc2:	8c e8       	ldi	r24, 0x8C	; 140
+     cc4:	3c dd       	rcall	.-1416   	; 0x73e <wireWriteDataByte>
+     cc6:	88 23       	and	r24, r24
+     cc8:	09 f4       	brne	.+2      	; 0xccc <init_apds+0xd6>
+     cca:	76 c0       	rjmp	.+236    	; 0xdb8 <init_apds+0x1c2>
+		return false;
+	}
+	if( !wireWriteDataByte(APDS9960_CONFIG2, DEFAULT_CONFIG2) ) {
+     ccc:	61 e0       	ldi	r22, 0x01	; 1
+     cce:	80 e9       	ldi	r24, 0x90	; 144
+     cd0:	36 dd       	rcall	.-1428   	; 0x73e <wireWriteDataByte>
+     cd2:	88 23       	and	r24, r24
+     cd4:	09 f4       	brne	.+2      	; 0xcd8 <init_apds+0xe2>
+     cd6:	72 c0       	rjmp	.+228    	; 0xdbc <init_apds+0x1c6>
+		return false;
+	}
+	if( !wireWriteDataByte(APDS9960_CONFIG3, DEFAULT_CONFIG3) ) {
+     cd8:	60 e0       	ldi	r22, 0x00	; 0
+     cda:	8f e9       	ldi	r24, 0x9F	; 159
+     cdc:	30 dd       	rcall	.-1440   	; 0x73e <wireWriteDataByte>
+     cde:	88 23       	and	r24, r24
+     ce0:	09 f4       	brne	.+2      	; 0xce4 <init_apds+0xee>
+     ce2:	6e c0       	rjmp	.+220    	; 0xdc0 <init_apds+0x1ca>
+		return false;
+	}
+	// EXTRA
+     
+    /* Set default values for gesture sense registers */
+    if( !setGestureEnterThresh(DEFAULT_GPENTH) ) {
+     ce4:	88 e2       	ldi	r24, 0x28	; 40
+     ce6:	3d dd       	rcall	.-1414   	; 0x762 <setGestureEnterThresh>
+     ce8:	88 23       	and	r24, r24
+     cea:	09 f4       	brne	.+2      	; 0xcee <init_apds+0xf8>
+     cec:	6b c0       	rjmp	.+214    	; 0xdc4 <init_apds+0x1ce>
+        return false;
+    }
+    if( !setGestureExitThresh(DEFAULT_GEXTH) ) {
+     cee:	8e e1       	ldi	r24, 0x1E	; 30
+     cf0:	41 dd       	rcall	.-1406   	; 0x774 <setGestureExitThresh>
+     cf2:	88 23       	and	r24, r24
+     cf4:	09 f4       	brne	.+2      	; 0xcf8 <init_apds+0x102>
+     cf6:	68 c0       	rjmp	.+208    	; 0xdc8 <init_apds+0x1d2>
+        return false;
+    }
+    if( !wireWriteDataByte(APDS9960_GCONF1, DEFAULT_GCONF1) ) {
+     cf8:	60 e4       	ldi	r22, 0x40	; 64
+     cfa:	82 ea       	ldi	r24, 0xA2	; 162
+     cfc:	20 dd       	rcall	.-1472   	; 0x73e <wireWriteDataByte>
+     cfe:	88 23       	and	r24, r24
+     d00:	09 f4       	brne	.+2      	; 0xd04 <init_apds+0x10e>
+     d02:	64 c0       	rjmp	.+200    	; 0xdcc <init_apds+0x1d6>
+        return false;
+    }
+    if( !setGestureGain(DEFAULT_GGAIN) ) {
+     d04:	82 e0       	ldi	r24, 0x02	; 2
+     d06:	dc dd       	rcall	.-1096   	; 0x8c0 <setGestureGain>
+     d08:	88 23       	and	r24, r24
+     d0a:	09 f4       	brne	.+2      	; 0xd0e <init_apds+0x118>
+     d0c:	61 c0       	rjmp	.+194    	; 0xdd0 <init_apds+0x1da>
+        return false;
+    }
+    if( !setGestureLEDDrive(DEFAULT_GLDRIVE) ) {
+     d0e:	80 e0       	ldi	r24, 0x00	; 0
+     d10:	fc dd       	rcall	.-1032   	; 0x90a <setGestureLEDDrive>
+     d12:	88 23       	and	r24, r24
+     d14:	09 f4       	brne	.+2      	; 0xd18 <init_apds+0x122>
+     d16:	5e c0       	rjmp	.+188    	; 0xdd4 <init_apds+0x1de>
+        return false;
+    }
+    if( !setGestureWaitTime(DEFAULT_GWTIME) ) {
+     d18:	81 e0       	ldi	r24, 0x01	; 1
+     d1a:	1c de       	rcall	.-968    	; 0x954 <setGestureWaitTime>
+     d1c:	88 23       	and	r24, r24
+     d1e:	09 f4       	brne	.+2      	; 0xd22 <init_apds+0x12c>
+     d20:	5b c0       	rjmp	.+182    	; 0xdd8 <init_apds+0x1e2>
+        return false;
+    }
+    if( !wireWriteDataByte(APDS9960_GOFFSET_U, DEFAULT_GOFFSET) ) {
+     d22:	60 e0       	ldi	r22, 0x00	; 0
+     d24:	84 ea       	ldi	r24, 0xA4	; 164
+     d26:	0b dd       	rcall	.-1514   	; 0x73e <wireWriteDataByte>
+     d28:	88 23       	and	r24, r24
+     d2a:	09 f4       	brne	.+2      	; 0xd2e <init_apds+0x138>
+     d2c:	57 c0       	rjmp	.+174    	; 0xddc <init_apds+0x1e6>
+         return false;
+    }
+    if( !wireWriteDataByte(APDS9960_GOFFSET_D, DEFAULT_GOFFSET) ) {
+     d2e:	60 e0       	ldi	r22, 0x00	; 0
+     d30:	85 ea       	ldi	r24, 0xA5	; 165
+     d32:	05 dd       	rcall	.-1526   	; 0x73e <wireWriteDataByte>
+     d34:	88 23       	and	r24, r24
+     d36:	09 f4       	brne	.+2      	; 0xd3a <init_apds+0x144>
+     d38:	53 c0       	rjmp	.+166    	; 0xde0 <init_apds+0x1ea>
+        return false;
+    }
+    if( !wireWriteDataByte(APDS9960_GOFFSET_L, DEFAULT_GOFFSET) ) {
+     d3a:	60 e0       	ldi	r22, 0x00	; 0
+     d3c:	87 ea       	ldi	r24, 0xA7	; 167
+     d3e:	ff dc       	rcall	.-1538   	; 0x73e <wireWriteDataByte>
+     d40:	88 23       	and	r24, r24
+     d42:	09 f4       	brne	.+2      	; 0xd46 <init_apds+0x150>
+     d44:	4f c0       	rjmp	.+158    	; 0xde4 <init_apds+0x1ee>
+        return false;
+    }
+    if( !wireWriteDataByte(APDS9960_GOFFSET_R, DEFAULT_GOFFSET) ) {
+     d46:	60 e0       	ldi	r22, 0x00	; 0
+     d48:	89 ea       	ldi	r24, 0xA9	; 169
+     d4a:	f9 dc       	rcall	.-1550   	; 0x73e <wireWriteDataByte>
+     d4c:	88 23       	and	r24, r24
+     d4e:	09 f4       	brne	.+2      	; 0xd52 <init_apds+0x15c>
+     d50:	4b c0       	rjmp	.+150    	; 0xde8 <init_apds+0x1f2>
+        return false;
+    }
+    if( !wireWriteDataByte(APDS9960_GPULSE, DEFAULT_GPULSE) ) {
+     d52:	69 ec       	ldi	r22, 0xC9	; 201
+     d54:	86 ea       	ldi	r24, 0xA6	; 166
+     d56:	f3 dc       	rcall	.-1562   	; 0x73e <wireWriteDataByte>
+     d58:	88 23       	and	r24, r24
+     d5a:	09 f4       	brne	.+2      	; 0xd5e <init_apds+0x168>
+     d5c:	47 c0       	rjmp	.+142    	; 0xdec <init_apds+0x1f6>
+        return false;
+    }
+    if( !wireWriteDataByte(APDS9960_GCONF3, DEFAULT_GCONF3) ) {
+     d5e:	60 e0       	ldi	r22, 0x00	; 0
+     d60:	8a ea       	ldi	r24, 0xAA	; 170
+     d62:	ed dc       	rcall	.-1574   	; 0x73e <wireWriteDataByte>
+     d64:	88 23       	and	r24, r24
+     d66:	09 f4       	brne	.+2      	; 0xd6a <init_apds+0x174>
+     d68:	43 c0       	rjmp	.+134    	; 0xdf0 <init_apds+0x1fa>
+        return false;
+    }
+    if( !setGestureIntEnable(DEFAULT_GIEN) ) {
+     d6a:	80 e0       	ldi	r24, 0x00	; 0
+     d6c:	14 de       	rcall	.-984    	; 0x996 <setGestureIntEnable>
+     d6e:	91 e0       	ldi	r25, 0x01	; 1
+     d70:	81 11       	cpse	r24, r1
+     d72:	3f c0       	rjmp	.+126    	; 0xdf2 <init_apds+0x1fc>
+     d74:	90 e0       	ldi	r25, 0x00	; 0
+     d76:	3d c0       	rjmp	.+122    	; 0xdf2 <init_apds+0x1fc>
+	//
+    i2cReceive(APDS9960_I2C_ADDR, APDS9960_ID, 1, &id);	// Check ID 
+
+    /* Read ID register and check against known values for APDS-9960 */
+    if(!id) {
+		return false;
+     d78:	90 e0       	ldi	r25, 0x00	; 0
+     d7a:	3b c0       	rjmp	.+118    	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !(id == APDS9960_ID_1 || id == APDS9960_ID_2)) {
+        return false;
+     d7c:	90 e0       	ldi	r25, 0x00	; 0
+     d7e:	39 c0       	rjmp	.+114    	; 0xdf2 <init_apds+0x1fc>
+    }
+     
+    /* Set ENABLE register to 0 (disable all features) */
+    if( !setMode(ALL, OFF) ) {
+        return false;
+     d80:	90 e0       	ldi	r25, 0x00	; 0
+     d82:	37 c0       	rjmp	.+110    	; 0xdf2 <init_apds+0x1fc>
+    }
+	// EXTRA
+	/* Set default values for ambient light and proximity registers */
+	if( !wireWriteDataByte(APDS9960_ATIME, DEFAULT_ATIME) ) {
+		return false;
+     d84:	90 e0       	ldi	r25, 0x00	; 0
+     d86:	35 c0       	rjmp	.+106    	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !wireWriteDataByte(APDS9960_WTIME, DEFAULT_WTIME) ) {
+		return false;
+     d88:	90 e0       	ldi	r25, 0x00	; 0
+     d8a:	33 c0       	rjmp	.+102    	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !wireWriteDataByte(APDS9960_PPULSE, DEFAULT_PROX_PPULSE) ) {
+		return false;
+     d8c:	90 e0       	ldi	r25, 0x00	; 0
+     d8e:	31 c0       	rjmp	.+98     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !wireWriteDataByte(APDS9960_POFFSET_UR, DEFAULT_POFFSET_UR) ) {
+		return false;
+     d90:	90 e0       	ldi	r25, 0x00	; 0
+     d92:	2f c0       	rjmp	.+94     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !wireWriteDataByte(APDS9960_POFFSET_DL, DEFAULT_POFFSET_DL) ) {
+		return false;
+     d94:	90 e0       	ldi	r25, 0x00	; 0
+     d96:	2d c0       	rjmp	.+90     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !wireWriteDataByte(APDS9960_CONFIG1, DEFAULT_CONFIG1) ) {
+		return false;
+     d98:	90 e0       	ldi	r25, 0x00	; 0
+     d9a:	2b c0       	rjmp	.+86     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !setLEDDrive(DEFAULT_LDRIVE) ) {
+		return false;
+     d9c:	90 e0       	ldi	r25, 0x00	; 0
+     d9e:	29 c0       	rjmp	.+82     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !setProximityGain(DEFAULT_PGAIN) ) {
+		return false;
+     da0:	90 e0       	ldi	r25, 0x00	; 0
+     da2:	27 c0       	rjmp	.+78     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !setAmbientLightGain(DEFAULT_AGAIN) ) {
+		return false;
+     da4:	90 e0       	ldi	r25, 0x00	; 0
+     da6:	25 c0       	rjmp	.+74     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !setProxIntLowThresh(DEFAULT_PILT) ) {
+		return false;
+     da8:	90 e0       	ldi	r25, 0x00	; 0
+     daa:	23 c0       	rjmp	.+70     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !setProxIntHighThresh(DEFAULT_PIHT) ) {
+		return false;
+     dac:	90 e0       	ldi	r25, 0x00	; 0
+     dae:	21 c0       	rjmp	.+66     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !setLightIntLowThreshold(DEFAULT_AILT) ) {
+		return false;
+     db0:	90 e0       	ldi	r25, 0x00	; 0
+     db2:	1f c0       	rjmp	.+62     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !setLightIntHighThreshold(DEFAULT_AIHT) ) {
+		return false;
+     db4:	90 e0       	ldi	r25, 0x00	; 0
+     db6:	1d c0       	rjmp	.+58     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !wireWriteDataByte(APDS9960_PERS, DEFAULT_PERS) ) {
+		return false;
+     db8:	90 e0       	ldi	r25, 0x00	; 0
+     dba:	1b c0       	rjmp	.+54     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !wireWriteDataByte(APDS9960_CONFIG2, DEFAULT_CONFIG2) ) {
+		return false;
+     dbc:	90 e0       	ldi	r25, 0x00	; 0
+     dbe:	19 c0       	rjmp	.+50     	; 0xdf2 <init_apds+0x1fc>
+	}
+	if( !wireWriteDataByte(APDS9960_CONFIG3, DEFAULT_CONFIG3) ) {
+		return false;
+     dc0:	90 e0       	ldi	r25, 0x00	; 0
+     dc2:	17 c0       	rjmp	.+46     	; 0xdf2 <init_apds+0x1fc>
+	}
+	// EXTRA
+     
+    /* Set default values for gesture sense registers */
+    if( !setGestureEnterThresh(DEFAULT_GPENTH) ) {
+        return false;
+     dc4:	90 e0       	ldi	r25, 0x00	; 0
+     dc6:	15 c0       	rjmp	.+42     	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !setGestureExitThresh(DEFAULT_GEXTH) ) {
+        return false;
+     dc8:	90 e0       	ldi	r25, 0x00	; 0
+     dca:	13 c0       	rjmp	.+38     	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !wireWriteDataByte(APDS9960_GCONF1, DEFAULT_GCONF1) ) {
+        return false;
+     dcc:	90 e0       	ldi	r25, 0x00	; 0
+     dce:	11 c0       	rjmp	.+34     	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !setGestureGain(DEFAULT_GGAIN) ) {
+        return false;
+     dd0:	90 e0       	ldi	r25, 0x00	; 0
+     dd2:	0f c0       	rjmp	.+30     	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !setGestureLEDDrive(DEFAULT_GLDRIVE) ) {
+        return false;
+     dd4:	90 e0       	ldi	r25, 0x00	; 0
+     dd6:	0d c0       	rjmp	.+26     	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !setGestureWaitTime(DEFAULT_GWTIME) ) {
+        return false;
+     dd8:	90 e0       	ldi	r25, 0x00	; 0
+     dda:	0b c0       	rjmp	.+22     	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !wireWriteDataByte(APDS9960_GOFFSET_U, DEFAULT_GOFFSET) ) {
+         return false;
+     ddc:	90 e0       	ldi	r25, 0x00	; 0
+     dde:	09 c0       	rjmp	.+18     	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !wireWriteDataByte(APDS9960_GOFFSET_D, DEFAULT_GOFFSET) ) {
+        return false;
+     de0:	90 e0       	ldi	r25, 0x00	; 0
+     de2:	07 c0       	rjmp	.+14     	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !wireWriteDataByte(APDS9960_GOFFSET_L, DEFAULT_GOFFSET) ) {
+        return false;
+     de4:	90 e0       	ldi	r25, 0x00	; 0
+     de6:	05 c0       	rjmp	.+10     	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !wireWriteDataByte(APDS9960_GOFFSET_R, DEFAULT_GOFFSET) ) {
+        return false;
+     de8:	90 e0       	ldi	r25, 0x00	; 0
+     dea:	03 c0       	rjmp	.+6      	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !wireWriteDataByte(APDS9960_GPULSE, DEFAULT_GPULSE) ) {
+        return false;
+     dec:	90 e0       	ldi	r25, 0x00	; 0
+     dee:	01 c0       	rjmp	.+2      	; 0xdf2 <init_apds+0x1fc>
+    }
+    if( !wireWriteDataByte(APDS9960_GCONF3, DEFAULT_GCONF3) ) {
+        return false;
+     df0:	90 e0       	ldi	r25, 0x00	; 0
+        //uart_put_byteval, HEX);
+    }
+#endif
+
+    return true;
+}
+     df2:	89 2f       	mov	r24, r25
+     df4:	0f 90       	pop	r0
+     df6:	df 91       	pop	r29
+     df8:	cf 91       	pop	r28
+     dfa:	08 95       	ret
+
+00000dfc <wireReadDataBlock>:
+ * @param[out] val pointer to the beginning of the data
+ * @param[in] len number of bytes to read
+ * @return Number of bytes read. -1 on read error.
+ */
+int wireReadDataBlock(   uint8_t reg, uint8_t *val, unsigned int len)
+{
+     dfc:	9b 01       	movw	r18, r22
+   // if (!wireWriteByte(reg)) {
+    //    return -1;
+   // }
+    
+    /* Read block data */
+	i2cReceive(APDS9960_I2C_ADDR, reg, len, val);
+     dfe:	68 2f       	mov	r22, r24
+     e00:	82 e7       	ldi	r24, 0x72	; 114
+     e02:	d8 d1       	rcall	.+944    	; 0x11b4 <i2cReceive>
+     //   val[i] = Wire.read();
+     //   i++;
+    //}
+
+    return 1;
+     e04:	81 e0       	ldi	r24, 0x01	; 1
+     e06:	90 e0       	ldi	r25, 0x00	; 0
+     e08:	08 95       	ret
+
+00000e0a <readGesture>:
+ * @brief Processes a gesture event and returns best guessed gesture
+ *
+ * @return Number corresponding to gesture. -1 on error.
+ */
+int readGesture()
+{
+     e0a:	4f 92       	push	r4
+     e0c:	5f 92       	push	r5
+     e0e:	6f 92       	push	r6
+     e10:	7f 92       	push	r7
+     e12:	8f 92       	push	r8
+     e14:	9f 92       	push	r9
+     e16:	af 92       	push	r10
+     e18:	bf 92       	push	r11
+     e1a:	cf 92       	push	r12
+     e1c:	df 92       	push	r13
+     e1e:	ef 92       	push	r14
+     e20:	ff 92       	push	r15
+     e22:	0f 93       	push	r16
+     e24:	1f 93       	push	r17
+     e26:	cf 93       	push	r28
+     e28:	df 93       	push	r29
+     e2a:	cd b7       	in	r28, 0x3d	; 61
+     e2c:	de b7       	in	r29, 0x3e	; 62
+     e2e:	c2 58       	subi	r28, 0x82	; 130
+     e30:	d1 09       	sbc	r29, r1
+     e32:	0f b6       	in	r0, 0x3f	; 63
+     e34:	f8 94       	cli
+     e36:	de bf       	out	0x3e, r29	; 62
+     e38:	0f be       	out	0x3f, r0	; 63
+     e3a:	cd bf       	out	0x3d, r28	; 61
+    uint8_t fifo_level = 0;
+     e3c:	19 82       	std	Y+1, r1	; 0x01
+    uint8_t gstatus;
+    int motion;
+    int i;
+    
+    /* Make sure that power and gesture is on and data is valid */
+    if( !isGestureAvailable() || !(getMode() & 0b01000001) ) {
+     e3e:	5b de       	rcall	.-842    	; 0xaf6 <isGestureAvailable>
+     e40:	88 23       	and	r24, r24
+     e42:	09 f4       	brne	.+2      	; 0xe46 <readGesture+0x3c>
+     e44:	99 c0       	rjmp	.+306    	; 0xf78 <readGesture+0x16e>
+     e46:	eb dc       	rcall	.-1578   	; 0x81e <getMode>
+     e48:	81 74       	andi	r24, 0x41	; 65
+     e4a:	09 f4       	brne	.+2      	; 0xe4e <readGesture+0x44>
+     e4c:	98 c0       	rjmp	.+304    	; 0xf7e <readGesture+0x174>
+    
+        /* Wait some time to collect next batch of FIFO data */
+        _delay_ms(FIFO_PAUSE_TIME);
+        
+        /* Get the contents of the STATUS register. Is data still valid? */
+        if( !wireReadDataByte(APDS9960_GSTATUS, &gstatus) ) {
+     e4e:	8e 01       	movw	r16, r28
+     e50:	0e 57       	subi	r16, 0x7E	; 126
+     e52:	1f 4f       	sbci	r17, 0xFF	; 255
+     e54:	a0 2e       	mov	r10, r16
+     e56:	b1 2e       	mov	r11, r17
+     e58:	0f 2e       	mov	r0, r31
+     e5a:	fe ef       	ldi	r31, 0xFE	; 254
+     e5c:	cf 2e       	mov	r12, r31
+     e5e:	f0 e0       	ldi	r31, 0x00	; 0
+     e60:	df 2e       	mov	r13, r31
+     e62:	f0 2d       	mov	r31, r0
+     e64:	0f 2e       	mov	r0, r31
+     e66:	ff ef       	ldi	r31, 0xFF	; 255
+     e68:	ef 2e       	mov	r14, r31
+     e6a:	f0 e0       	ldi	r31, 0x00	; 0
+     e6c:	ff 2e       	mov	r15, r31
+     e6e:	f0 2d       	mov	r31, r0
+                uart_puts("\n");
+#endif
+
+                /* If at least 1 set of data, sort the data into U/D/L/R */
+                if( (fifo_level*4) >= 4 ) {
+                    for( i = 0; i < (fifo_level*4); i += 4 ) {
+     e70:	91 2c       	mov	r9, r1
+     e72:	81 2c       	mov	r8, r1
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+     e74:	8b e4       	ldi	r24, 0x4B	; 75
+     e76:	9d e1       	ldi	r25, 0x1D	; 29
+     e78:	01 97       	sbiw	r24, 0x01	; 1
+     e7a:	f1 f7       	brne	.-4      	; 0xe78 <readGesture+0x6e>
+     e7c:	00 c0       	rjmp	.+0      	; 0xe7e <readGesture+0x74>
+     e7e:	00 00       	nop
+    
+        /* Wait some time to collect next batch of FIFO data */
+        _delay_ms(FIFO_PAUSE_TIME);
+        
+        /* Get the contents of the STATUS register. Is data still valid? */
+        if( !wireReadDataByte(APDS9960_GSTATUS, &gstatus) ) {
+     e80:	6a 2d       	mov	r22, r10
+     e82:	7b 2d       	mov	r23, r11
+     e84:	8f ea       	ldi	r24, 0xAF	; 175
+     e86:	b7 dc       	rcall	.-1682   	; 0x7f6 <wireReadDataByte>
+     e88:	88 23       	and	r24, r24
+     e8a:	09 f4       	brne	.+2      	; 0xe8e <readGesture+0x84>
+     e8c:	7b c0       	rjmp	.+246    	; 0xf84 <readGesture+0x17a>
+            return ERROR;
+        }
+        
+        /* If we have valid data, read in FIFO */
+        if( (gstatus & APDS9960_GVALID) == APDS9960_GVALID ) {
+     e8e:	d8 01       	movw	r26, r16
+     e90:	8c 91       	ld	r24, X
+     e92:	80 ff       	sbrs	r24, 0
+     e94:	62 c0       	rjmp	.+196    	; 0xf5a <readGesture+0x150>
+        
+            /* Read the current FIFO level */
+            if( !wireReadDataByte(APDS9960_GFLVL, &fifo_level) ) {
+     e96:	be 01       	movw	r22, r28
+     e98:	6f 5f       	subi	r22, 0xFF	; 255
+     e9a:	7f 4f       	sbci	r23, 0xFF	; 255
+     e9c:	8e ea       	ldi	r24, 0xAE	; 174
+     e9e:	ab dc       	rcall	.-1706   	; 0x7f6 <wireReadDataByte>
+     ea0:	88 23       	and	r24, r24
+     ea2:	09 f4       	brne	.+2      	; 0xea6 <readGesture+0x9c>
+     ea4:	72 c0       	rjmp	.+228    	; 0xf8a <readGesture+0x180>
+            uart_put_byte(fifo_level);
+			uart_puts("\n");
+#endif
+
+            /* If there's stuff in the FIFO, read it into our data block */
+            if( fifo_level > 0) {
+     ea6:	49 81       	ldd	r20, Y+1	; 0x01
+     ea8:	44 23       	and	r20, r20
+     eaa:	21 f3       	breq	.-56     	; 0xe74 <readGesture+0x6a>
+                bytes_read = wireReadDataBlock(  APDS9960_GFIFO_U, 
+                                                fifo_data, 
+                                                (fifo_level * 4) );
+     eac:	50 e0       	ldi	r21, 0x00	; 0
+     eae:	44 0f       	add	r20, r20
+     eb0:	55 1f       	adc	r21, r21
+     eb2:	44 0f       	add	r20, r20
+     eb4:	55 1f       	adc	r21, r21
+			uart_puts("\n");
+#endif
+
+            /* If there's stuff in the FIFO, read it into our data block */
+            if( fifo_level > 0) {
+                bytes_read = wireReadDataBlock(  APDS9960_GFIFO_U, 
+     eb6:	be 01       	movw	r22, r28
+     eb8:	6e 5f       	subi	r22, 0xFE	; 254
+     eba:	7f 4f       	sbci	r23, 0xFF	; 255
+     ebc:	8c ef       	ldi	r24, 0xFC	; 252
+     ebe:	9e df       	rcall	.-196    	; 0xdfc <wireReadDataBlock>
+                }
+                uart_puts("\n");
+#endif
+
+                /* If at least 1 set of data, sort the data into U/D/L/R */
+                if( (fifo_level*4) >= 4 ) {
+     ec0:	89 81       	ldd	r24, Y+1	; 0x01
+     ec2:	90 e0       	ldi	r25, 0x00	; 0
+     ec4:	88 0f       	add	r24, r24
+     ec6:	99 1f       	adc	r25, r25
+     ec8:	88 0f       	add	r24, r24
+     eca:	99 1f       	adc	r25, r25
+     ecc:	84 30       	cpi	r24, 0x04	; 4
+     ece:	91 05       	cpc	r25, r1
+     ed0:	8c f2       	brlt	.-94     	; 0xe74 <readGesture+0x6a>
+                    for( i = 0; i < (fifo_level*4); i += 4 ) {
+     ed2:	18 16       	cp	r1, r24
+     ed4:	19 06       	cpc	r1, r25
+     ed6:	cc f5       	brge	.+114    	; 0xf4a <readGesture+0x140>
+     ed8:	f6 01       	movw	r30, r12
+     eda:	40 81       	ld	r20, Z
+     edc:	d7 01       	movw	r26, r14
+     ede:	6c 90       	ld	r6, X
+     ee0:	fe 01       	movw	r30, r28
+     ee2:	35 96       	adiw	r30, 0x05	; 5
+     ee4:	74 2e       	mov	r7, r20
+     ee6:	29 2d       	mov	r18, r9
+     ee8:	38 2d       	mov	r19, r8
+     eea:	64 1a       	sub	r6, r20
+                        gesture_data_.u_data[gesture_data_.index] = \
+     eec:	a7 2d       	mov	r26, r7
+     eee:	b0 e0       	ldi	r27, 0x00	; 0
+     ef0:	ad 01       	movw	r20, r26
+     ef2:	42 58       	subi	r20, 0x82	; 130
+     ef4:	5f 4f       	sbci	r21, 0xFF	; 255
+     ef6:	2a 01       	movw	r4, r20
+     ef8:	af 01       	movw	r20, r30
+     efa:	43 50       	subi	r20, 0x03	; 3
+     efc:	51 09       	sbc	r21, r1
+     efe:	da 01       	movw	r26, r20
+     f00:	4c 91       	ld	r20, X
+     f02:	d2 01       	movw	r26, r4
+     f04:	4c 93       	st	X, r20
+     f06:	af 01       	movw	r20, r30
+     f08:	42 50       	subi	r20, 0x02	; 2
+     f0a:	51 09       	sbc	r21, r1
+                                                            fifo_data[i + 0];
+                        gesture_data_.d_data[gesture_data_.index] = \
+     f0c:	da 01       	movw	r26, r20
+     f0e:	4c 91       	ld	r20, X
+     f10:	d2 01       	movw	r26, r4
+     f12:	90 96       	adiw	r26, 0x20	; 32
+     f14:	4c 93       	st	X, r20
+                                                            fifo_data[i + 1];
+                        gesture_data_.l_data[gesture_data_.index] = \
+     f16:	b2 01       	movw	r22, r4
+     f18:	60 5c       	subi	r22, 0xC0	; 192
+     f1a:	7f 4f       	sbci	r23, 0xFF	; 255
+     f1c:	af 01       	movw	r20, r30
+     f1e:	41 50       	subi	r20, 0x01	; 1
+     f20:	51 09       	sbc	r21, r1
+     f22:	da 01       	movw	r26, r20
+     f24:	4c 91       	ld	r20, X
+     f26:	db 01       	movw	r26, r22
+     f28:	4c 93       	st	X, r20
+                                                            fifo_data[i + 2];
+                        gesture_data_.r_data[gesture_data_.index] = \
+                                                            fifo_data[i + 3];
+     f2a:	40 81       	ld	r20, Z
+                                                            fifo_data[i + 0];
+                        gesture_data_.d_data[gesture_data_.index] = \
+                                                            fifo_data[i + 1];
+                        gesture_data_.l_data[gesture_data_.index] = \
+                                                            fifo_data[i + 2];
+                        gesture_data_.r_data[gesture_data_.index] = \
+     f2c:	90 96       	adiw	r26, 0x20	; 32
+     f2e:	4c 93       	st	X, r20
+                                                            fifo_data[i + 3];
+                        gesture_data_.index++;
+     f30:	73 94       	inc	r7
+     f32:	46 2d       	mov	r20, r6
+     f34:	47 0d       	add	r20, r7
+                uart_puts("\n");
+#endif
+
+                /* If at least 1 set of data, sort the data into U/D/L/R */
+                if( (fifo_level*4) >= 4 ) {
+                    for( i = 0; i < (fifo_level*4); i += 4 ) {
+     f36:	2c 5f       	subi	r18, 0xFC	; 252
+     f38:	3f 4f       	sbci	r19, 0xFF	; 255
+     f3a:	34 96       	adiw	r30, 0x04	; 4
+     f3c:	28 17       	cp	r18, r24
+     f3e:	39 07       	cpc	r19, r25
+     f40:	ac f2       	brlt	.-86     	; 0xeec <readGesture+0xe2>
+     f42:	f6 01       	movw	r30, r12
+     f44:	70 82       	st	Z, r7
+     f46:	d7 01       	movw	r26, r14
+     f48:	4c 93       	st	X, r20
+                }
+                uart_puts("\n");
+#endif
+
+                    /* Filter and process gesture data. Decode near/far state */
+                    if( processGestureData() ) {
+     f4a:	eb d8       	rcall	.-3626   	; 0x122 <processGestureData>
+     f4c:	81 11       	cpse	r24, r1
+                        if( decodeGesture() ) {
+     f4e:	cf da       	rcall	.-2658   	; 0x4ee <decodeGesture>
+#endif
+                        }
+                    }
+                    
+                    /* Reset data */
+                    gesture_data_.index = 0;
+     f50:	f6 01       	movw	r30, r12
+     f52:	10 82       	st	Z, r1
+                    gesture_data_.total_gestures = 0;
+     f54:	d7 01       	movw	r26, r14
+     f56:	1c 92       	st	X, r1
+     f58:	8d cf       	rjmp	.-230    	; 0xe74 <readGesture+0x6a>
+     f5a:	eb e4       	ldi	r30, 0x4B	; 75
+     f5c:	fd e1       	ldi	r31, 0x1D	; 29
+     f5e:	31 97       	sbiw	r30, 0x01	; 1
+     f60:	f1 f7       	brne	.-4      	; 0xf5e <readGesture+0x154>
+     f62:	00 c0       	rjmp	.+0      	; 0xf64 <readGesture+0x15a>
+     f64:	00 00       	nop
+            }
+        } else {
+    
+            /* Determine best guessed gesture and clean up */
+            _delay_ms(FIFO_PAUSE_TIME);
+            decodeGesture();
+     f66:	c3 da       	rcall	.-2682   	; 0x4ee <decodeGesture>
+            motion = gesture_motion_;
+     f68:	00 91 7c 00 	lds	r16, 0x007C
+     f6c:	10 91 7d 00 	lds	r17, 0x007D
+#if DEBUG
+            uart_puts("END: ");
+            uart_put_byte(gesture_motion_);
+#endif
+            resetGestureParameters();
+     f70:	b3 d8       	rcall	.-3738   	; 0xd8 <resetGestureParameters>
+            return motion;
+     f72:	80 2f       	mov	r24, r16
+     f74:	91 2f       	mov	r25, r17
+     f76:	0b c0       	rjmp	.+22     	; 0xf8e <readGesture+0x184>
+    int motion;
+    int i;
+    
+    /* Make sure that power and gesture is on and data is valid */
+    if( !isGestureAvailable() || !(getMode() & 0b01000001) ) {
+        return DIR_NONE;
+     f78:	80 e0       	ldi	r24, 0x00	; 0
+     f7a:	90 e0       	ldi	r25, 0x00	; 0
+     f7c:	08 c0       	rjmp	.+16     	; 0xf8e <readGesture+0x184>
+     f7e:	80 e0       	ldi	r24, 0x00	; 0
+     f80:	90 e0       	ldi	r25, 0x00	; 0
+     f82:	05 c0       	rjmp	.+10     	; 0xf8e <readGesture+0x184>
+        /* Wait some time to collect next batch of FIFO data */
+        _delay_ms(FIFO_PAUSE_TIME);
+        
+        /* Get the contents of the STATUS register. Is data still valid? */
+        if( !wireReadDataByte(APDS9960_GSTATUS, &gstatus) ) {
+            return ERROR;
+     f84:	8f ef       	ldi	r24, 0xFF	; 255
+     f86:	90 e0       	ldi	r25, 0x00	; 0
+     f88:	02 c0       	rjmp	.+4      	; 0xf8e <readGesture+0x184>
+        /* If we have valid data, read in FIFO */
+        if( (gstatus & APDS9960_GVALID) == APDS9960_GVALID ) {
+        
+            /* Read the current FIFO level */
+            if( !wireReadDataByte(APDS9960_GFLVL, &fifo_level) ) {
+                return ERROR;
+     f8a:	8f ef       	ldi	r24, 0xFF	; 255
+     f8c:	90 e0       	ldi	r25, 0x00	; 0
+#endif
+            resetGestureParameters();
+            return motion;
+        }
+    }
+}
+     f8e:	ce 57       	subi	r28, 0x7E	; 126
+     f90:	df 4f       	sbci	r29, 0xFF	; 255
+     f92:	0f b6       	in	r0, 0x3f	; 63
+     f94:	f8 94       	cli
+     f96:	de bf       	out	0x3e, r29	; 62
+     f98:	0f be       	out	0x3f, r0	; 63
+     f9a:	cd bf       	out	0x3d, r28	; 61
+     f9c:	df 91       	pop	r29
+     f9e:	cf 91       	pop	r28
+     fa0:	1f 91       	pop	r17
+     fa2:	0f 91       	pop	r16
+     fa4:	ff 90       	pop	r15
+     fa6:	ef 90       	pop	r14
+     fa8:	df 90       	pop	r13
+     faa:	cf 90       	pop	r12
+     fac:	bf 90       	pop	r11
+     fae:	af 90       	pop	r10
+     fb0:	9f 90       	pop	r9
+     fb2:	8f 90       	pop	r8
+     fb4:	7f 90       	pop	r7
+     fb6:	6f 90       	pop	r6
+     fb8:	5f 90       	pop	r5
+     fba:	4f 90       	pop	r4
+     fbc:	08 95       	ret
+
+00000fbe <i2cstart>:
+	HDEL; I2C_SCL_HI; HDEL; I2C_SCL_LO;
+}
+
+void i2cstart(void)
+{
+	I2C_SDL_LO; QDEL; I2C_SCL_LO; 
+     fbe:	c4 98       	cbi	0x18, 4	; 24
+	...
+     fc8:	00 00       	nop
+     fca:	c3 98       	cbi	0x18, 3	; 24
+     fcc:	08 95       	ret
+
+00000fce <i2cstop>:
+	...
+}
+
+void i2cstop(void)
+{
+	HDEL; I2C_SCL_HI; QDEL; I2C_SDL_HI; HDEL;
+     fe2:	c3 9a       	sbi	0x18, 3	; 24
+	...
+     fec:	00 00       	nop
+     fee:	c4 9a       	sbi	0x18, 4	; 24
+	...
+    1004:	08 95       	ret
+
+00001006 <i2cPutbyte>:
+
+UINT i2cPutbyte(u08 b)
+{
+	int i;
+	
+	for (i=7;i>=0;i--)
+    1006:	27 e0       	ldi	r18, 0x07	; 7
+    1008:	30 e0       	ldi	r19, 0x00	; 0
+	{
+		if ( b & (1<<i) )
+    100a:	90 e0       	ldi	r25, 0x00	; 0
+    100c:	ac 01       	movw	r20, r24
+    100e:	02 2e       	mov	r0, r18
+    1010:	02 c0       	rjmp	.+4      	; 0x1016 <i2cPutbyte+0x10>
+    1012:	55 95       	asr	r21
+    1014:	47 95       	ror	r20
+    1016:	0a 94       	dec	r0
+    1018:	e2 f7       	brpl	.-8      	; 0x1012 <i2cPutbyte+0xc>
+    101a:	40 ff       	sbrs	r20, 0
+    101c:	02 c0       	rjmp	.+4      	; 0x1022 <i2cPutbyte+0x1c>
+			I2C_SDL_HI;
+    101e:	c4 9a       	sbi	0x18, 4	; 24
+    1020:	01 c0       	rjmp	.+2      	; 0x1024 <i2cPutbyte+0x1e>
+		else
+			I2C_SDL_LO;			// address bit
+    1022:	c4 98       	cbi	0x18, 4	; 24
+	...
+			I2C_SCL_TOGGLE;		// clock HI, delay, then LO
+    1038:	c3 9a       	sbi	0x18, 3	; 24
+	...
+    104e:	c3 98       	cbi	0x18, 3	; 24
+
+UINT i2cPutbyte(u08 b)
+{
+	int i;
+	
+	for (i=7;i>=0;i--)
+    1050:	21 50       	subi	r18, 0x01	; 1
+    1052:	31 09       	sbc	r19, r1
+    1054:	d8 f6       	brcc	.-74     	; 0x100c <i2cPutbyte+0x6>
+		else
+			I2C_SDL_LO;			// address bit
+			I2C_SCL_TOGGLE;		// clock HI, delay, then LO
+	}
+
+	I2C_SDL_HI;					// leave SDL HI
+    1056:	c4 9a       	sbi	0x18, 4	; 24
+	// added    
+	cbi(SDADDR, SDA);			// change direction to input on SDA line (may not be needed)
+    1058:	bc 98       	cbi	0x17, 4	; 23
+	...
+	HDEL;
+	I2C_SCL_HI;					// clock back up
+    106e:	c3 9a       	sbi	0x18, 3	; 24
+  	b = inb(SDAPIN) & (1<<SDA);	// get the ACK bit
+    1070:	86 b3       	in	r24, 0x16	; 22
+	...
+
+	HDEL;
+	I2C_SCL_LO;					// not really ??
+    1086:	c3 98       	cbi	0x18, 3	; 24
+	sbi(SDADDR, SDA);			// change direction back to output
+    1088:	bc 9a       	sbi	0x17, 4	; 23
+	...
+	HDEL;
+	return (b == 0);			// return ACK value
+    109e:	82 95       	swap	r24
+    10a0:	8f 70       	andi	r24, 0x0F	; 15
+    10a2:	91 e0       	ldi	r25, 0x01	; 1
+    10a4:	89 27       	eor	r24, r25
+}
+    10a6:	81 70       	andi	r24, 0x01	; 1
+    10a8:	90 e0       	ldi	r25, 0x00	; 0
+    10aa:	08 95       	ret
+
+000010ac <i2cGetbyte>:
+u08 i2cGetbyte(UINT last)
+{
+	int i;
+	u08 c,b = 0;
+		
+	I2C_SDL_HI;					// make sure pullups are ativated
+    10ac:	c4 9a       	sbi	0x18, 4	; 24
+	cbi(SDADDR, SDA);			// change direction to input on SDA line (may not be needed)
+    10ae:	bc 98       	cbi	0x17, 4	; 23
+    10b0:	28 e0       	ldi	r18, 0x08	; 8
+    10b2:	30 e0       	ldi	r19, 0x00	; 0
+
+
+u08 i2cGetbyte(UINT last)
+{
+	int i;
+	u08 c,b = 0;
+    10b4:	40 e0       	ldi	r20, 0x00	; 0
+	...
+	cbi(SDADDR, SDA);			// change direction to input on SDA line (may not be needed)
+
+	for(i=7;i>=0;i--)
+	{
+		HDEL;
+		I2C_SCL_HI;				// clock HI
+    10ca:	c3 9a       	sbi	0x18, 3	; 24
+	  	c = inb(SDAPIN) & (1<<SDA);  
+		b <<= 1;
+    10cc:	44 0f       	add	r20, r20
+		if(c) b |= 1;
+    10ce:	b4 99       	sbic	0x16, 4	; 22
+    10d0:	41 60       	ori	r20, 0x01	; 1
+	...
+		HDEL;
+    	I2C_SCL_LO;				// clock LO
+    10e6:	c3 98       	cbi	0x18, 3	; 24
+    10e8:	21 50       	subi	r18, 0x01	; 1
+    10ea:	31 09       	sbc	r19, r1
+	u08 c,b = 0;
+		
+	I2C_SDL_HI;					// make sure pullups are ativated
+	cbi(SDADDR, SDA);			// change direction to input on SDA line (may not be needed)
+
+	for(i=7;i>=0;i--)
+    10ec:	21 15       	cp	r18, r1
+    10ee:	31 05       	cpc	r19, r1
+    10f0:	11 f7       	brne	.-60     	; 0x10b6 <i2cGetbyte+0xa>
+		if(c) b |= 1;
+		HDEL;
+    	I2C_SCL_LO;				// clock LO
+	}
+
+	sbi(SDADDR, SDA);			// change direction to output on SDA line
+    10f2:	bc 9a       	sbi	0x17, 4	; 23
+  
+	if (last)
+    10f4:	89 2b       	or	r24, r25
+    10f6:	11 f0       	breq	.+4      	; 0x10fc <i2cGetbyte+0x50>
+		I2C_SDL_HI;				// set NAK
+    10f8:	c4 9a       	sbi	0x18, 4	; 24
+    10fa:	01 c0       	rjmp	.+2      	; 0x10fe <i2cGetbyte+0x52>
+	else
+		I2C_SDL_LO;				// set ACK
+    10fc:	c4 98       	cbi	0x18, 4	; 24
+	...
+
+	I2C_SCL_TOGGLE;				// clock pulse
+    1112:	c3 9a       	sbi	0x18, 3	; 24
+	...
+    1128:	c3 98       	cbi	0x18, 3	; 24
+	I2C_SDL_HI;					// leave with SDL HI
+    112a:	c4 9a       	sbi	0x18, 4	; 24
+	return b;					// return received byte
+}
+    112c:	84 2f       	mov	r24, r20
+    112e:	08 95       	ret
+
+00001130 <i2cInit>:
+//************************
+
+//! Initialize I2C communication
+void i2cInit(void)
+{
+	sbi( SDADDR, SDA);			// set SDA as output
+    1130:	bc 9a       	sbi	0x17, 4	; 23
+	sbi( SCLDDR, SCL);			// set SCL as output
+    1132:	bb 9a       	sbi	0x17, 3	; 23
+	I2C_SDL_HI;					// set I/O state and pull-ups
+    1134:	c4 9a       	sbi	0x18, 4	; 24
+	I2C_SCL_HI;					// set I/O state and pull-ups
+    1136:	c3 9a       	sbi	0x18, 3	; 24
+    1138:	08 95       	ret
+
+0000113a <i2cSend>:
+}
+
+//! Send a byte sequence on the I2C bus
+void i2cSend(u08 device, u08 subAddr, u08 length, u08 *data)
+{
+    113a:	ff 92       	push	r15
+    113c:	0f 93       	push	r16
+    113e:	1f 93       	push	r17
+    1140:	cf 93       	push	r28
+    1142:	df 93       	push	r29
+    1144:	c6 2f       	mov	r28, r22
+    1146:	14 2f       	mov	r17, r20
+    1148:	f2 2e       	mov	r15, r18
+    114a:	03 2f       	mov	r16, r19
+	I2C_START;      			// do start transition
+    114c:	c4 98       	cbi	0x18, 4	; 24
+	...
+    1156:	00 00       	nop
+    1158:	c3 98       	cbi	0x18, 3	; 24
+	i2cPutbyte(device); // send DEVICE address
+    115a:	55 df       	rcall	.-342    	; 0x1006 <i2cPutbyte>
+	i2cPutbyte(subAddr);		// and the subaddress
+    115c:	8c 2f       	mov	r24, r28
+    115e:	53 df       	rcall	.-346    	; 0x1006 <i2cPutbyte>
+
+	// send the data
+	while (length--)
+    1160:	11 23       	and	r17, r17
+    1162:	31 f0       	breq	.+12     	; 0x1170 <i2cSend+0x36>
+    1164:	cf 2d       	mov	r28, r15
+    1166:	d0 2f       	mov	r29, r16
+		i2cPutbyte(*data++);
+    1168:	89 91       	ld	r24, Y+
+    116a:	4d df       	rcall	.-358    	; 0x1006 <i2cPutbyte>
+    116c:	11 50       	subi	r17, 0x01	; 1
+	I2C_START;      			// do start transition
+	i2cPutbyte(device); // send DEVICE address
+	i2cPutbyte(subAddr);		// and the subaddress
+
+	// send the data
+	while (length--)
+    116e:	e1 f7       	brne	.-8      	; 0x1168 <i2cSend+0x2e>
+		i2cPutbyte(*data++);
+
+	I2C_SDL_LO;					// clear data line and
+    1170:	c4 98       	cbi	0x18, 4	; 24
+	...
+	I2C_STOP;					// send STOP transition
+    1186:	c3 9a       	sbi	0x18, 3	; 24
+	...
+    1190:	00 00       	nop
+    1192:	c4 9a       	sbi	0x18, 4	; 24
+	...
+}
+    11a8:	df 91       	pop	r29
+    11aa:	cf 91       	pop	r28
+    11ac:	1f 91       	pop	r17
+    11ae:	0f 91       	pop	r16
+    11b0:	ff 90       	pop	r15
+    11b2:	08 95       	ret
+
+000011b4 <i2cReceive>:
+
+//! Retrieve a byte sequence on the I2C bus
+void i2cReceive(u08 device, u08 subAddr, u08 length, u08 *data)
+{
+    11b4:	cf 92       	push	r12
+    11b6:	df 92       	push	r13
+    11b8:	ef 92       	push	r14
+    11ba:	ff 92       	push	r15
+    11bc:	0f 93       	push	r16
+    11be:	1f 93       	push	r17
+    11c0:	cf 93       	push	r28
+    11c2:	df 93       	push	r29
+    11c4:	c8 2f       	mov	r28, r24
+    11c6:	d6 2f       	mov	r29, r22
+    11c8:	e2 2e       	mov	r14, r18
+    11ca:	f3 2e       	mov	r15, r19
+	int j = length;
+    11cc:	04 2f       	mov	r16, r20
+    11ce:	10 e0       	ldi	r17, 0x00	; 0
+	u08 *p = data;
+
+	I2C_START;					// do start transition
+    11d0:	c4 98       	cbi	0x18, 4	; 24
+	...
+    11da:	00 00       	nop
+    11dc:	c3 98       	cbi	0x18, 3	; 24
+	i2cPutbyte(device);			// send DEVICE address
+    11de:	13 df       	rcall	.-474    	; 0x1006 <i2cPutbyte>
+	i2cPutbyte(subAddr);   		// and the subaddress
+    11e0:	8d 2f       	mov	r24, r29
+    11e2:	11 df       	rcall	.-478    	; 0x1006 <i2cPutbyte>
+	...
+	HDEL;
+	I2C_SCL_HI;      			// do a repeated START
+    11f8:	c3 9a       	sbi	0x18, 3	; 24
+	I2C_START;					// transition
+    11fa:	c4 98       	cbi	0x18, 4	; 24
+	...
+    1204:	00 00       	nop
+    1206:	c3 98       	cbi	0x18, 3	; 24
+
+	i2cPutbyte(device | READ);	// resend DEVICE, with READ bit set
+    1208:	8c 2f       	mov	r24, r28
+    120a:	81 60       	ori	r24, 0x01	; 1
+    120c:	fc de       	rcall	.-520    	; 0x1006 <i2cPutbyte>
+
+	// receive data bytes
+	while (j--)
+    120e:	e8 01       	movw	r28, r16
+    1210:	21 97       	sbiw	r28, 0x01	; 1
+    1212:	01 2b       	or	r16, r17
+    1214:	99 f0       	breq	.+38     	; 0x123c <i2cReceive+0x88>
+    1216:	0e 2d       	mov	r16, r14
+    1218:	1f 2d       	mov	r17, r15
+		*p++ = i2cGetbyte(j == 0);
+    121a:	ee 24       	eor	r14, r14
+    121c:	e3 94       	inc	r14
+    121e:	f1 2c       	mov	r15, r1
+    1220:	c1 2c       	mov	r12, r1
+    1222:	d1 2c       	mov	r13, r1
+    1224:	8e 2d       	mov	r24, r14
+    1226:	9f 2d       	mov	r25, r15
+    1228:	20 97       	sbiw	r28, 0x00	; 0
+    122a:	11 f0       	breq	.+4      	; 0x1230 <i2cReceive+0x7c>
+    122c:	8c 2d       	mov	r24, r12
+    122e:	9d 2d       	mov	r25, r13
+    1230:	3d df       	rcall	.-390    	; 0x10ac <i2cGetbyte>
+    1232:	f8 01       	movw	r30, r16
+    1234:	81 93       	st	Z+, r24
+    1236:	8f 01       	movw	r16, r30
+	I2C_START;					// transition
+
+	i2cPutbyte(device | READ);	// resend DEVICE, with READ bit set
+
+	// receive data bytes
+	while (j--)
+    1238:	21 97       	sbiw	r28, 0x01	; 1
+    123a:	a0 f7       	brcc	.-24     	; 0x1224 <i2cReceive+0x70>
+		*p++ = i2cGetbyte(j == 0);
+
+	I2C_SDL_LO;					// clear data line and
+    123c:	c4 98       	cbi	0x18, 4	; 24
+	...
+	I2C_STOP;					// send STOP transition
+    1252:	c3 9a       	sbi	0x18, 3	; 24
+	...
+    125c:	00 00       	nop
+    125e:	c4 9a       	sbi	0x18, 4	; 24
+	...
+}
+    1274:	df 91       	pop	r29
+    1276:	cf 91       	pop	r28
+    1278:	1f 91       	pop	r17
+    127a:	0f 91       	pop	r16
+    127c:	ff 90       	pop	r15
+    127e:	ef 90       	pop	r14
+    1280:	df 90       	pop	r13
+    1282:	cf 90       	pop	r12
+    1284:	08 95       	ret
+
+00001286 <__vector_10>:
+		}
+	};
+
+
+ISR(TIMER0_COMPA_vect)
+{
+    1286:	1f 92       	push	r1
+    1288:	0f 92       	push	r0
+    128a:	0f b6       	in	r0, 0x3f	; 63
+    128c:	0f 92       	push	r0
+    128e:	11 24       	eor	r1, r1
+    1290:	2f 93       	push	r18
+    1292:	8f 93       	push	r24
+    1294:	9f 93       	push	r25
+    1296:	ef 93       	push	r30
+    1298:	ff 93       	push	r31
+	if(byte_counter<=12)	// 13 times a byte
+    129a:	80 91 63 00 	lds	r24, 0x0063
+    129e:	8d 30       	cpi	r24, 0x0D	; 13
+    12a0:	c8 f5       	brcc	.+114    	; 0x1314 <__vector_10+0x8e>
+	{
+		if(bit_counter<=7)	// send 8 bits
+    12a2:	80 91 64 00 	lds	r24, 0x0064
+    12a6:	88 30       	cpi	r24, 0x08	; 8
+    12a8:	68 f5       	brcc	.+90     	; 0x1304 <__vector_10+0x7e>
+		{
+			uint8_t b = (pgm_read_byte(&codes[code_to_send][byte_counter]));	// Get byte from program memory 2d array
+    12aa:	80 91 62 00 	lds	r24, 0x0062
+    12ae:	20 91 63 00 	lds	r18, 0x0063
+    12b2:	90 e0       	ldi	r25, 0x00	; 0
+    12b4:	fc 01       	movw	r30, r24
+    12b6:	ee 0f       	add	r30, r30
+    12b8:	ff 1f       	adc	r31, r31
+    12ba:	e8 0f       	add	r30, r24
+    12bc:	f9 1f       	adc	r31, r25
+    12be:	ee 0f       	add	r30, r30
+    12c0:	ff 1f       	adc	r31, r31
+    12c2:	ee 0f       	add	r30, r30
+    12c4:	ff 1f       	adc	r31, r31
+    12c6:	e8 0f       	add	r30, r24
+    12c8:	f9 1f       	adc	r31, r25
+    12ca:	e2 0f       	add	r30, r18
+    12cc:	f1 1d       	adc	r31, r1
+    12ce:	e2 5e       	subi	r30, 0xE2	; 226
+    12d0:	ff 4f       	sbci	r31, 0xFF	; 255
+    12d2:	84 91       	lpm	r24, Z
+			b = ( b << bit_counter);	// Select the correct bit, arrange it to MSB place
+    12d4:	20 91 64 00 	lds	r18, 0x0064
+    12d8:	90 e0       	ldi	r25, 0x00	; 0
+    12da:	02 c0       	rjmp	.+4      	; 0x12e0 <__vector_10+0x5a>
+    12dc:	88 0f       	add	r24, r24
+    12de:	99 1f       	adc	r25, r25
+    12e0:	2a 95       	dec	r18
+    12e2:	e2 f7       	brpl	.-8      	; 0x12dc <__vector_10+0x56>
+			b = ( b >> 7);				// Arrange this bit to LSB (everything else is 0)
+    12e4:	88 1f       	adc	r24, r24
+    12e6:	88 27       	eor	r24, r24
+    12e8:	88 1f       	adc	r24, r24
+
+			if(b==1)
+    12ea:	81 30       	cpi	r24, 0x01	; 1
+    12ec:	11 f4       	brne	.+4      	; 0x12f2 <__vector_10+0x6c>
+			{
+				PORT |= ( 1 << PINNUMBER);	// Send 1 to pin
+    12ee:	c0 9a       	sbi	0x18, 0	; 24
+    12f0:	03 c0       	rjmp	.+6      	; 0x12f8 <__vector_10+0x72>
+			}
+			if(b==0)
+    12f2:	81 11       	cpse	r24, r1
+    12f4:	01 c0       	rjmp	.+2      	; 0x12f8 <__vector_10+0x72>
+			{
+				PORT &= ~(1 << PINNUMBER);	// Send 0 to pin
+    12f6:	c0 98       	cbi	0x18, 0	; 24
+			}
+			
+			bit_counter++;
+    12f8:	80 91 64 00 	lds	r24, 0x0064
+    12fc:	8f 5f       	subi	r24, 0xFF	; 255
+    12fe:	80 93 64 00 	sts	0x0064, r24
+    1302:	10 c0       	rjmp	.+32     	; 0x1324 <__vector_10+0x9e>
+		}	
+		else
+		{
+			bit_counter = 0;
+    1304:	10 92 64 00 	sts	0x0064, r1
+			byte_counter++;
+    1308:	80 91 63 00 	lds	r24, 0x0063
+    130c:	8f 5f       	subi	r24, 0xFF	; 255
+    130e:	80 93 63 00 	sts	0x0063, r24
+    1312:	08 c0       	rjmp	.+16     	; 0x1324 <__vector_10+0x9e>
+		}
+	}
+	else
+	{
+		byte_counter = 0;
+    1314:	10 92 63 00 	sts	0x0063, r1
+		sending = 1;			// Sending finished
+    1318:	81 e0       	ldi	r24, 0x01	; 1
+    131a:	80 93 61 00 	sts	0x0061, r24
+		TCCR0B &= ~(1 << CS00);	// Stop timer1
+    131e:	83 b7       	in	r24, 0x33	; 51
+    1320:	8e 7f       	andi	r24, 0xFE	; 254
+    1322:	83 bf       	out	0x33, r24	; 51
+	}
+} 
+    1324:	ff 91       	pop	r31
+    1326:	ef 91       	pop	r30
+    1328:	9f 91       	pop	r25
+    132a:	8f 91       	pop	r24
+    132c:	2f 91       	pop	r18
+    132e:	0f 90       	pop	r0
+    1330:	0f be       	out	0x3f, r0	; 63
+    1332:	0f 90       	pop	r0
+    1334:	1f 90       	pop	r1
+    1336:	18 95       	reti
+
+00001338 <init_klikaan_klikuit>:
+	Bittime = 0,0001713 sec
+	No prescaler = 1MHz = 0.000001 sec
+	Compare value for 1 bit = 0,0001713/0.000001 = 171,3 we take 171
+	// tweaked for this chip = 166
+	*/
+	TCCR0A |= (1<<WGM01);	// CTC mode 2 //TCCR1B |= (1 << WGM12); // Configure timer 1 for CTC mode
+    1338:	8a b5       	in	r24, 0x2a	; 42
+    133a:	82 60       	ori	r24, 0x02	; 2
+    133c:	8a bd       	out	0x2a, r24	; 42
+	TIMSK |= (1<<OCIE0A);	// Enable compare A interrupt //TIMSK1 |= (1 << OCIE1A); // Enable CTC interrupt
+    133e:	89 b7       	in	r24, 0x39	; 57
+    1340:	80 61       	ori	r24, 0x10	; 16
+    1342:	89 bf       	out	0x39, r24	; 57
+   	OCR0A   = 166;			// Set compare value // Set top timer/counter value, compare value of timer1 (@8MHz no prescaling)
+    1344:	86 ea       	ldi	r24, 0xA6	; 166
+    1346:	89 bd       	out	0x29, r24	; 41
+							// Bittime = 171,3 us = 0,0001713 sec.
+							// Delaytime = 5328us
+							// Exact Compare value = 0,0001713/0,000000125 = 1370 (timer 1 is a 16 bit timer so it fits)
+							// Intern oscilator -> 1409 (171,35us)
+							// Extern crystal -> 1364 (171,25us)
+	TCCR0B |= (1<<CS00);	// No prescaler, start timer
+    1348:	83 b7       	in	r24, 0x33	; 51
+    134a:	81 60       	ori	r24, 0x01	; 1
+    134c:	83 bf       	out	0x33, r24	; 51
+	sei(); 					// Enable global interrupts						
+    134e:	78 94       	sei
+	DDRB |= (1<<PINNUMBER);	// Set pin as output 
+    1350:	b8 9a       	sbi	0x17, 0	; 23
+	PORTB |=(1<<PINNUMBER);	// Make output low							
+    1352:	c0 9a       	sbi	0x18, 0	; 24
+	init_klikaan_klikuit_flag = 1;
+    1354:	81 e0       	ldi	r24, 0x01	; 1
+    1356:	80 93 60 00 	sts	0x0060, r24
+    135a:	08 95       	ret
+
+0000135c <send_klikaan_klikuit>:
+}
+
+void send_klikaan_klikuit(uint8_t a)
+{
+    135c:	cf 93       	push	r28
+    135e:	c8 2f       	mov	r28, r24
+	if (!init_klikaan_klikuit_flag)
+    1360:	80 91 60 00 	lds	r24, 0x0060
+    1364:	81 11       	cpse	r24, r1
+    1366:	01 c0       	rjmp	.+2      	; 0x136a <send_klikaan_klikuit+0xe>
+	{
+		init_klikaan_klikuit();
+    1368:	e7 df       	rcall	.-50     	; 0x1338 <init_klikaan_klikuit>
+	}
+
+	code_to_send = a;
+    136a:	c0 93 62 00 	sts	0x0062, r28
+    136e:	85 e0       	ldi	r24, 0x05	; 5
+    1370:	90 e0       	ldi	r25, 0x00	; 0
+	for (int i=0;i<5;i++)		// Send burst at least 3 times
+	{
+		TCCR0B |= (1 << CS00); 	// Start timer0, no prescale
+    1372:	23 b7       	in	r18, 0x33	; 51
+    1374:	21 60       	ori	r18, 0x01	; 1
+    1376:	23 bf       	out	0x33, r18	; 51
+		while((sending) ==0){};	// While sending the burst
+    1378:	20 91 61 00 	lds	r18, 0x0061
+    137c:	22 23       	and	r18, r18
+    137e:	e1 f3       	breq	.-8      	; 0x1378 <send_klikaan_klikuit+0x1c>
+		sending = 0;			// Reset "sending"
+    1380:	10 92 61 00 	sts	0x0061, r1
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+    1384:	e6 ea       	ldi	r30, 0xA6	; 166
+    1386:	f3 e0       	ldi	r31, 0x03	; 3
+    1388:	31 97       	sbiw	r30, 0x01	; 1
+    138a:	f1 f7       	brne	.-4      	; 0x1388 <send_klikaan_klikuit+0x2c>
+    138c:	00 c0       	rjmp	.+0      	; 0x138e <send_klikaan_klikuit+0x32>
+    138e:	00 00       	nop
+    1390:	01 97       	sbiw	r24, 0x01	; 1
+	{
+		init_klikaan_klikuit();
+	}
+
+	code_to_send = a;
+	for (int i=0;i<5;i++)		// Send burst at least 3 times
+    1392:	00 97       	sbiw	r24, 0x00	; 0
+    1394:	71 f7       	brne	.-36     	; 0x1372 <send_klikaan_klikuit+0x16>
+		sending = 0;			// Reset "sending"
+		_delay_us(3740);		// Delay between 2 bursts = 5,328ms // was 5400 // 4712 = -4 bittimes
+								// Internal oscilator -> 3920us (5286us)
+								// External crystal -> 3740us (5280us)
+	}
+}
+    1396:	cf 91       	pop	r28
+    1398:	08 95       	ret
+
+0000139a <__vector_1>:
+
+volatile uint8_t int_flag = 0;
+uint8_t a_flag = 0, b_flag = 0, c_flag = 0, d_flag = 0, e_flag = 0;
+
+ISR (INT0_vect)
+{
+    139a:	1f 92       	push	r1
+    139c:	0f 92       	push	r0
+    139e:	0f b6       	in	r0, 0x3f	; 63
+    13a0:	0f 92       	push	r0
+    13a2:	11 24       	eor	r1, r1
+    13a4:	8f 93       	push	r24
+	// Do something?
+	int_flag = 1;
+    13a6:	81 e0       	ldi	r24, 0x01	; 1
+    13a8:	80 93 6a 00 	sts	0x006A, r24
+	//uart_puts("int!\n");
+	//LED_TOGGLE;
+}
+    13ac:	8f 91       	pop	r24
+    13ae:	0f 90       	pop	r0
+    13b0:	0f be       	out	0x3f, r0	; 63
+    13b2:	0f 90       	pop	r0
+    13b4:	1f 90       	pop	r1
+    13b6:	18 95       	reti
+
+000013b8 <init_IO>:
+	}	
+}
+
+void init_IO(void)
+{
+	DDRB |= (1<<LED_PIN);					// Output pin for LED
+    13b8:	b9 9a       	sbi	0x17, 1	; 23
+    13ba:	08 95       	ret
+
+000013bc <init_interrupt>:
+}
+
+void init_interrupt(void)	// int of apds9960
+{
+	GIMSK |= (1<<INT0);		// Enable INT0
+    13bc:	8b b7       	in	r24, 0x3b	; 59
+    13be:	80 64       	ori	r24, 0x40	; 64
+    13c0:	8b bf       	out	0x3b, r24	; 59
+	MCUCR |= (1<<ISC01);	// INT0 on Falling edge
+    13c2:	85 b7       	in	r24, 0x35	; 53
+    13c4:	82 60       	ori	r24, 0x02	; 2
+    13c6:	85 bf       	out	0x35, r24	; 53
+	//MCUCR |= (1<<ISC01);	// Any change
+	sei();					// Enable global interrupts
+    13c8:	78 94       	sei
+    13ca:	08 95       	ret
+
+000013cc <klikaan_klikuit_off>:
+}	
+
+void klikaan_klikuit_off(void)
+{
+	a_flag=0;
+    13cc:	10 92 69 00 	sts	0x0069, r1
+	b_flag=0;
+    13d0:	10 92 68 00 	sts	0x0068, r1
+	c_flag=0;
+    13d4:	10 92 67 00 	sts	0x0067, r1
+	d_flag=0;
+    13d8:	10 92 66 00 	sts	0x0066, r1
+	e_flag=0;
+    13dc:	10 92 65 00 	sts	0x0065, r1
+	send_klikaan_klikuit(a_off_1);
+    13e0:	81 e0       	ldi	r24, 0x01	; 1
+    13e2:	90 e0       	ldi	r25, 0x00	; 0
+    13e4:	bb df       	rcall	.-138    	; 0x135c <send_klikaan_klikuit>
+	send_klikaan_klikuit(b_off_1);
+    13e6:	83 e0       	ldi	r24, 0x03	; 3
+    13e8:	90 e0       	ldi	r25, 0x00	; 0
+    13ea:	b8 df       	rcall	.-144    	; 0x135c <send_klikaan_klikuit>
+	send_klikaan_klikuit(c_off_1);
+    13ec:	85 e0       	ldi	r24, 0x05	; 5
+    13ee:	90 e0       	ldi	r25, 0x00	; 0
+    13f0:	b5 df       	rcall	.-150    	; 0x135c <send_klikaan_klikuit>
+	send_klikaan_klikuit(d_off_1);
+    13f2:	87 e0       	ldi	r24, 0x07	; 7
+    13f4:	90 e0       	ldi	r25, 0x00	; 0
+    13f6:	b2 df       	rcall	.-156    	; 0x135c <send_klikaan_klikuit>
+	send_klikaan_klikuit(e_off_1);
+    13f8:	89 e0       	ldi	r24, 0x09	; 9
+    13fa:	90 e0       	ldi	r25, 0x00	; 0
+    13fc:	af df       	rcall	.-162    	; 0x135c <send_klikaan_klikuit>
+    13fe:	08 95       	ret
+
+00001400 <disable_gesture_int>:
+}
+
+void disable_gesture_int(uint8_t interrupt)
+{
+	if (!interrupt)	// enable
+    1400:	81 11       	cpse	r24, r1
+    1402:	04 c0       	rjmp	.+8      	; 0x140c <disable_gesture_int+0xc>
+	{
+		GIMSK |= (1<<INT0);		// Enable INT0	
+    1404:	8b b7       	in	r24, 0x3b	; 59
+    1406:	80 64       	ori	r24, 0x40	; 64
+    1408:	8b bf       	out	0x3b, r24	; 59
+    140a:	08 95       	ret
+	}
+	else  // Disable
+	{
+		GIMSK &= ~(1<<INT0);		// Disable INT0
+    140c:	8b b7       	in	r24, 0x3b	; 59
+    140e:	8f 7b       	andi	r24, 0xBF	; 191
+    1410:	8b bf       	out	0x3b, r24	; 59
+    1412:	08 95       	ret
+
+00001414 <blink>:
+		_delay_us(1);
+	}
+}
+
+void blink(uint8_t nr_of_blinks, uint16_t delay_ms)
+{
+    1414:	cf 93       	push	r28
+    1416:	df 93       	push	r29
+	uint16_t delay_time_ms = BLINK_DELAY_MS;
+	if ((delay_ms > 0) && (delay_ms <= 5000))	// delay should not be more than 5 sec..
+    1418:	9b 01       	movw	r18, r22
+    141a:	21 50       	subi	r18, 0x01	; 1
+    141c:	31 09       	sbc	r19, r1
+    141e:	28 38       	cpi	r18, 0x88	; 136
+    1420:	33 41       	sbci	r19, 0x13	; 19
+    1422:	08 f0       	brcs	.+2      	; 0x1426 <blink+0x12>
+    1424:	46 c0       	rjmp	.+140    	; 0x14b2 <blink+0x9e>
+	{
+		delay_time_ms = delay_ms;
+		if (nr_of_blinks<2)	// if 1 blink
+    1426:	82 30       	cpi	r24, 0x02	; 2
+    1428:	30 f0       	brcs	.+12     	; 0x1436 <blink+0x22>
+			}
+			LED_OFF;
+		}
+		else
+		{
+			for (int i=0;i<nr_of_blinks;i++)
+    142a:	e8 2f       	mov	r30, r24
+    142c:	f0 e0       	ldi	r31, 0x00	; 0
+    142e:	1e 16       	cp	r1, r30
+    1430:	1f 06       	cpc	r1, r31
+    1432:	9c f0       	brlt	.+38     	; 0x145a <blink+0x46>
+    1434:	3e c0       	rjmp	.+124    	; 0x14b2 <blink+0x9e>
+	if ((delay_ms > 0) && (delay_ms <= 5000))	// delay should not be more than 5 sec..
+	{
+		delay_time_ms = delay_ms;
+		if (nr_of_blinks<2)	// if 1 blink
+		{
+			LED_ON;
+    1436:	c1 9a       	sbi	0x18, 1	; 24
+			for (int16_t i=0;i<(delay_time_ms);i++)
+    1438:	61 15       	cp	r22, r1
+    143a:	71 05       	cpc	r23, r1
+    143c:	61 f0       	breq	.+24     	; 0x1456 <blink+0x42>
+    143e:	80 e0       	ldi	r24, 0x00	; 0
+    1440:	90 e0       	ldi	r25, 0x00	; 0
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+    1442:	c9 ef       	ldi	r28, 0xF9	; 249
+    1444:	d0 e0       	ldi	r29, 0x00	; 0
+    1446:	21 97       	sbiw	r28, 0x01	; 1
+    1448:	f1 f7       	brne	.-4      	; 0x1446 <blink+0x32>
+    144a:	00 c0       	rjmp	.+0      	; 0x144c <blink+0x38>
+    144c:	00 00       	nop
+    144e:	01 96       	adiw	r24, 0x01	; 1
+    1450:	86 17       	cp	r24, r22
+    1452:	97 07       	cpc	r25, r23
+    1454:	b1 f7       	brne	.-20     	; 0x1442 <blink+0x2e>
+			{
+				_delay_ms(1);
+			}
+			LED_OFF;
+    1456:	c1 98       	cbi	0x18, 1	; 24
+    1458:	2c c0       	rjmp	.+88     	; 0x14b2 <blink+0x9e>
+		else
+		{
+			for (int i=0;i<nr_of_blinks;i++)
+			{
+				LED_ON;
+				for (int16_t i=0;i<(delay_time_ms/2);i++)
+    145a:	76 95       	lsr	r23
+    145c:	67 95       	ror	r22
+    145e:	40 e0       	ldi	r20, 0x00	; 0
+    1460:	50 e0       	ldi	r21, 0x00	; 0
+    1462:	9b 01       	movw	r18, r22
+    1464:	b0 e0       	ldi	r27, 0x00	; 0
+    1466:	a0 e0       	ldi	r26, 0x00	; 0
+		}
+		else
+		{
+			for (int i=0;i<nr_of_blinks;i++)
+			{
+				LED_ON;
+    1468:	c1 9a       	sbi	0x18, 1	; 24
+				for (int16_t i=0;i<(delay_time_ms/2);i++)
+    146a:	61 15       	cp	r22, r1
+    146c:	71 05       	cpc	r23, r1
+    146e:	f9 f0       	breq	.+62     	; 0x14ae <blink+0x9a>
+    1470:	8b 2f       	mov	r24, r27
+    1472:	9a 2f       	mov	r25, r26
+    1474:	c9 ef       	ldi	r28, 0xF9	; 249
+    1476:	d0 e0       	ldi	r29, 0x00	; 0
+    1478:	21 97       	sbiw	r28, 0x01	; 1
+    147a:	f1 f7       	brne	.-4      	; 0x1478 <blink+0x64>
+    147c:	00 c0       	rjmp	.+0      	; 0x147e <blink+0x6a>
+    147e:	00 00       	nop
+    1480:	01 96       	adiw	r24, 0x01	; 1
+    1482:	82 17       	cp	r24, r18
+    1484:	93 07       	cpc	r25, r19
+    1486:	b1 f7       	brne	.-20     	; 0x1474 <blink+0x60>
+				{
+					_delay_ms(1);
+				}
+				//_delay_ms(delay_time_ms);
+				LED_OFF;
+    1488:	c1 98       	cbi	0x18, 1	; 24
+				for (int16_t i=0;i<(delay_time_ms/2);i++)
+    148a:	8b 2f       	mov	r24, r27
+    148c:	9a 2f       	mov	r25, r26
+    148e:	c9 ef       	ldi	r28, 0xF9	; 249
+    1490:	d0 e0       	ldi	r29, 0x00	; 0
+    1492:	21 97       	sbiw	r28, 0x01	; 1
+    1494:	f1 f7       	brne	.-4      	; 0x1492 <blink+0x7e>
+    1496:	00 c0       	rjmp	.+0      	; 0x1498 <blink+0x84>
+    1498:	00 00       	nop
+    149a:	01 96       	adiw	r24, 0x01	; 1
+    149c:	28 17       	cp	r18, r24
+    149e:	39 07       	cpc	r19, r25
+    14a0:	b1 f7       	brne	.-20     	; 0x148e <blink+0x7a>
+			}
+			LED_OFF;
+		}
+		else
+		{
+			for (int i=0;i<nr_of_blinks;i++)
+    14a2:	4f 5f       	subi	r20, 0xFF	; 255
+    14a4:	5f 4f       	sbci	r21, 0xFF	; 255
+    14a6:	4e 17       	cp	r20, r30
+    14a8:	5f 07       	cpc	r21, r31
+    14aa:	f4 f2       	brlt	.-68     	; 0x1468 <blink+0x54>
+    14ac:	02 c0       	rjmp	.+4      	; 0x14b2 <blink+0x9e>
+				for (int16_t i=0;i<(delay_time_ms/2);i++)
+				{
+					_delay_ms(1);
+				}
+				//_delay_ms(delay_time_ms);
+				LED_OFF;
+    14ae:	c1 98       	cbi	0x18, 1	; 24
+    14b0:	f8 cf       	rjmp	.-16     	; 0x14a2 <blink+0x8e>
+				}
+				//_delay_ms(delay_time_ms);
+			}
+		}
+	}
+}
+    14b2:	df 91       	pop	r29
+    14b4:	cf 91       	pop	r28
+    14b6:	08 95       	ret
+
+000014b8 <handleGesture>:
+
+void handleGesture(void) 
+{
+	if ( isGestureAvailable() ) 
+    14b8:	1e db       	rcall	.-2500   	; 0xaf6 <isGestureAvailable>
+    14ba:	88 23       	and	r24, r24
+    14bc:	09 f4       	brne	.+2      	; 0x14c0 <handleGesture+0x8>
+    14be:	8b c0       	rjmp	.+278    	; 0x15d6 <handleGesture+0x11e>
+	{
+		switch ( readGesture() ) 
+    14c0:	a4 dc       	rcall	.-1720   	; 0xe0a <readGesture>
+    14c2:	84 30       	cpi	r24, 0x04	; 4
+    14c4:	91 05       	cpc	r25, r1
+    14c6:	69 f1       	breq	.+90     	; 0x1522 <handleGesture+0x6a>
+    14c8:	44 f4       	brge	.+16     	; 0x14da <handleGesture+0x22>
+    14ca:	82 30       	cpi	r24, 0x02	; 2
+    14cc:	91 05       	cpc	r25, r1
+    14ce:	09 f4       	brne	.+2      	; 0x14d2 <handleGesture+0x1a>
+    14d0:	5a c0       	rjmp	.+180    	; 0x1586 <handleGesture+0xce>
+    14d2:	74 f4       	brge	.+28     	; 0x14f0 <handleGesture+0x38>
+    14d4:	01 97       	sbiw	r24, 0x01	; 1
+    14d6:	f1 f1       	breq	.+124    	; 0x1554 <handleGesture+0x9c>
+    14d8:	7a c0       	rjmp	.+244    	; 0x15ce <handleGesture+0x116>
+    14da:	86 30       	cpi	r24, 0x06	; 6
+    14dc:	91 05       	cpc	r25, r1
+    14de:	09 f4       	brne	.+2      	; 0x14e2 <handleGesture+0x2a>
+    14e0:	6b c0       	rjmp	.+214    	; 0x15b8 <handleGesture+0x100>
+    14e2:	0c f4       	brge	.+2      	; 0x14e6 <handleGesture+0x2e>
+    14e4:	78 c0       	rjmp	.+240    	; 0x15d6 <handleGesture+0x11e>
+    14e6:	8f 3f       	cpi	r24, 0xFF	; 255
+    14e8:	91 05       	cpc	r25, r1
+    14ea:	09 f4       	brne	.+2      	; 0x14ee <handleGesture+0x36>
+    14ec:	6b c0       	rjmp	.+214    	; 0x15c4 <handleGesture+0x10c>
+    14ee:	6f c0       	rjmp	.+222    	; 0x15ce <handleGesture+0x116>
+		{
+			case DIR_UP:
+				#if DEBUG_MSG
+				uart_puts("UP:");
+				#endif
+				if (a_flag) {
+    14f0:	80 91 69 00 	lds	r24, 0x0069
+    14f4:	88 23       	and	r24, r24
+    14f6:	51 f0       	breq	.+20     	; 0x150c <handleGesture+0x54>
+					send_klikaan_klikuit(a_off_1);
+    14f8:	81 e0       	ldi	r24, 0x01	; 1
+    14fa:	90 e0       	ldi	r25, 0x00	; 0
+    14fc:	2f df       	rcall	.-418    	; 0x135c <send_klikaan_klikuit>
+					#if DEBUG_MSG
+					uart_puts("A OFF\n");
+					#else
+					blink(1, SHORT_DELAY);
+    14fe:	66 e9       	ldi	r22, 0x96	; 150
+    1500:	70 e0       	ldi	r23, 0x00	; 0
+    1502:	81 e0       	ldi	r24, 0x01	; 1
+    1504:	87 df       	rcall	.-242    	; 0x1414 <blink>
+					#endif
+					a_flag=0;
+    1506:	10 92 69 00 	sts	0x0069, r1
+    150a:	08 95       	ret
+					
+				}
+				else {
+					send_klikaan_klikuit(a_on_1);
+    150c:	80 e0       	ldi	r24, 0x00	; 0
+    150e:	90 e0       	ldi	r25, 0x00	; 0
+    1510:	25 df       	rcall	.-438    	; 0x135c <send_klikaan_klikuit>
+					#if DEBUG_MSG
+					uart_puts("A ON\n");
+					#else
+					blink(1, SHORT_DELAY);
+    1512:	66 e9       	ldi	r22, 0x96	; 150
+    1514:	70 e0       	ldi	r23, 0x00	; 0
+    1516:	81 e0       	ldi	r24, 0x01	; 1
+    1518:	7d df       	rcall	.-262    	; 0x1414 <blink>
+					#endif
+					a_flag=1;
+    151a:	81 e0       	ldi	r24, 0x01	; 1
+    151c:	80 93 69 00 	sts	0x0069, r24
+    1520:	08 95       	ret
+			break;
+			case DIR_DOWN:
+				#if DEBUG_MSG
+				uart_puts("DOWN:");
+				#endif
+				if (c_flag) {
+    1522:	80 91 67 00 	lds	r24, 0x0067
+    1526:	88 23       	and	r24, r24
+    1528:	51 f0       	breq	.+20     	; 0x153e <handleGesture+0x86>
+					send_klikaan_klikuit(c_off_1);
+    152a:	85 e0       	ldi	r24, 0x05	; 5
+    152c:	90 e0       	ldi	r25, 0x00	; 0
+    152e:	16 df       	rcall	.-468    	; 0x135c <send_klikaan_klikuit>
+					#if DEBUG_MSG
+					uart_puts("C OFF\n");
+					#else
+					blink(3, SHORT_DELAY);
+    1530:	66 e9       	ldi	r22, 0x96	; 150
+    1532:	70 e0       	ldi	r23, 0x00	; 0
+    1534:	83 e0       	ldi	r24, 0x03	; 3
+    1536:	6e df       	rcall	.-292    	; 0x1414 <blink>
+					#endif
+					c_flag=0;
+    1538:	10 92 67 00 	sts	0x0067, r1
+    153c:	08 95       	ret
+				}
+				else {
+					send_klikaan_klikuit(c_on_1);
+    153e:	84 e0       	ldi	r24, 0x04	; 4
+    1540:	90 e0       	ldi	r25, 0x00	; 0
+    1542:	0c df       	rcall	.-488    	; 0x135c <send_klikaan_klikuit>
+					#if DEBUG_MSG
+					uart_puts("C ON\n");
+					#else
+					blink(3, SHORT_DELAY);
+    1544:	66 e9       	ldi	r22, 0x96	; 150
+    1546:	70 e0       	ldi	r23, 0x00	; 0
+    1548:	83 e0       	ldi	r24, 0x03	; 3
+    154a:	64 df       	rcall	.-312    	; 0x1414 <blink>
+					#endif
+					c_flag=1;
+    154c:	81 e0       	ldi	r24, 0x01	; 1
+    154e:	80 93 67 00 	sts	0x0067, r24
+    1552:	08 95       	ret
+			break;
+			case DIR_LEFT:
+				#if DEBUG_MSG
+				uart_puts("LEFT: ");
+				#endif
+				if (d_flag) {
+    1554:	80 91 66 00 	lds	r24, 0x0066
+    1558:	88 23       	and	r24, r24
+    155a:	51 f0       	breq	.+20     	; 0x1570 <handleGesture+0xb8>
+					send_klikaan_klikuit(d_off_1);
+    155c:	87 e0       	ldi	r24, 0x07	; 7
+    155e:	90 e0       	ldi	r25, 0x00	; 0
+    1560:	fd de       	rcall	.-518    	; 0x135c <send_klikaan_klikuit>
+					#if DEBUG_MSG
+					uart_puts("D OFF\n");
+					#else
+					blink(4, SHORT_DELAY);
+    1562:	66 e9       	ldi	r22, 0x96	; 150
+    1564:	70 e0       	ldi	r23, 0x00	; 0
+    1566:	84 e0       	ldi	r24, 0x04	; 4
+    1568:	55 df       	rcall	.-342    	; 0x1414 <blink>
+					#endif
+					d_flag=0;
+    156a:	10 92 66 00 	sts	0x0066, r1
+    156e:	08 95       	ret
+				}
+				else {
+					send_klikaan_klikuit(d_on_1);
+    1570:	86 e0       	ldi	r24, 0x06	; 6
+    1572:	90 e0       	ldi	r25, 0x00	; 0
+    1574:	f3 de       	rcall	.-538    	; 0x135c <send_klikaan_klikuit>
+					#if DEBUG_MSG
+					uart_puts("D ON\n");
+					#else
+					blink(4, SHORT_DELAY);
+    1576:	66 e9       	ldi	r22, 0x96	; 150
+    1578:	70 e0       	ldi	r23, 0x00	; 0
+    157a:	84 e0       	ldi	r24, 0x04	; 4
+    157c:	4b df       	rcall	.-362    	; 0x1414 <blink>
+					#endif
+					d_flag=1;
+    157e:	81 e0       	ldi	r24, 0x01	; 1
+    1580:	80 93 66 00 	sts	0x0066, r24
+    1584:	08 95       	ret
+			break;
+			case DIR_RIGHT:
+				#if DEBUG_MSG
+				uart_puts("RIGHT:");
+				#endif
+				if (b_flag) {
+    1586:	80 91 68 00 	lds	r24, 0x0068
+    158a:	88 23       	and	r24, r24
+    158c:	51 f0       	breq	.+20     	; 0x15a2 <handleGesture+0xea>
+					send_klikaan_klikuit(b_off_1);
+    158e:	83 e0       	ldi	r24, 0x03	; 3
+    1590:	90 e0       	ldi	r25, 0x00	; 0
+    1592:	e4 de       	rcall	.-568    	; 0x135c <send_klikaan_klikuit>
+					#if DEBUG_MSG
+					uart_puts("B OFF\n");
+					#else
+					blink(3, SHORT_DELAY);
+    1594:	66 e9       	ldi	r22, 0x96	; 150
+    1596:	70 e0       	ldi	r23, 0x00	; 0
+    1598:	83 e0       	ldi	r24, 0x03	; 3
+    159a:	3c df       	rcall	.-392    	; 0x1414 <blink>
+					#endif
+					b_flag=0;
+    159c:	10 92 68 00 	sts	0x0068, r1
+    15a0:	08 95       	ret
+				}
+				else {
+					send_klikaan_klikuit(b_on_1);
+    15a2:	82 e0       	ldi	r24, 0x02	; 2
+    15a4:	90 e0       	ldi	r25, 0x00	; 0
+    15a6:	da de       	rcall	.-588    	; 0x135c <send_klikaan_klikuit>
+					#if DEBUG_MSG
+					uart_puts("B ON\n");
+					#else
+					blink(3, SHORT_DELAY);
+    15a8:	66 e9       	ldi	r22, 0x96	; 150
+    15aa:	70 e0       	ldi	r23, 0x00	; 0
+    15ac:	83 e0       	ldi	r24, 0x03	; 3
+    15ae:	32 df       	rcall	.-412    	; 0x1414 <blink>
+					#endif
+					b_flag=1;
+    15b0:	81 e0       	ldi	r24, 0x01	; 1
+    15b2:	80 93 68 00 	sts	0x0068, r24
+    15b6:	08 95       	ret
+			break;
+			case DIR_FAR:
+				#if DEBUG_MSG
+				uart_puts("FAR:");
+				#endif
+				klikaan_klikuit_off();
+    15b8:	09 df       	rcall	.-494    	; 0x13cc <klikaan_klikuit_off>
+				#if DEBUG_MSG
+				uart_puts("ALL OFF\n");
+				#else
+				blink(5 ,SHORT_DELAY);
+    15ba:	66 e9       	ldi	r22, 0x96	; 150
+    15bc:	70 e0       	ldi	r23, 0x00	; 0
+    15be:	85 e0       	ldi	r24, 0x05	; 5
+    15c0:	29 df       	rcall	.-430    	; 0x1414 <blink>
+				#endif
+			break;
+    15c2:	08 95       	ret
+			case ERROR:
+				#if DEBUG_MSG
+				uart_puts("ERROR!\n");
+				#else
+				blink(1, LONG_DELAY);
+    15c4:	64 ef       	ldi	r22, 0xF4	; 244
+    15c6:	71 e0       	ldi	r23, 0x01	; 1
+    15c8:	81 e0       	ldi	r24, 0x01	; 1
+    15ca:	24 df       	rcall	.-440    	; 0x1414 <blink>
+				#endif
+			break;
+    15cc:	08 95       	ret
+			default:
+				#if DEBUG_MSG
+				uart_puts("NONE\n");
+				#else
+				blink(1, LONG_DELAY);
+    15ce:	64 ef       	ldi	r22, 0xF4	; 244
+    15d0:	71 e0       	ldi	r23, 0x01	; 1
+    15d2:	81 e0       	ldi	r24, 0x01	; 1
+    15d4:	1f df       	rcall	.-450    	; 0x1414 <blink>
+    15d6:	08 95       	ret
+
+000015d8 <main>:
+
+int main(void)
+{
+	
+	//unsigned char i2cdata[8];
+	init_IO();
+    15d8:	ef de       	rcall	.-546    	; 0x13b8 <init_IO>
+	{
+		dbg_tx_init();
+	}
+	#else
+	{
+		blink(4, SHORT_DELAY);
+    15da:	66 e9       	ldi	r22, 0x96	; 150
+    15dc:	70 e0       	ldi	r23, 0x00	; 0
+    15de:	84 e0       	ldi	r24, 0x04	; 4
+    15e0:	19 df       	rcall	.-462    	; 0x1414 <blink>
+	}
+	#endif
+	
+	init_klikaan_klikuit();
+    15e2:	aa de       	rcall	.-684    	; 0x1338 <init_klikaan_klikuit>
+	klikaan_klikuit_off();	// all klikaan off
+    15e4:	f3 de       	rcall	.-538    	; 0x13cc <klikaan_klikuit_off>
+	
+	#if DEBUG_MSG
+	send_start_settings();
+	#endif
+	init_interrupt();// first enable interrupt RUN FIRST??
+    15e6:	ea de       	rcall	.-556    	; 0x13bc <init_interrupt>
+	
+	if (init_apds()) 
+    15e8:	06 db       	rcall	.-2548   	; 0xbf6 <init_apds>
+		#if DEBUG_MSG
+		uart_puts_p(PSTR("APDS-9960 init failed!\n"));
+		#endif
+	}
+	
+	if (enableGestureSensor(1))
+    15ea:	81 e0       	ldi	r24, 0x01	; 1
+    15ec:	3b da       	rcall	.-2954   	; 0xa64 <enableGestureSensor>
+		//PORTB ^= (1<<0);	// Make output low
+		//_delay_ms(1000);	
+		//send_klikaan_klikuit(c_on_1);
+		//_delay_ms(1000);	
+		//send_klikaan_klikuit(c_off_1);
+		if (int_flag)
+    15ee:	80 91 6a 00 	lds	r24, 0x006A
+    15f2:	88 23       	and	r24, r24
+    15f4:	e1 f3       	breq	.-8      	; 0x15ee <main+0x16>
+		{
+			disable_gesture_int(true);	// disable
+    15f6:	81 e0       	ldi	r24, 0x01	; 1
+    15f8:	03 df       	rcall	.-506    	; 0x1400 <disable_gesture_int>
+			//uart_puts_p(PSTR("Int trig!\n"));
+			handleGesture();
+    15fa:	5e df       	rcall	.-324    	; 0x14b8 <handleGesture>
+			int_flag = 0;
+    15fc:	10 92 6a 00 	sts	0x006A, r1
+			disable_gesture_int(false);	// enable
+    1600:	80 e0       	ldi	r24, 0x00	; 0
+    1602:	fe de       	rcall	.-516    	; 0x1400 <disable_gesture_int>
+    1604:	f4 cf       	rjmp	.-24     	; 0x15ee <main+0x16>
+
+00001606 <__divmodhi4>:
+    1606:	97 fb       	bst	r25, 7
+    1608:	07 2e       	mov	r0, r23
+    160a:	16 f4       	brtc	.+4      	; 0x1610 <__divmodhi4+0xa>
+    160c:	00 94       	com	r0
+    160e:	06 d0       	rcall	.+12     	; 0x161c <__divmodhi4_neg1>
+    1610:	77 fd       	sbrc	r23, 7
+    1612:	08 d0       	rcall	.+16     	; 0x1624 <__divmodhi4_neg2>
+    1614:	0b d0       	rcall	.+22     	; 0x162c <__udivmodhi4>
+    1616:	07 fc       	sbrc	r0, 7
+    1618:	05 d0       	rcall	.+10     	; 0x1624 <__divmodhi4_neg2>
+    161a:	3e f4       	brtc	.+14     	; 0x162a <__divmodhi4_exit>
+
+0000161c <__divmodhi4_neg1>:
+    161c:	90 95       	com	r25
+    161e:	81 95       	neg	r24
+    1620:	9f 4f       	sbci	r25, 0xFF	; 255
+    1622:	08 95       	ret
+
+00001624 <__divmodhi4_neg2>:
+    1624:	70 95       	com	r23
+    1626:	61 95       	neg	r22
+    1628:	7f 4f       	sbci	r23, 0xFF	; 255
+
+0000162a <__divmodhi4_exit>:
+    162a:	08 95       	ret
+
+0000162c <__udivmodhi4>:
+    162c:	aa 1b       	sub	r26, r26
+    162e:	bb 1b       	sub	r27, r27
+    1630:	51 e1       	ldi	r21, 0x11	; 17
+    1632:	07 c0       	rjmp	.+14     	; 0x1642 <__udivmodhi4_ep>
+
+00001634 <__udivmodhi4_loop>:
+    1634:	aa 1f       	adc	r26, r26
+    1636:	bb 1f       	adc	r27, r27
+    1638:	a6 17       	cp	r26, r22
+    163a:	b7 07       	cpc	r27, r23
+    163c:	10 f0       	brcs	.+4      	; 0x1642 <__udivmodhi4_ep>
+    163e:	a6 1b       	sub	r26, r22
+    1640:	b7 0b       	sbc	r27, r23
+
+00001642 <__udivmodhi4_ep>:
+    1642:	88 1f       	adc	r24, r24
+    1644:	99 1f       	adc	r25, r25
+    1646:	5a 95       	dec	r21
+    1648:	a9 f7       	brne	.-22     	; 0x1634 <__udivmodhi4_loop>
+    164a:	80 95       	com	r24
+    164c:	90 95       	com	r25
+    164e:	bc 01       	movw	r22, r24
+    1650:	cd 01       	movw	r24, r26
+    1652:	08 95       	ret
+
+00001654 <_exit>:
+    1654:	f8 94       	cli
+
+00001656 <__stop_program>:
+    1656:	ff cf       	rjmp	.-2      	; 0x1656 <__stop_program>
